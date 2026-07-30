@@ -150,10 +150,17 @@ Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](C
 A one-off check is not the useful thing — **being told when something changes is.** Third-party
 regions are exactly where you are not looking.
 
-Perpensum is building that continuous check. **It does not exist as a product yet**, and there is
-no date, no price, and no waitlist that guarantees anything. If you want it,
-[say so on #4](https://github.com/perpensum/agent-directed-manipulation/issues/4). A comment is
-the whole mechanism — no form, no email address, no signup.
+**Until it exists, I will scan it for you by hand.** Name a domain you run on
+[issue #4](https://github.com/perpensum/agent-directed-manipulation/issues/4) — no signup, no form,
+no email address, nothing to install. You get back two numbers, `N pages scanned, M findings`, and
+that is all that goes in public. **A count is not an accusation, and it is not a map.** Locations
+and evidence go only to whoever controls the domain.
+
+**You should know what I get out of it:** I need to find out how often this definition is wrong
+about real sites, and I cannot learn that from sites I own. **If a finding on your site turns out
+to be wrong, that is the most useful thing that can happen to me that day.**
+
+Continuous monitoring does not exist as a product. There is no date, no price, and no waitlist.
 
 ## Open questions we do not have answers to
 
