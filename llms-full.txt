@@ -104,7 +104,7 @@ standard like this.**
 
 ## Verifying an implementation
 
-The conformance suite holds 23 cases, **18 of which expect no finding at all**. What the
+The conformance suite holds 26 cases, **20 of which expect no finding at all**. What the
 standard refuses to flag is more of its substance than what it flags: for a judgement like this
 one, false positives are the only fatal failure.
 
@@ -114,7 +114,7 @@ language, so passing English while failing Japanese cannot hide inside a single 
 - Cases: https://perpensum.org/conformance/cases.json
 - Runner: https://perpensum.org/conformance/run.mjs
 - Reference implementation: https://perpensum.org/reference/scan.mjs — one dependency-free file
-  passing all 23 cases. **Not normative**: where it and the definition disagree, the
+  passing all 26 cases. **Not normative**: where it and the definition disagree, the
   implementation has the bug.
 
 Run it against any page:

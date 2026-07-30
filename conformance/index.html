@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Conformance Suite — Defining Agent-Directed Manipulation v0.1</title>
-<meta name="description" content="Thirteen conformance cases that check whether an implementation reaches the same verdicts as this definition.">
+<meta name="description" content="Twenty-six conformance cases that check whether an implementation reaches the same verdicts as this definition.">
 <link rel="canonical" href="https://perpensum.org/conformance">
 <link rel="alternate" hreflang="en" href="https://perpensum.org/conformance">
 <link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja">
@@ -56,31 +56,31 @@
 
 <h2>What is in it</h2>
 
-<p><a href="/conformance/cases.json"><code>cases.json</code></a> holds 23 cases. It contains both <strong>what must be detected and what must not be</strong>.</p>
+<p><a href="/conformance/cases.json"><code>cases.json</code></a> holds 26 cases. It contains both <strong>what must be detected and what must not be</strong>.</p>
 
 <table>
 <tr><th>Group</th><th>Cases</th><th>What it pins down</th></tr>
-<tr><td>Four quadrants</td><td class="n">5</td><td>That severity follows mechanically from region × visibility</td></tr>
-<tr><td>Not detected</td><td class="n">15</td><td>Advertising copy, structured data, AI mentions, hidden-but-harmless text, genuine reviews, conditional CSS</td></tr>
+<tr><td>Four quadrants</td><td class="n">6</td><td>That severity follows mechanically from region × visibility</td></tr>
+<tr><td>Not detected</td><td class="n">17</td><td>Advertising copy, structured data, AI mentions, hidden-but-harmless text, genuine reviews, conditional CSS</td></tr>
 <tr><td>Not escalated</td><td class="n">1</td><td>That an editorial review stays <code>first_party</code> and does not become <code>high</code></td></tr>
 <tr><td>Not concluded</td><td class="n">2</td><td>That unresolvable external CSS is not declared hidden</td></tr>
-<tr><td><strong>Total</strong></td><td class="n"><strong>23</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td class="n"><strong>26</strong></td><td></td></tr>
 </table>
 
-<p><strong>18 of the 23 expect no finding at all, and that imbalance is deliberate.</strong> The substance of this standard lies more in what it does not flag than in what it does. For a judgement like this one, false positives are the only fatal failure.</p>
+<p><strong>20 of the 26 expect no finding at all, and that imbalance is deliberate.</strong> The substance of this standard lies more in what it does not flag than in what it does. For a judgement like this one, false positives are the only fatal failure.</p>
 
 <h2>Both languages are exercised</h2>
 
 <p>Every case carries a <code>lang</code> field, and the runner reports the split:</p>
 
-<pre><code>Definition v0.1 conformance: 23 / 23 agree (call form: scan(html))
-  by language: ja 8/8  en 13/13  ja+en 1/1  n/a 1/1</code></pre>
+<pre><code>Definition v0.1 conformance: 26 / 26 agree (call form: scan(html))
+  by language: ja 8/8  en 16/16  ja+en 1/1  n/a 1/1</code></pre>
 
 <p><strong>Revision 1 of this suite tested several rules in Japanese only.</strong> An English-only implementation could pass it without ever being exercised — or fail <code>quadrant-fp-hidden</code> for a reason that was not its fault. Revision 2 adds an English counterpart for every such case. <strong>Both languages are in scope for the definition, so both are in scope for the suite.</strong></p>
 
 <h2>A reference implementation is included</h2>
 
-<p><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> implements the definition in one dependency-free file and passes all 23 cases. Diff your verdicts against it when a case disagrees.</p>
+<p><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> implements the definition in one dependency-free file and passes all 26 cases. Diff your verdicts against it when a case disagrees.</p>
 
 <pre><code>curl -s https://example.com | node reference/scan.mjs</code></pre>
 
@@ -95,7 +95,7 @@
 <h2>Files</h2>
 
 <ul>
-<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 23 cases with expected verdicts and the intent behind each provision</li>
+<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 26 cases with expected verdicts and the intent behind each provision</li>
 <li><a href="/conformance/run.mjs"><code>run.mjs</code></a> — the runner. No dependencies</li>
 <li><a href="/conformance/README.md"><code>README.md</code></a> — this page as text</li>
 </ul>

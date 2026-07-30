@@ -25,8 +25,8 @@ Initial release.
 - Four stated limits, published rather than hidden behind a claim of detection
 - `definition.json` — the same content as structured JSON, English and Japanese side by side
 - `llms.txt` — index for machine readers
-- `conformance/` — 23 cases, 18 of which expect no finding, plus a dependency-free runner
-- `reference/scan.mjs` — a minimal reference implementation passing all 23 cases
+- `conformance/` — 26 cases, 20 of which expect no finding, plus a dependency-free runner
+- `reference/scan.mjs` — a minimal reference implementation passing all 26 cases
 - Licensing: CC BY 4.0 for the definition and its documentation, MIT for the runner
 
 ### Conformance suite, revision 3, and a false-positive fix (2026-07-31)
