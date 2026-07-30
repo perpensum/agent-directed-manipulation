@@ -260,24 +260,49 @@ const decode = (s) =>
   s.replace(/&(lt|gt|amp|quot|#39|nbsp);/g, (_, e) =>
     ({ lt: "<", gt: ">", amp: "&", quot: '"', "#39": "'", nbsp: " " })[e]);
 
-/** Every piece of text a machine reader would take from the page, with its context. */
+/**
+ * Every piece of text a machine reader would take from the page, with its context.
+ *
+ * **Iterative, not recursive.** A recursive walk overflowed the stack at roughly four thousand
+ * levels of nesting — markup a browser renders without complaint. Crashing on someone's page is
+ * not a verdict, it is a refusal to answer, and this tool is meant to be pointed at pages nobody
+ * vetted first. An explicit stack has no such ceiling.
+ */
 function* candidates(root) {
-  const walk = function* (node, inTemplate, inQuote) {
+  // Frames are either "descend into this node" or "emit this text". Children are pushed in
+  // reverse so that popping yields them in document order.
+  const stack = [{ node: root, inTemplate: false, inQuote: false }];
+  while (stack.length) {
+    const frame = stack.pop();
+    if (frame.emit) {
+      yield frame.emit;
+      continue;
+    }
+    const { node, inTemplate, inQuote } = frame;
+    const items = [];
     for (const child of node.children ?? []) {
       if (child.type === "text") {
-        if (!inQuote) yield { text: decode(child.value), el: node, viaComment: child.viaComment, viaTemplate: inTemplate };
+        if (!inQuote) {
+          items.push({
+            emit: { text: decode(child.value), el: node, viaComment: child.viaComment, viaTemplate: inTemplate },
+          });
+        }
         continue;
       }
       // Structured data and stylesheets are legitimate self-presentation, not prose.
       if (child.tag === "script" || child.tag === "style") continue;
 
       for (const a of TEXT_ATTRS) {
-        if (child.attrs?.[a]) yield { text: decode(child.attrs[a]), el: child, viaAttribute: true };
+        if (child.attrs?.[a]) items.push({ emit: { text: decode(child.attrs[a]), el: child, viaAttribute: true } });
       }
-      yield* walk(child, inTemplate || child.tag === "template", inQuote || QUOTING.has(child.tag));
+      items.push({
+        node: child,
+        inTemplate: inTemplate || child.tag === "template",
+        inQuote: inQuote || QUOTING.has(child.tag),
+      });
     }
-  };
-  yield* walk(root, false, false);
+    for (let i = items.length - 1; i >= 0; i--) stack.push(items[i]);
+  }
 }
 
 // ---------------------------------------------------------------------------
