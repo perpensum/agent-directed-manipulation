@@ -1,0 +1,43 @@
+name: Report a disagreement
+description: Your implementation reached a different verdict than the definition requires.
+title: "[disagreement] "
+labels: ["disagreement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Your implementation is not necessarily the one that is wrong.** A disagreement marks a
+        place where the definition is open to more than one reading, which is a defect on our side.
+
+        日本語で書いてもらって構いません。
+  - type: input
+    id: case
+    attributes:
+      label: Case id (if it came from the conformance suite)
+      placeholder: quadrant-tp-hidden
+  - type: textarea
+    id: html
+    attributes:
+      label: The HTML that produced the disagreement
+      render: html
+  - type: input
+    id: got
+    attributes:
+      label: The verdict you reached
+      placeholder: "findings=1 severity=high"
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: The verdict you believe is correct
+      placeholder: "findings=1 severity=warn"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: Which provision of the definition you read, and where you think it is ambiguous or wrong.
+    validations:
+      required: true

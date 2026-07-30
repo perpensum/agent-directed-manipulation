@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contact and crawler information
+    url: https://perpensum.org/contact
+    about: Who publishes this, and what to do if the Perpensum crawler visited your site.

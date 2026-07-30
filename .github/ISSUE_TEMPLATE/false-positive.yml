@@ -1,0 +1,39 @@
+name: Report a false positive
+description: Something legitimate is being flagged.
+title: "[false positive] "
+labels: ["false-positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **False positives are the only fatal failure for a standard like this**, so this is the
+        highest priority category of bug here.
+
+        日本語で書いてもらって構いません。
+  - type: textarea
+    id: content
+    attributes:
+      label: What is being flagged
+      description: The page, or the smallest HTML that reproduces it.
+      render: html
+    validations:
+      required: true
+  - type: textarea
+    id: legitimate
+    attributes:
+      label: Why it is legitimate
+      description: |
+        If it matches something already listed under "What it deliberately does not detect",
+        say which one. If it is a category we have not thought of, describe it.
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: What produced the finding
+      options:
+        - The reference implementation (reference/scan.mjs)
+        - My own implementation
+        - Reading the definition by hand
+    validations:
+      required: true
