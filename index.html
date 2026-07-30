@@ -14,6 +14,62 @@
 <meta property="og:description" content="A reproducible definition separating agent-directed manipulation from legitimate machine-readable self-presentation.">
 <meta property="og:url" content="https://perpensum.org/">
 <meta property="og:site_name" content="Perpensum">
+<!-- This standard holds that structured data is legitimate machine-readable
+     self-presentation. It says the same thing here that it says in the prose. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://perpensum.org/#document",
+      "url": "https://perpensum.org/",
+      "name": "Defining Agent-Directed Manipulation",
+      "headline": "Defining Agent-Directed Manipulation v0.1",
+      "description": "A reproducible definition separating agent-directed manipulation from legitimate machine-readable self-presentation.",
+      "inLanguage": "en",
+      "datePublished": "2026-07-30",
+      "version": "0.1",
+      "creativeWorkStatus": "Draft",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://perpensum.org/#publisher" },
+      "publisher": { "@id": "https://perpensum.org/#publisher" },
+      "about": { "@id": "https://perpensum.org/#term" },
+      "workTranslation": {
+        "@type": "TechArticle",
+        "url": "https://perpensum.org/ja",
+        "inLanguage": "ja",
+        "name": "エージェント向け誘導の定義"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://perpensum.org/definition.json"
+      },
+      "codeRepository": "https://github.com/perpensum/agent-directed-manipulation"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://perpensum.org/#term",
+      "name": "Agent-Directed Manipulation",
+      "description": "Text on a web page that is addressed to a machine reader rather than a human one, and that is either (a) placed where humans cannot see it or (b) placed in a third-party submission region, and that instructs the reader's judgment, output, or ranking.",
+      "inDefinedTermSet": {
+        "@type": "DefinedTermSet",
+        "name": "Defining Agent-Directed Manipulation v0.1",
+        "url": "https://perpensum.org/"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://perpensum.org/#publisher",
+      "name": "Perpensum",
+      "url": "https://perpensum.org/",
+      "sameAs": ["https://github.com/perpensum"]
+    }
+  ]
+}
+</script>
 <style>
   :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
   @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}

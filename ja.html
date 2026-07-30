@@ -14,6 +14,51 @@
 <meta property="og:description" content="AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。">
 <meta property="og:url" content="https://perpensum.org/ja">
 <meta property="og:site_name" content="Perpensum">
+<!-- この基準は「構造化データは正当な機械可読の自己提示である」と定めている。
+     まず自分が実演する。本文と同じことをここでも言う。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://perpensum.org/ja#document",
+      "url": "https://perpensum.org/ja",
+      "name": "エージェント向け誘導の定義",
+      "headline": "エージェント向け誘導の定義 v0.1",
+      "description": "AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。",
+      "inLanguage": "ja",
+      "datePublished": "2026-07-30",
+      "version": "0.1",
+      "creativeWorkStatus": "Draft",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://perpensum.org/#publisher" },
+      "publisher": { "@id": "https://perpensum.org/#publisher" },
+      "about": { "@id": "https://perpensum.org/#term" },
+      "translationOfWork": {
+        "@type": "TechArticle",
+        "url": "https://perpensum.org/",
+        "inLanguage": "en",
+        "name": "Defining Agent-Directed Manipulation"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://perpensum.org/definition.json"
+      },
+      "codeRepository": "https://github.com/perpensum/agent-directed-manipulation"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://perpensum.org/#publisher",
+      "name": "Perpensum",
+      "url": "https://perpensum.org/",
+      "sameAs": ["https://github.com/perpensum"]
+    }
+  ]
+}
+</script>
 <style>
   :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
   @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
