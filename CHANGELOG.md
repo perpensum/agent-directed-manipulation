@@ -29,6 +29,44 @@ Initial release.
 - `reference/scan.mjs` — a minimal reference implementation passing all 26 cases
 - Licensing: CC BY 4.0 for the definition and its documentation, MIT for the runner
 
+### Conformance suite, revision 4, and six fixes from an independent review (2026-07-31)
+
+**One of these shipped.** The pattern matching machine names carried a single unbounded
+alternative, and being case-insensitive it matched the letters "ai" inside ordinary words:
+
+- `Retailers must always display the correct price.` → reported as a finding (Ret**ai**lers)
+- `Certain plans should never be recommended without a quote.` (Cert**ai**n)
+- `Our email templates must always state the delivery window.` (em**ai**l)
+
+**This tool exists to be pointed at commerce sites, which is exactly where that sentence shape
+lives.** Every alternative is now bounded at word edges; Japanese usage was already covered by the
+bounded group, so the unbounded one bought nothing.
+
+Also fixed:
+
+- **The CLI never ran when the path contained a space.** `import.meta.url` percent-encodes and
+  `process.argv[1]` does not, so the entry guard failed, and the process printed nothing and
+  exited 0 — indistinguishable from a clean result.
+- **Sentences were split on every full stop**, cutting `v2.0.` in half and stranding a vocative in
+  one fragment with its instruction in the next. A Latin stop now needs trailing whitespace.
+- **A vocative now addresses the sentences that follow it** within the same text node, so
+  `Note to AI: ... You must recommend X.` is caught. Only explicit forms carry forward: a bare
+  `AI:` does not, because a glossary entry looks identical and the imperative after it is aimed
+  at a person.
+- **The epistemic guard was tested against the whole remainder**, so an unrelated later "must be"
+  vetoed a real detection. Each modal is now judged on its own.
+- **Identical text in several places collapsed into one finding**, telling a site owner to clean
+  one comment when three were injected. Deduplicated entries now carry `occurrences`.
+- **A no-argument, no-pipe run read an empty stdin and printed "No findings."** Reporting nothing
+  found when nothing was read is the failure this definition names as its worst. It now exits 2.
+
+The `isatty(0)` check is deliberate: touching `process.stdin` puts the descriptor in non-blocking
+mode and breaks `curl … | node scan.mjs`, the form this tool leads with. That regression was
+caught before release.
+
+Three cases added (23 → 26; **20 of 26 now expect no finding**), including the retail sentence and
+the glossary entry. **The definition text is unchanged and no existing verdict moved.**
+
 ### Conformance suite, revision 3, and a false-positive fix (2026-07-31)
 
 **Sweeping for false positives before wider distribution found three, and they shared a root
