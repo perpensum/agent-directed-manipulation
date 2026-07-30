@@ -29,17 +29,17 @@ No dependencies. Node 18 or later. Exit code is `0` when every case agrees and `
 
 ## What is in it
 
-`cases.json` holds 18 cases. It contains both **what must be detected and what must not be**.
+`cases.json` holds 23 cases. It contains both **what must be detected and what must not be**.
 
 | Group | Cases | What it pins down |
 |---|---:|---|
 | Four quadrants | 5 | That severity follows mechanically from region × visibility |
-| Not detected | 10 | Advertising copy, structured data, AI mentions, hidden-but-harmless text, genuine reviews, conditional CSS |
+| Not detected | 15 | Advertising copy, structured data, AI mentions, hidden-but-harmless text, genuine reviews, conditional CSS |
 | Not escalated | 1 | That an editorial review stays `first_party` and does not become `high` |
 | Not concluded | 2 | That unresolvable external CSS is not declared hidden |
-| **Total** | **18** | |
+| **Total** | **23** | |
 
-**13 of the 18 expect no finding at all, and that imbalance is deliberate.**
+**18 of the 23 expect no finding at all, and that imbalance is deliberate.**
 The substance of this standard lies more in what it does not flag than in what it does.
 For a judgement like this one, false positives are the only fatal failure.
 
@@ -48,8 +48,8 @@ For a judgement like this one, false positives are the only fatal failure.
 Every case carries a `lang` field, and the runner reports the split:
 
 ```
-Definition v0.1 conformance: 18 / 18 agree (call form: scan(html))
-  by language: ja 7/7  en 9/9  ja+en 1/1  n/a 1/1
+Definition v0.1 conformance: 23 / 23 agree (call form: scan(html))
+  by language: ja 8/8  en 13/13  ja+en 1/1  n/a 1/1
 ```
 
 **Revision 1 of this suite tested several rules in Japanese only.** An English-only
@@ -71,7 +71,7 @@ likely culprit** — please [open an issue](https://github.com/perpensum/agent-d
 ## A reference implementation is included
 
 [`../reference/scan.mjs`](../reference/scan.mjs) implements the definition in one dependency-free
-file and passes all 18 cases. Diff your verdicts against it when a case disagrees.
+file and passes all 23 cases. Diff your verdicts against it when a case disagrees.
 
 **It is not normative.** Where it and the definition disagree, the reference implementation has
 the bug.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>適合性テスト — エージェント向け誘導の定義 v0.1</title>
-<meta name="description" content="実装がこの定義と同じ判定に到達するかを確かめる18ケースの適合性テスト。">
+<meta name="description" content="実装がこの定義と同じ判定に到達するかを確かめる23ケースの適合性テスト。">
 <link rel="canonical" href="https://perpensum.org/conformance/ja">
 <link rel="alternate" hreflang="en" href="https://perpensum.org/conformance">
 <link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja">
@@ -56,31 +56,31 @@
 
 <h2>中身</h2>
 
-<p><a href="/conformance/cases.json"><code>cases.json</code></a> に13件。<strong>「検出すべき」と「検出してはならない」の両方</strong>が入っている。</p>
+<p><a href="/conformance/cases.json"><code>cases.json</code></a> に23件。<strong>「検出すべき」と「検出してはならない」の両方</strong>が入っている。</p>
 
 <table>
 <tr><th>群</th><th>件数</th><th>何を固定するか</th></tr>
 <tr><td>4象限</td><td class="n">5</td><td>領域×可視性から重大度が機械的に決まること</td></tr>
-<tr><td>検出しないもの</td><td class="n">10</td><td>広告表現、構造化データ、AI言及、隠れた無害テキスト、本物のレビュー、条件付きCSS</td></tr>
+<tr><td>検出しないもの</td><td class="n">15</td><td>広告表現、構造化データ、AI言及、隠れた無害テキスト、本物のレビュー、条件付きCSS</td></tr>
 <tr><td>格上げしないもの</td><td class="n">1</td><td>編集部レビューが <code>first_party</code> に留まり <code>high</code> にならないこと</td></tr>
 <tr><td>断定しないもの</td><td class="n">2</td><td>外部CSSを解決できないとき hidden と断定しないこと</td></tr>
-<tr><td><strong>合計</strong></td><td class="n"><strong>18</strong></td><td></td></tr>
+<tr><td><strong>合計</strong></td><td class="n"><strong>23</strong></td><td></td></tr>
 </table>
 
-<p><strong>18件のうち13件が「何も検出しない」ことを期待する。この偏りは意図的である。</strong> この基準の実体は「何を検出するか」より「何を検出しないか」にある。誤検知は、この種の判定にとって唯一の致命傷である。</p>
+<p><strong>23件のうち18件が「何も検出しない」ことを期待する。この偏りは意図的である。</strong> この基準の実体は「何を検出するか」より「何を検出しないか」にある。誤検知は、この種の判定にとって唯一の致命傷である。</p>
 
 <h2>英日の両方を検査する</h2>
 
 <p>各ケースは <code>lang</code> を持ち、ランナーが言語別の内訳を出す。</p>
 
-<pre><code>Definition v0.1 conformance: 18 / 18 agree (call form: scan(html))
-  by language: ja 7/7  en 9/9  ja+en 1/1  n/a 1/1</code></pre>
+<pre><code>Definition v0.1 conformance: 23 / 23 agree (call form: scan(html))
+  by language: ja 8/8  en 13/13  ja+en 1/1  n/a 1/1</code></pre>
 
 <p><strong>第1版は、いくつかの規則を日本語でしか検査していなかった。</strong> 英語だけの実装は、検査されないまま通るか、自分のせいでない理由で <code>quadrant-fp-hidden</code> に落ちるかのどちらかだった。第2版で英語版を補っている。<strong>定義が英日の両方を対象としている以上、テストもそうあるべきである。</strong></p>
 
 <h2>参照実装を同梱している</h2>
 
-<p><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> は、依存なしの1ファイルで定義を実装し、18ケース全てを通る。不一致が出たら、これと突き合わせてほしい。</p>
+<p><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> は、依存なしの1ファイルで定義を実装し、23ケース全てを通る。不一致が出たら、これと突き合わせてほしい。</p>
 
 <pre><code>curl -s https://example.com | node reference/scan.mjs</code></pre>
 
@@ -95,7 +95,7 @@
 <h2>ファイル</h2>
 
 <ul>
-<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 18ケース。期待判定と、その条項の意図</li>
+<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 23ケース。期待判定と、その条項の意図</li>
 <li><a href="/conformance/run.mjs"><code>run.mjs</code></a> — 実行スクリプト。依存なし</li>
 <li><a href="/conformance/README.md"><code>README.md</code></a> — この内容のテキスト版</li>
 </ul>

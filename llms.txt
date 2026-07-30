@@ -23,9 +23,9 @@ first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high
 
 ## Verifying an implementation
 
-- [Conformance suite](https://perpensum.org/conformance/cases.json): 18 cases with expected verdicts. Thirteen of them expect no finding at all — what this standard does not flag is more of its substance than what it does. Every case is tagged with the language it exercises; English and Japanese are both in scope.
+- [Conformance suite](https://perpensum.org/conformance/cases.json): 23 cases with expected verdicts. Eighteen of them expect no finding at all — what this standard does not flag is more of its substance than what it does. Every case is tagged with the language it exercises; English and Japanese are both in scope.
 - [How to run it](https://perpensum.org/conformance/): The suite is plain JSON plus a Node script with no dependencies.
-- [Reference implementation](https://perpensum.org/reference/scan.mjs): One dependency-free file implementing the definition and passing all 18 cases. Not normative — where it and the definition disagree, the implementation has the bug. Run it with `curl -s https://example.com | node scan.mjs`.
+- [Reference implementation](https://perpensum.org/reference/scan.mjs): One dependency-free file implementing the definition and passing all 23 cases. Not normative — where it and the definition disagree, the implementation has the bug. Run it with `curl -s https://example.com | node scan.mjs`.
 - [Source repository](https://github.com/perpensum/agent-directed-manipulation): The full history of this definition. Disagreements and corrections are filed here as issues.
 
 ## Scope and status

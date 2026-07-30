@@ -6,7 +6,7 @@
 - 定義（正）: <https://perpensum.org/>（English）
 - 定義（日本語）: <https://perpensum.org/ja>
 - 構造化版: [`definition.json`](definition.json)
-- 適合性テスト: [`conformance/`](conformance/) — 18ケース
+- 適合性テスト: [`conformance/`](conformance/) — 23ケース
 - 状態: **v0.1 ドラフト**（2026-07-30 公開）
 
 English README: [`README.md`](README.md)（こちらが正）
@@ -89,7 +89,7 @@ curl -s https://example.com | node reference/scan.mjs
 node conformance/run.mjs <あなたの実装のパス>
 ```
 
-**18ケース、うち13ケースは「何も検出しない」ことを期待する。**
+**23ケース、うち18ケースは「何も検出しない」ことを期待する。**
 英語と日本語の両方を検査し、ランナーは言語別の内訳を出す。
 **片方だけ通る実装が、合計値の中に隠れないようにするため。** 依存なし、Node 18以上。
 

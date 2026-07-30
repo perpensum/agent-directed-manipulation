@@ -25,9 +25,38 @@ Initial release.
 - Four stated limits, published rather than hidden behind a claim of detection
 - `definition.json` — the same content as structured JSON, English and Japanese side by side
 - `llms.txt` — index for machine readers
-- `conformance/` — 18 cases, 13 of which expect no finding, plus a dependency-free runner
-- `reference/scan.mjs` — a minimal reference implementation passing all 18 cases
+- `conformance/` — 23 cases, 18 of which expect no finding, plus a dependency-free runner
+- `reference/scan.mjs` — a minimal reference implementation passing all 23 cases
 - Licensing: CC BY 4.0 for the definition and its documentation, MIT for the runner
+
+### Conformance suite, revision 3, and a false-positive fix (2026-07-31)
+
+**Sweeping for false positives before wider distribution found three, and they shared a root
+cause: the reference implementation checked whether a machine was *mentioned*, not whether one
+was *addressed*.** The definition has always said the text must be "addressed to a machine
+reader rather than a human one", and that merely mentioning AI is not a finding. The
+implementation did not encode that distinction.
+
+Flagged in error, all ordinary copy written for people:
+
+- `Our AI assistant will always recommend the plan that fits your usage best.` — in a collapsed FAQ
+- `Honestly the best AI assistant I have used. I would always recommend it to a friend.` — a review
+- `The agent must have saved me ten hours.` — `must have` is an inference, not an obligation
+- `Screen reader users should note the assistant output below.` — accessibility markup, addressed to humans
+
+Changes:
+
+- `reference/scan.mjs` now evaluates sentence by sentence and requires the machine to be either
+  addressed by name or the subject carrying an obligation. `will`, `can`, and `would` describe;
+  they no longer count as instructions. A possessive before the machine term ("our AI assistant")
+  marks the sentence as describing a product to a person.
+- Five negative cases added, pinning each pattern down (18 cases → 23; **18 of 23 now expect no
+  finding**).
+- **The same class of bug existed in the production engine** and was fixed there too: it treated
+  `will always` as an obligation, so the collapsed-FAQ case flagged as `warn`.
+
+**No existing verdict changed, and the definition text is unchanged.** Two independent
+implementations shared this error, which is the argument for the suite carrying the cases.
 
 ### Conformance suite, revision 2 (2026-07-31)
 

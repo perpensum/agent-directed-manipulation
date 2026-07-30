@@ -6,7 +6,7 @@ machine-readable self-presentation.**
 - Definition (authoritative): <https://perpensum.org/>
 - 定義（日本語）: <https://perpensum.org/ja>
 - Structured form: [`definition.json`](definition.json)
-- Conformance suite: [`conformance/`](conformance/) — 18 cases
+- Conformance suite: [`conformance/`](conformance/) — 23 cases
 - Status: **v0.1, draft**, published 2026-07-30
 
 日本語版の README: [`README.ja.md`](README.ja.md)
@@ -99,7 +99,7 @@ implementable in a readable amount of code, and to give you something to diff ag
 node conformance/run.mjs <path-to-your-implementation>
 ```
 
-**18 cases, and 13 of them expect no finding at all** — what this standard does *not* flag is
+**23 cases, and 18 of them expect no finding at all** — what this standard does *not* flag is
 more of its substance than what it does. Both English and Japanese are exercised, and the
 runner reports the split, because passing one language while failing the other should not hide
 inside a single total. No dependencies; Node 18 or later.

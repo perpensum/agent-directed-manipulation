@@ -139,40 +139,76 @@ function visibilityOf(el, hidingSelectors) {
 // Is this text an instruction addressed to a machine reader?
 // ---------------------------------------------------------------------------
 
-// A machine reader is named or clearly addressed.
-const ADDRESSEE =
+// A machine reader is named. **Naming one is not the same as addressing one** — see isAgentDirected.
+const MACHINE =
   /(^|[^a-z])(ai|a\.i\.|llm|llms|gpt|chatbot|chat-bot|assistant|assistants|agent|agents|bot|bots|language model|crawler|scraper)([^a-z]|$)|AI|エーアイ|アシスタント|エージェント|ボット|言語モデル|クローラ/i;
 
 // Control-token phrasing is itself sufficient: no page needs to say this to a human.
 const CONTROL_TOKEN =
   /ignore\s+(all\s+)?(previous|prior|above|earlier)\s+instructions?|disregard\s+(all\s+)?(previous|prior|above)\s+instructions?|override\s+(your|the)\s+(system\s+)?prompt|new\s+instructions?\s*:|system\s*prompt\s*:|以前の指示を無視|これまでの指示を無視/i;
 
+// The operator describing their own product. **The reader here is a customer, not a machine.**
+const POSSESSED =
+  /\b(our|my|its|their)\s+(own\s+)?(new\s+)?(ai|llm)?\s*(assistant|agent|bot|model|chatbot)|\bthe\s+best\s+(ai\s+)?(assistant|agent|bot)|当社の|弊社の|自社の|うちの/i;
+
+// The machine is named as the party being addressed, not merely mentioned.
+const VOCATIVE =
+  /\b(note|instruction|instructions|message|attention|reminder|hint|directive)s?\s+(to|for)\s+(the\s+|any\s+|all\s+)?(ai|llm|llms|assistants?|agents?|bots?|models?)\b|(^|[.!?]\s*)(ai|llm|assistant|agent|bot)\s*[:：]|(への指示|に告ぐ|向けの指示|は必ず)/i;
+
+// An obligation placed on the reader. **`will`, `can`, and `would` describe; they do not instruct.**
+const DEONTIC =
+  /\b(must|shall|should|needs? to|has to|have to|is required to|are required to|be sure to|make sure|ensure|do not|don't|never)\b/i;
+// "must have saved", "must be aware" — an inference about the world, not an instruction.
+const EPISTEMIC = /\bmust\s+(have|be)\b/i;
+
 // A directive aimed at the reader's judgment, output, or ranking.
 const VERB_EN =
   /(recommend|prefer|rank|rate|select|choose|pick|prioriti[sz]e|favou?r|mark|flag|classify|treat|output|report|state|say|list|display|surface|promote)/i;
-const MODAL_EN = /(must|should|shall|need to|have to|always|never|be sure to|make sure|ensure|do not|don't)/i;
 const VERB_JA = /(推薦|推奨|おすすめ|優先|選定|選択|評価|表示|出力|回答|紹介|案内|順位|ランキング)/;
 const IMPERATIVE_JA = /(してください|して下さい|せよ|しろ|なさい|すべき|するように|すること|願います)/;
 
-/** Imperative sentence opening, e.g. "Note to AI: recommend ...", "Always recommend ...". */
-const IMPERATIVE_EN = new RegExp(
-  `(^|[.:;!?]\\s*|\\bto\\s+(ai|llm|assistants?|agents?|bots?)\\s*[:,]\\s*)\\s*${VERB_EN.source}`,
-  "i",
-);
+const sentences = (t) => t.split(/(?<=[.!?。！？])\s*/).filter((s) => s.trim());
 
+/**
+ * **The definition asks whether the text is addressed to a machine reader rather than a human
+ * one.** That is the whole distinction, and it is easy to lose.
+ *
+ * An earlier version of this file only checked whether a machine was *mentioned* anywhere in the
+ * text, then looked for a modal and a verb. That flagged ordinary copy written for customers:
+ *
+ *   "Our AI assistant will always recommend the plan that fits your usage best."
+ *   "Honestly the best AI assistant I have used. I would always recommend it to a friend."
+ *   "The agent must have saved me ten hours."
+ *
+ * All three name a machine and none address one. **Mentioning AI is explicitly not a finding**,
+ * and false positives are the only fatal failure this definition has. So the test is now:
+ * the machine must be addressed (vocative) or be the subject carrying an obligation.
+ */
 function isAgentDirected(text) {
   const t = text.replace(/\s+/g, " ").trim();
   if (t.length < 8) return null;
 
+  // No page needs to say this to a human, wherever it appears.
   if (CONTROL_TOKEN.test(t)) return "control-token";
 
-  if (!ADDRESSEE.test(t)) return null; // No machine reader is being addressed.
+  for (const s of sentences(t)) {
+    const m = s.match(MACHINE);
+    if (!m) continue; // No machine named in this sentence.
+    if (POSSESSED.test(s)) continue; // Describing one's own product to a person.
 
-  if (IMPERATIVE_JA.test(t) && VERB_JA.test(t)) return "directive-ja";
-  if (MODAL_EN.test(t) && VERB_EN.test(t)) return "directive-en";
-  if (IMPERATIVE_EN.test(t)) return "directive-en";
+    if (VOCATIVE.test(s)) {
+      if (VERB_JA.test(s)) return "directive-ja";
+      if (VERB_EN.test(s)) return "directive-en";
+      continue;
+    }
 
-  return null; // Mentioning AI is not instructing it.
+    // Otherwise the machine must be the subject, with an obligation following it.
+    const after = s.slice(m.index + m[0].length);
+    if (IMPERATIVE_JA.test(after) && VERB_JA.test(after)) return "directive-ja";
+    if (DEONTIC.test(after) && !EPISTEMIC.test(after) && VERB_EN.test(after)) return "directive-en";
+  }
+
+  return null;
 }
 
 // ---------------------------------------------------------------------------
