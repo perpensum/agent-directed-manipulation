@@ -25,8 +25,25 @@ Initial release.
 - Four stated limits, published rather than hidden behind a claim of detection
 - `definition.json` — the same content as structured JSON, English and Japanese side by side
 - `llms.txt` — index for machine readers
-- `conformance/` — 13 cases, seven of them negative, plus a dependency-free runner
+- `conformance/` — 18 cases, 13 of which expect no finding, plus a dependency-free runner
+- `reference/scan.mjs` — a minimal reference implementation passing all 18 cases
 - Licensing: CC BY 4.0 for the definition and its documentation, MIT for the runner
+
+### Conformance suite, revision 2 (2026-07-31)
+
+**Revision 1 exercised several rules in Japanese only.** An English-only implementation could
+pass it without being tested, or could fail `quadrant-fp-hidden` for a reason that was not its
+fault — while the definition states that both English and Japanese are in scope. That is a
+defect in the suite, not in anyone's implementation.
+
+- Added an English counterpart for every Japanese-only case: `quadrant-fp-hidden-en`,
+  `negative-ai-mention-en`, `negative-media-query-en`, `negative-print-query-en`,
+  `undetermined-external-css-en` (13 cases → 18)
+- Added a `lang` field to every case; the runner now reports agreement per language, so
+  passing one language while failing the other cannot hide inside a single total
+- `clause` and `why` are now English, with `clause_ja` and `why_ja` alongside. This closes the
+  gap the first release had recorded as deferred to v0.2
+- The definition itself is unchanged. **No verdict in revision 1 was altered.**
 
 ### Notes on this release
 

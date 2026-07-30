@@ -22,4 +22,8 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance"/>
   </url>
+  <url>
+    <loc>https://perpensum.org/contact</loc>
+    <lastmod>2026-07-31</lastmod>
+  </url>
 </urlset>

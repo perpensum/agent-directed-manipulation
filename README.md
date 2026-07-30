@@ -6,7 +6,7 @@ machine-readable self-presentation.**
 - Definition (authoritative): <https://perpensum.org/>
 - 定義（日本語）: <https://perpensum.org/ja>
 - Structured form: [`definition.json`](definition.json)
-- Conformance suite: [`conformance/`](conformance/) — 13 cases
+- Conformance suite: [`conformance/`](conformance/) — 18 cases
 - Status: **v0.1, draft**, published 2026-07-30
 
 日本語版の README: [`README.ja.md`](README.ja.md)
@@ -81,15 +81,28 @@ Stated in the open, not hidden behind a claim of detection:
 **Reporting "nothing found" when you did not look is the worst failure mode available to a
 standard like this.**
 
+## Try it in thirty seconds
+
+A minimal reference implementation ships with the definition. No install, no dependencies:
+
+```bash
+curl -s https://example.com | node reference/scan.mjs
+```
+
+**The definition is normative; [`reference/scan.mjs`](reference/scan.mjs) is not.** Where they
+disagree, the reference implementation has the bug. It exists to show that the definition is
+implementable in a readable amount of code, and to give you something to diff against.
+
 ## Verifying an implementation
 
 ```bash
-cd conformance
-node run.mjs <path-to-your-implementation>
+node conformance/run.mjs <path-to-your-implementation>
 ```
 
-13 cases. **Seven of them are negative** — what this standard does *not* flag is more of its
-substance than what it does. No dependencies; Node 18 or later.
+**18 cases, and 13 of them expect no finding at all** — what this standard does *not* flag is
+more of its substance than what it does. Both English and Japanese are exercised, and the
+runner reports the split, because passing one language while failing the other should not hide
+inside a single total. No dependencies; Node 18 or later.
 
 See [`conformance/README.md`](conformance/README.md) for the interface your implementation
 should expose.

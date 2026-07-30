@@ -183,7 +183,8 @@
 <ul>
 <li><a href="/definition.json"><code>definition.json</code></a> — 定義の構造化版。2軸、重大度表、検出種別、対象外、限界を含む</li>
 <li><a href="/llms.txt"><code>llms.txt</code></a> — 機械の読み手向けの索引</li>
-<li><a href="/conformance/cases.json"><code>conformance/cases.json</code></a> — 適合性テスト13ケース</li>
+<li><a href="/conformance/cases.json"><code>conformance/cases.json</code></a> — 適合性テスト18ケース。うち13ケースは「検出しない」ことを期待する</li>
+<li><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> — 最小の参照実装。依存なしで18ケース全てを通る</li>
 <li><a href="/robots.txt"><code>robots.txt</code></a> — 全て公開。読み手によって内容を変えない</li>
 </ul>
 
@@ -196,10 +197,10 @@
 <p>改訂時は旧版を削除せず、変更点と理由を残す。<strong>基準は、変わらないことではなく、変わり方が追えることで信頼される。</strong></p>
 
 <footer>
-<p>この定義は、第三者が同じ入力から同じ判定に到達できることを要件としている。確認用の<a href="/conformance">適合性テスト</a>（13ケース）を同梱している。陽性・陰性の両方を含み、<strong>陰性側が最多である</strong>。この基準の実体は「何を検出するか」より「何を検出しないか」にあるためである。</p>
+<p>この定義は、第三者が同じ入力から同じ判定に到達できることを要件としている。確認用の<a href="/conformance">適合性テスト</a>（18ケース）を同梱している。陽性・陰性の両方を含み、<strong>陰性側が最多である</strong>。この基準の実体は「何を検出するか」より「何を検出しないか」にあるためである。</p>
 <p>不一致が出た場合、あなたの実装が誤っているとは限らない。定義の解釈が割れている箇所を示しているので、<a href="https://github.com/perpensum/agent-directed-manipulation/issues">指摘してほしい</a>。</p>
 <p><strong>ライセンス。</strong> この定義と付属文書は <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>、適合性テストのランナーは MIT。出典を示せば引用・実装・翻訳・派生は自由である。<strong>実装にPerpensumの許可、届け出、認定は不要である。</strong> 自らの実装を関所にする基準は、基準ではない。</p>
-<p>発行: Perpensum. <a href="/">English (authoritative)</a></p>
+<p>発行: Perpensum. <a href="/contact">連絡先とクローラの情報</a> &middot; <a href="/">English (authoritative)</a></p>
 </footer>
 
 </main>

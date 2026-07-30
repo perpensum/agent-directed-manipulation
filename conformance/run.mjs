@@ -72,6 +72,7 @@ function summarize(r) {
 
 let agree = 0;
 const disagreements = [];
+const byLang = new Map();
 for (const c of cases) {
   let got;
   try {
@@ -84,13 +85,26 @@ for (const c of cases) {
     got.findings === c.expected.findings &&
     (c.expected.severity === null || got.severity === c.expected.severity);
   if (ok) agree++;
-  else disagreements.push({ id: c.id, clause: c.clause, why: c.why, expected: c.expected, got });
+  else disagreements.push({ id: c.id, lang: c.lang, clause: c.clause, why: c.why, expected: c.expected, got });
+
+  const lang = c.lang ?? "unspecified";
+  const tally = byLang.get(lang) ?? { agree: 0, total: 0 };
+  tally.total++;
+  if (ok) tally.agree++;
+  byLang.set(lang, tally);
 }
 
 const how = calling === "object" ? "scan({ html })" : calling === "string" ? "scan(html)" : "not callable";
-console.log(`Definition v${version} conformance: ${agree} / ${cases.length} agree (call form: ${how})\n`);
+console.log(`Definition v${version} conformance: ${agree} / ${cases.length} agree (call form: ${how})`);
+// Both English and Japanese are in scope. Passing one while failing the other is
+// worth seeing, rather than hiding inside a single total.
+console.log(
+  "  by language: " +
+    [...byLang.entries()].map(([l, t]) => `${l} ${t.agree}/${t.total}`).join("  ") +
+    "\n",
+);
 for (const d of disagreements) {
-  console.log(`[disagreement] ${d.id}`);
+  console.log(`[disagreement] ${d.id}  (lang: ${d.lang ?? "unspecified"})`);
   console.log(`  clause:   ${d.clause}`);
   console.log(`  why:      ${d.why}`);
   console.log(`  expected: findings=${d.expected.findings} severity=${d.expected.severity ?? "-"}`);
