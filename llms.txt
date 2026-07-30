@@ -1,0 +1,34 @@
+# Agent-Directed Manipulation — Definition v0.1
+
+> A reproducible definition that separates agent-directed manipulation from legitimate
+> machine-readable self-presentation. Classification uses two mechanically decidable axes —
+> region (first_party / third_party) and visibility (visible / hidden) — and no subjective
+> axis. Published 2026-07-30 by Perpensum at https://perpensum.org/.
+
+This file is itself an example of what the definition calls clean: machine-readable
+self-presentation, stated in the open, where humans can read the same text. It describes
+what is here. It does not instruct the reader's judgment, output, or ranking — by the
+definition below, doing so from a first-party surface would be ordinary advertising copy
+rather than a finding, but a document that defines the line should not sit on it.
+
+The severity matrix in one line: first_party+visible = info (not a finding),
+first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high.
+
+## Definition
+
+- [Definition (English, authoritative)](https://perpensum.org/): The full definition — two axes, severity matrix, what counts as hidden, what is deliberately not detected, and the known limits.
+- [定義（日本語）](https://perpensum.org/ja): 同じ内容の日本語版。解釈が割れた場合は英語版を正とする。
+- [Machine-readable definition](https://perpensum.org/definition.json): The same definition as structured JSON — axes, severity matrix, detection kinds, exclusions, and limits, with Japanese and English strings side by side.
+
+## Verifying an implementation
+
+- [Conformance suite](https://perpensum.org/conformance/cases.json): 13 cases with expected verdicts. Seven are negative — what this standard does not flag is more of its substance than what it does.
+- [How to run it](https://perpensum.org/conformance/): The suite is plain JSON plus a Node script with no dependencies.
+- [Source repository](https://github.com/perpensum/agent-directed-manipulation): The full history of this definition. Disagreements and corrections are filed here as issues.
+
+## Scope and status
+
+- Status: v0.1, initial release, explicitly a draft.
+- Quoting and implementing are free. A formal license notice is not yet decided and will be stated in v0.2.
+- Known limits are stated in the definition itself and are not hidden behind a claim of detection: external CSS is not fetched, runtime JavaScript is not evaluated, third-party region detection is inference, and only English and Japanese are in scope.
+- Disagreements are wanted. If an implementation reaches a different verdict on the same input, that marks a place where the definition is ambiguous.

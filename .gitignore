@@ -1,0 +1,7 @@
+# This repository publishes a definition. It has no build step and no dependencies.
+# Anything listed here is local noise, not content.
+
+.DS_Store
+node_modules/
+.vercel
+*.log

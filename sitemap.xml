@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://perpensum.org/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/"/>
+  </url>
+  <url>
+    <loc>https://perpensum.org/ja</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/"/>
+  </url>
+  <url>
+    <loc>https://perpensum.org/conformance/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/conformance/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance/"/>
+  </url>
+</urlset>

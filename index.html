@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Defining Agent-Directed Manipulation v0.1</title>
+<meta name="description" content="A reproducible definition separating agent-directed manipulation from legitimate machine-readable self-presentation.">
+<link rel="canonical" href="https://perpensum.org/">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Defining Agent-Directed Manipulation v0.1">
+<meta property="og:description" content="A reproducible definition separating agent-directed manipulation from legitimate machine-readable self-presentation.">
+<meta property="og:url" content="https://perpensum.org/">
+<meta property="og:site_name" content="Perpensum">
+<style>
+  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+  h1{font-size:1.75rem;line-height:1.3;margin:0 0 .5rem}
+  h2{font-size:1.2rem;margin:3rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+  h3{font-size:1rem;margin:2rem 0 .5rem}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
+  p,li{margin:.75rem 0}
+  ul{padding-left:1.25rem}
+  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
+  th{background:var(--code);font-weight:600;white-space:nowrap}
+  .note{border-left:3px solid var(--accent);padding:.6rem 0 .6rem 1rem;margin:1.5rem 0;color:var(--muted)}
+  strong{font-weight:600}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Defining Agent-Directed Manipulation <span style="font-weight:400;color:var(--muted)">v0.1</span></h1>
+<p class="sub">Published 2026-07-30 &middot; <a href="/ja">日本語</a> &middot; <a href="https://github.com/perpensum/agent-directed-manipulation">Source on GitHub</a></p>
+
+<p>AI agents now read web pages and act on them — comparing, recommending, buying. In response, a practice has emerged: <strong>placing text that is invisible to human readers, or planted in third-party regions of a page, in order to steer the machine's judgment.</strong></p>
+
+<p>At the same time, making yourself machine-readable — structured data, <code>llms.txt</code>, clear specifications — is a legitimate practice. The two must not be confused.</p>
+
+<p><strong>This document draws the line between them.</strong> The goal is that anyone measuring the same page arrives at the same verdict.</p>
+
+<h2>Definition</h2>
+
+<div class="note">
+<strong>Agent-directed manipulation</strong> is text on a web page that is addressed to a machine reader rather than a human one, and that is either <strong>(a) placed where humans cannot see it</strong> or <strong>(b) placed in a third-party submission region</strong>, and that instructs the reader's judgment, output, or ranking.
+</div>
+
+<h2>Two axes, and only two</h2>
+
+<p>Classification uses two axes. <strong>No subjective assessment of malice is involved.</strong></p>
+
+<table>
+<tr><th>Axis</th><th>Value</th><th>Meaning</th></tr>
+<tr><td rowspan="2">Region</td><td>first_party</td><td>The site operator's own surface (body copy, meta, structured data)</td></tr>
+<tr><td>third_party</td><td>Regions others can post into (reviews, comments, UGC, embeds)</td></tr>
+<tr><td rowspan="2">Visibility</td><td>visible</td><td>Readable by a human under normal rendering</td></tr>
+<tr><td>hidden</td><td>Placed where a human reader will not reach it</td></tr>
+</table>
+
+<h3>Severity</h3>
+
+<table>
+<tr><th>Region</th><th>Visibility</th><th>Severity</th><th>Reading</th></tr>
+<tr><td>first_party</td><td>visible</td><td>info</td><td>Ordinary advertising copy. Not a finding</td></tr>
+<tr><td>first_party</td><td>hidden</td><td>warn</td><td>Hidden text. Equivalent to search-engine cloaking</td></tr>
+<tr><td>third_party</td><td>visible</td><td>warn</td><td>Someone else placed an agent-directed instruction</td></tr>
+<tr><td>third_party</td><td>hidden</td><td>high</td><td>Invisible injection by a third party</td></tr>
+</table>
+
+<p><strong>Why only two axes.</strong> Add an axis like "is this overblown?" and the line against legitimate advertising copy disappears — the verdict starts depending on who is measuring. For this to work as a standard, every axis has to be mechanically decidable.</p>
+
+<h2>What counts as hidden</h2>
+
+<table>
+<tr><th>Technique</th><th>Examples</th></tr>
+<tr><td>CSS concealment</td><td><code>display:none</code>, <code>visibility:hidden</code>, the <code>hidden</code> attribute</td></tr>
+<tr><td>Effectively invisible</td><td><code>font-size:0</code>, <code>opacity:0</code>, text color matching background</td></tr>
+<tr><td>Positioned off-screen</td><td>Large negative offsets</td></tr>
+<tr><td>Markup only</td><td>HTML comments, contents of <code>&lt;template&gt;</code></td></tr>
+<tr><td>Hidden from assistive tech</td><td><code>aria-hidden="true"</code></td></tr>
+<tr><td>Attribute values only</td><td><code>meta</code> content, <code>alt</code>, <code>title</code>, <code>data-*</code></td></tr>
+</table>
+
+<p><strong>Conditional CSS does not count as hidden.</strong> Declarations inside <code>@media (max-width:640px)</code>, <code>@media print</code>, <code>@supports</code>, or <code>@container</code> apply only under specific conditions. Calling responsive layout or print styles "hidden text" is simply wrong.</p>
+
+<p><strong>When external CSS cannot be resolved, do not conclude hidden.</strong> Report the visibility as undetermined and say so. Treating what you cannot resolve as a finding is how false positives are manufactured.</p>
+
+<h2>Determining third_party</h2>
+
+<p>Third-party regions are inferred from structured markup such as <code>itemprop="review"</code>, from <code>class</code>/<code>id</code> tokens indicating submission areas, and from embedded elements.</p>
+
+<p><strong>This is inference. When uncertain, fall back to first_party.</strong> Because third_party carries the higher severity, erring on the safe side means treating content as the operator's own.</p>
+
+<p><strong>Operator-side markers override the inference.</strong> Editorial reviews, operator-written summaries, and published testimonials are first-party content, whatever the class name suggests.</p>
+
+<h2>What is deliberately not detected</h2>
+
+<p>These must stay out of scope. <strong>Include any one of them and the standard becomes unusable.</strong></p>
+
+<ul>
+<li><strong>Ordinary advertising copy.</strong> "The best choice." "Trusted by thousands." "Buy now."</li>
+<li><strong>Structured data, <code>llms.txt</code>, <code>robots.txt</code>.</strong> Legitimate machine-readable self-presentation is clean</li>
+<li><strong>Merely mentioning AI.</strong> "Our AI assistant is here to help" is not manipulation</li>
+<li><strong>Hidden but harmless text.</strong> Skip links, screen-reader-only text, cookie banners, collapsed accordions and tabs, inactive carousel slides</li>
+<li><strong>Genuine first-person reviews.</strong> A real customer writing "I'd recommend this" is not an injection</li>
+<li><strong>Articles explaining prompt injection.</strong> A document quoting control tokens as examples is not an attack</li>
+</ul>
+
+<h2>Known limits</h2>
+
+<ul>
+<li>Concealment placed in external CSS cannot be detected without fetching that CSS</li>
+<li>Visibility controlled by JavaScript at runtime is not evaluated</li>
+<li>Third-party region detection is inference, not certainty</li>
+<li>Languages other than English and Japanese are out of scope for now</li>
+</ul>
+
+<p><strong>Do not hide these limits behind a claim of detection.</strong> Reporting "nothing found" when you did not look is the worst failure mode available to a standard like this.</p>
+
+<h2>Machine-readable form</h2>
+
+<p>The same content is published in a form machines can read. <strong>This standard itself holds that structured data and <code>llms.txt</code> are legitimate self-presentation — so it demonstrates that on itself first.</strong></p>
+
+<ul>
+<li><a href="/definition.json"><code>definition.json</code></a> — the definition as structured JSON: axes, severity matrix, detection kinds, exclusions, limits</li>
+<li><a href="/llms.txt"><code>llms.txt</code></a> — index for machine readers</li>
+<li><a href="/conformance/cases.json"><code>conformance/cases.json</code></a> — 13 conformance cases</li>
+<li><a href="/robots.txt"><code>robots.txt</code></a> — everything allowed. No reader gets different bytes</li>
+</ul>
+
+<p>These carry the same content as the prose above. Nothing is said to a machine that is not said to a human. <strong>Serving different things to different readers is the practice this document exists to name.</strong></p>
+
+<h2>Versioning</h2>
+
+<p>v0.1 (2026-07-30), initial release.</p>
+
+<p>Revisions will not delete prior versions; changes and their reasons stay on the record. <strong>A standard earns trust not by never changing, but by making its changes traceable.</strong></p>
+
+<footer>
+<p>This definition is written to be reproducible: a third party should reach the same verdict from the same input. A <a href="/conformance/">conformance suite</a> (13 cases) is included. It contains both positive and negative cases, and <strong>the negative ones outnumber the positive</strong> — what this standard does <em>not</em> flag is more of its substance than what it does.</p>
+<p>If your implementation disagrees, it is not necessarily wrong. A disagreement marks a place where the definition is ambiguous. Please say so — <a href="https://github.com/perpensum/agent-directed-manipulation/issues">open an issue</a>.</p>
+<p>Published by Perpensum. <a href="/ja">日本語版</a></p>
+</footer>
+
+</main>
+</body>
+</html>

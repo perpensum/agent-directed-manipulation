@@ -1,0 +1,320 @@
+{
+  "id": "agent-directed-manipulation",
+  "title": {
+    "ja": "エージェント向け誘導の定義",
+    "en": "Definition of Agent-Directed Manipulation"
+  },
+  "version": "0.1",
+  "published": "2026-07-30",
+  "status": "draft",
+  "canonical": "https://perpensum.org/definition.json",
+  "authoritativeLanguage": "en",
+  "publisher": {
+    "name": "Perpensum",
+    "url": "https://perpensum.org/",
+    "repository": "https://github.com/perpensum/agent-directed-manipulation"
+  },
+  "documents": {
+    "human_en": "https://perpensum.org/",
+    "human_ja": "https://perpensum.org/ja",
+    "machine": "https://perpensum.org/definition.json",
+    "conformance": "https://perpensum.org/conformance/cases.json"
+  },
+  "usage": {
+    "ja": "引用・実装ともに自由に行ってよい。改変版を配布する場合は、本定義との差分を示すこと。正式なライセンス表記は未確定であり、v0.2で明記する。",
+    "en": "You may quote and implement this freely. If you distribute a modified version, state how it differs from this one. A formal license notice is not yet decided and will be stated in v0.2."
+  },
+  "purpose": {
+    "ja": "AIエージェントの判断を動かす目的でWebページへ置かれた文字列を、正当な機械可読な自己提示と区別して判定するための定義。誰が測っても同じ判定に到達できることを要件とする。",
+    "en": "A definition that separates text placed on a web page in order to steer an AI agent's judgment from legitimate machine-readable self-presentation. The requirement is that anyone measuring the same page reaches the same verdict."
+  },
+  "definition": {
+    "ja": "エージェント向け誘導とは、Webページ上の文字列のうち、人間の読者ではなく機械の読み手に宛てられ、かつ (a) 人間に見えない形で置かれている、または (b) 第三者の投稿領域に置かれている もののうち、読み手の判断・出力・順位づけを指示するものをいう。",
+    "en": "Agent-directed manipulation is text on a web page that is addressed to a machine reader rather than a human one, and that is either (a) placed where humans cannot see it or (b) placed in a third-party submission region, and that instructs the reader's judgment, output, or ranking."
+  },
+  "axes": {
+    "region": {
+      "description": {
+        "ja": "その文字列が誰の領域に置かれているか",
+        "en": "Whose surface the text sits on"
+      },
+      "values": [
+        {
+          "value": "first_party",
+          "ja": "サイト運営者自身の領域（本文、メタ、構造化データ）",
+          "en": "The site operator's own surface (body copy, meta, structured data)"
+        },
+        {
+          "value": "third_party",
+          "ja": "第三者が投稿できる領域（レビュー、コメント、UGC、埋め込み）",
+          "en": "Regions others can post into (reviews, comments, UGC, embeds)"
+        }
+      ]
+    },
+    "visibility": {
+      "description": {
+        "ja": "人間の読者がその文字列に到達できるか",
+        "en": "Whether a human reader can reach the text"
+      },
+      "values": [
+        {
+          "value": "visible",
+          "ja": "通常のレンダリングで人間が読める",
+          "en": "Readable by a human under normal rendering"
+        },
+        {
+          "value": "hidden",
+          "ja": "人間の読者には到達しない形で置かれている",
+          "en": "Placed where a human reader will not reach it"
+        }
+      ]
+    }
+  },
+  "severity": {
+    "function": "severityOf(region, visibility)",
+    "matrix": [
+      {
+        "region": "first_party",
+        "visibility": "visible",
+        "severity": "info",
+        "finding": false,
+        "meaning": {
+          "ja": "ただの広告表現。問題視しない",
+          "en": "Ordinary advertising copy. Not a finding"
+        }
+      },
+      {
+        "region": "first_party",
+        "visibility": "hidden",
+        "severity": "warn",
+        "finding": true,
+        "meaning": {
+          "ja": "隠しテキスト。検索エンジンのクローキング相当",
+          "en": "Hidden text. Equivalent to search-engine cloaking"
+        }
+      },
+      {
+        "region": "third_party",
+        "visibility": "visible",
+        "severity": "warn",
+        "finding": true,
+        "meaning": {
+          "ja": "第三者がエージェント向け指示を置いた",
+          "en": "Someone else placed an agent-directed instruction"
+        }
+      },
+      {
+        "region": "third_party",
+        "visibility": "hidden",
+        "severity": "high",
+        "finding": true,
+        "meaning": {
+          "ja": "第三者による不可視の注入",
+          "en": "Invisible injection by a third party"
+        }
+      }
+    ],
+    "rationale": {
+      "ja": "軸は2つだけとする。「大げさか」「誇張か」といった主観的な軸を入れると、正当な広告表現との線が引けなくなり、判定が測る人によって変わる。基準として機能させるには、機械的に決まる軸だけで構成する必要がある。",
+      "en": "There are only two axes. Adding a subjective axis such as \"is this overblown?\" destroys the line against legitimate advertising copy and makes the verdict depend on who is measuring. For this to work as a standard, every axis has to be mechanically decidable."
+    }
+  },
+  "visibility_rules": {
+    "counts_as_hidden": [
+      {
+        "technique": "css_concealment",
+        "ja": "CSSによる非表示",
+        "en": "CSS concealment",
+        "examples": ["display:none", "visibility:hidden", "hidden attribute"]
+      },
+      {
+        "technique": "effectively_invisible",
+        "ja": "実質的な不可視",
+        "en": "Effectively invisible",
+        "examples": ["font-size:0", "opacity:0", "text color matching background"]
+      },
+      {
+        "technique": "offscreen",
+        "ja": "画面外配置",
+        "en": "Positioned off-screen",
+        "examples": ["large negative offsets"]
+      },
+      {
+        "technique": "markup_only",
+        "ja": "マークアップ上のみ",
+        "en": "Markup only",
+        "examples": ["HTML comments", "contents of <template>"]
+      },
+      {
+        "technique": "hidden_from_at",
+        "ja": "支援技術からの隠蔽",
+        "en": "Hidden from assistive technology",
+        "examples": ["aria-hidden=\"true\""]
+      },
+      {
+        "technique": "attribute_only",
+        "ja": "属性値のみ",
+        "en": "Attribute values only",
+        "examples": ["meta content", "alt", "title", "data-*"]
+      }
+    ],
+    "does_not_count_as_hidden": [
+      {
+        "rule": "conditional_css",
+        "ja": "条件付きのCSSはhiddenに数えない。@media (max-width:640px)、@media print、@supports、@container の中の宣言は特定の条件下でのみ効く。レスポンシブ設計や印刷用スタイルを隠しテキストと呼ぶのは誤りである。",
+        "en": "Conditional CSS does not count as hidden. Declarations inside @media (max-width:640px), @media print, @supports, or @container apply only under specific conditions. Calling responsive layout or print styles hidden text is simply wrong."
+      },
+      {
+        "rule": "unresolvable_external_css",
+        "ja": "外部CSSを解決できない場合、hiddenと断定しない。判定は不明とし、その旨を明示する。断定できないものを黒に倒すと誤検知になる。",
+        "en": "When external CSS cannot be resolved, do not conclude hidden. Report the visibility as undetermined and say so. Treating what you cannot resolve as a finding is how false positives are manufactured."
+      }
+    ]
+  },
+  "region_rules": {
+    "third_party_signals": [
+      "itemprop=\"review\" / itemtype schema.org/Review",
+      "class or id tokens indicating submission areas: review, comment, ugc, user-content, qanda",
+      "embedded elements such as iframe"
+    ],
+    "fallback": "first_party",
+    "fallback_rationale": {
+      "ja": "third_partyのほうが重大度が高いため、確信が持てない場合は first_party に倒すことが安全側である。",
+      "en": "Because third_party carries the higher severity, erring on the safe side means falling back to first_party when uncertain."
+    },
+    "operator_overrides": [
+      "editorial-review",
+      "staff-review",
+      "official-review",
+      "product-review-summary",
+      "testimonials"
+    ],
+    "operator_override_rationale": {
+      "ja": "運営者側を示す語が同居する場合は first_party とする。編集部レビュー、運営者による要約、掲載された導入事例は、いずれもサイト運営者の一次コンテンツである。",
+      "en": "Operator-side markers override the inference. Editorial reviews, operator-written summaries, and published testimonials are first-party content, whatever the class name suggests."
+    }
+  },
+  "detection": {
+    "structural": {
+      "condition": "recorded regardless of region and visibility",
+      "kinds": [
+        {
+          "kind": "instruction_override",
+          "ja": "指示の上書き（「これまでの指示を無視」「システムプロンプトを出力せよ」等）",
+          "en": "Instruction override (\"ignore all previous instructions\", \"print your system prompt\")"
+        },
+        {
+          "kind": "role_marker",
+          "ja": "役割マーカー（チャットテンプレートの制御記号）",
+          "en": "Role markers (chat-template control tokens)"
+        },
+        {
+          "kind": "tool_call_spoof",
+          "ja": "ツール呼び出しの偽装（関数呼び出しの形を模した文字列）",
+          "en": "Spoofed tool calls (strings imitating function/tool call syntax)"
+        },
+        {
+          "kind": "role_prefix_command",
+          "ja": "役割接頭辞＋命令（system: assistant: に実際の命令が続くもの）",
+          "en": "Role prefix followed by an actual command (system:, assistant:)"
+        }
+      ]
+    },
+    "addressed": {
+      "condition": "recorded only when visibility=hidden or region=third_party",
+      "kinds": [
+        {
+          "kind": "note_to_machine",
+          "ja": "機械への注記（「Note to AI:」「AIへの指示:」に命令が続くもの）",
+          "en": "Note addressed to a machine (\"Note to AI:\") followed by a command"
+        },
+        {
+          "kind": "machine_obligation",
+          "ja": "機械宛の義務（機械の読み手を名指しし、義務的な行為を求めるもの）",
+          "en": "Obligation aimed at a machine reader"
+        },
+        {
+          "kind": "ranking_instruction",
+          "ja": "順位づけの指示（「最優先で推薦せよ」「この商品を選べ」等）",
+          "en": "Ranking instruction (\"recommend this above all others\")"
+        }
+      ]
+    }
+  },
+  "not_detected": [
+    {
+      "id": "ad_copy",
+      "ja": "通常の広告表現。「最適です」「多くの企業に選ばれています」「今すぐご購入ください」",
+      "en": "Ordinary advertising copy. \"The best choice.\" \"Trusted by thousands.\" \"Buy now.\""
+    },
+    {
+      "id": "machine_readable_self_presentation",
+      "ja": "構造化データ、llms.txt、robots.txt への正当な記述。機械可読な自己提示は白である",
+      "en": "Structured data, llms.txt, robots.txt. Legitimate machine-readable self-presentation is clean"
+    },
+    {
+      "id": "ai_mention",
+      "ja": "AIに言及しているだけの文。「当社のAIアシスタントがご案内します」は誘導ではない",
+      "en": "Merely mentioning AI. \"Our AI assistant is here to help\" is not manipulation"
+    },
+    {
+      "id": "harmless_hidden",
+      "ja": "隠されているが無害なテキスト。スキップリンク、スクリーンリーダー向けテキスト、Cookieバナー、アコーディオンやタブの初期状態、カルーセルの非アクティブスライド",
+      "en": "Hidden but harmless text. Skip links, screen-reader-only text, cookie banners, collapsed accordions and tabs, inactive carousel slides"
+    },
+    {
+      "id": "genuine_review",
+      "ja": "一人称の本物のレビュー。「これを勧めます」と書く実在の投稿者を、注入と混同しない",
+      "en": "Genuine first-person reviews. A real customer writing \"I'd recommend this\" is not an injection"
+    },
+    {
+      "id": "explanatory_article",
+      "ja": "プロンプトインジェクションの解説記事。例示として制御記号を含む文書は、攻撃ではない",
+      "en": "Articles explaining prompt injection. A document quoting control tokens as examples is not an attack"
+    }
+  ],
+  "not_detected_rationale": {
+    "ja": "これらを検出対象に含めてはならない。含めた瞬間に、この基準は使い物にならなくなる。",
+    "en": "These must stay out of scope. Include any one of them and the standard becomes unusable."
+  },
+  "limits": [
+    {
+      "ja": "外部CSSを取得しない限り、display:none を外部CSSに置いた隠蔽は検出できない",
+      "en": "Concealment placed in external CSS cannot be detected without fetching that CSS"
+    },
+    {
+      "ja": "JavaScriptによる動的な表示制御は評価しない",
+      "en": "Visibility controlled by JavaScript at runtime is not evaluated"
+    },
+    {
+      "ja": "第三者領域の判定は推定であり、確実ではない",
+      "en": "Third-party region detection is inference, not certainty"
+    },
+    {
+      "ja": "英語・日本語以外の言語は現時点で対象外",
+      "en": "Languages other than English and Japanese are out of scope for now"
+    }
+  ],
+  "limits_rationale": {
+    "ja": "この限界を隠して「検出できる」と主張しない。検出できていないことを「問題なし」と表示するのは、この種の基準にとって最悪の失敗である。",
+    "en": "Do not hide these limits behind a claim of detection. Reporting \"nothing found\" when you did not look is the worst failure mode available to a standard like this."
+  },
+  "change_policy": {
+    "ja": "改訂時は旧版を削除せず、変更点と理由を残す。基準は、変わらないことではなく、変わり方が追えることで信頼される。",
+    "en": "Revisions will not delete prior versions; changes and their reasons stay on the record. A standard earns trust not by never changing, but by making its changes traceable."
+  },
+  "disagreement": {
+    "ja": "実装が本定義と食い違う場合、その実装が誤っているとは限らない。不一致は定義の解釈が割れている箇所を示している。指摘してほしい。",
+    "en": "If your implementation disagrees, it is not necessarily wrong. A disagreement marks a place where the definition is ambiguous. Please say so."
+  },
+  "history": [
+    {
+      "version": "0.1",
+      "date": "2026-07-30",
+      "note": {
+        "ja": "初版",
+        "en": "Initial release"
+      }
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>エージェント向け誘導の定義 v0.1</title>
+<meta name="description" content="AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。">
+<link rel="canonical" href="https://perpensum.org/ja">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="エージェント向け誘導の定義 v0.1">
+<meta property="og:description" content="AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。">
+<meta property="og:url" content="https://perpensum.org/ja">
+<meta property="og:site_name" content="Perpensum">
+<style>
+  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    -webkit-text-size-adjust:100%}
+  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+  h1{font-size:1.75rem;line-height:1.4;margin:0 0 .5rem}
+  h2{font-size:1.2rem;margin:3rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+  h3{font-size:1rem;margin:2rem 0 .5rem}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
+  p,li{margin:.75rem 0}
+  ul{padding-left:1.25rem}
+  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
+  th{background:var(--code);font-weight:600;white-space:nowrap}
+  .note{border-left:3px solid var(--accent);padding:.6rem 0 .6rem 1rem;margin:1.5rem 0;color:var(--muted)}
+  strong{font-weight:600}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>エージェント向け誘導の定義 <span style="font-weight:400;color:var(--muted)">v0.1</span></h1>
+<p class="sub">2026-07-30 公開 &middot; <a href="/">English</a> &middot; <a href="https://github.com/perpensum/agent-directed-manipulation">GitHub</a></p>
+
+<div class="note">
+<strong>この文書は日本語版である。</strong> 正となる版は <a href="/">English</a> であり、解釈が割れた場合は英語版を優先する。
+</div>
+
+<p>AIエージェントがWebページを読んで購買や推薦の判断を行うようになった。それに伴い、<strong>人間の読者には見えない形で、あるいは第三者の投稿領域に、エージェントの判断を動かすための文字列を置く</strong>行為が現れている。</p>
+
+<p>一方で、機械可読な自己提示（構造化データ、<code>llms.txt</code>、明快な仕様記述）はまっとうな施策であり、これと混同されてはならない。</p>
+
+<p><strong>この文書は、両者を分ける線を定義する。</strong> 誰が測っても同じ判定になることを目指す。</p>
+
+<h2>定義</h2>
+
+<div class="note">
+<strong>エージェント向け誘導</strong>とは、Webページ上の文字列のうち、人間の読者ではなく機械の読み手に宛てられ、かつ <strong>(a) 人間に見えない形で置かれている</strong>、または <strong>(b) 第三者の投稿領域に置かれている</strong> もののうち、読み手の判断・出力・順位づけを指示するものをいう。
+</div>
+
+<h2>判定の2軸</h2>
+
+<p>判定は次の2軸だけで行う。<strong>主観的な悪質性の評価を含めない。</strong></p>
+
+<table>
+<tr><th>軸</th><th>値</th><th>定義</th></tr>
+<tr><td rowspan="2">領域</td><td>first_party</td><td>サイト運営者自身の領域（本文、メタ、構造化データ）</td></tr>
+<tr><td>third_party</td><td>第三者が投稿できる領域（レビュー、コメント、UGC、埋め込み）</td></tr>
+<tr><td rowspan="2">可視性</td><td>visible</td><td>通常のレンダリングで人間が読める</td></tr>
+<tr><td>hidden</td><td>人間の読者には到達しない形で置かれている</td></tr>
+</table>
+
+<h3>重大度</h3>
+
+<table>
+<tr><th>領域</th><th>可視性</th><th>重大度</th><th>意味</th></tr>
+<tr><td>first_party</td><td>visible</td><td>info（白）</td><td>ただの広告表現。問題視しない</td></tr>
+<tr><td>first_party</td><td>hidden</td><td>warn（灰）</td><td>隠しテキスト。検索エンジンのクローキング相当</td></tr>
+<tr><td>third_party</td><td>visible</td><td>warn（灰）</td><td>第三者がエージェント向け指示を置いた</td></tr>
+<tr><td>third_party</td><td>hidden</td><td>high（黒）</td><td>第三者による不可視の注入</td></tr>
+</table>
+
+<p><strong>なぜ2軸だけか。</strong> 「大げさか」「誇張か」といった軸を入れると、正当な広告表現との線が引けなくなり、判定が測る人によって変わる。基準として機能させるには、機械的に決まる軸だけで構成する必要がある。</p>
+
+<h2>「可視性: hidden」に含めるもの</h2>
+
+<table>
+<tr><th>手法</th><th>例</th></tr>
+<tr><td>CSSによる非表示</td><td><code>display:none</code>、<code>visibility:hidden</code>、<code>hidden</code> 属性</td></tr>
+<tr><td>実質的な不可視</td><td><code>font-size:0</code>、<code>opacity:0</code>、文字色と背景色の一致</td></tr>
+<tr><td>画面外配置</td><td>大きな負のオフセット</td></tr>
+<tr><td>マークアップ上のみ</td><td>HTMLコメント、<code>&lt;template&gt;</code> の中</td></tr>
+<tr><td>支援技術からの隠蔽</td><td><code>aria-hidden="true"</code></td></tr>
+<tr><td>属性値のみ</td><td><code>meta</code> の <code>content</code>、<code>alt</code>、<code>title</code>、<code>data-*</code></td></tr>
+</table>
+
+<p><strong>条件付きのCSSは hidden に数えない。</strong> <code>@media (max-width:640px)</code>、<code>@media print</code>、<code>@supports</code>、<code>@container</code> の中の宣言は、特定の条件下でのみ効く。レスポンシブ設計や印刷用スタイルを「隠しテキスト」と呼ぶのは誤りである。</p>
+
+<p><strong>外部CSSを解決できない場合、hidden と断定しない。</strong> 判定は「不明」とし、その旨を明示する。断定できないものを黒に倒すと誤検知になる。</p>
+
+<h2>「領域: third_party」の判定</h2>
+
+<p>第三者領域は、<code>itemprop="review"</code> 等の構造化マークアップ、<code>class</code>／<code>id</code> に投稿領域を示す語、埋め込み要素から推定する。</p>
+
+<p><strong>推定である。確信が持てない場合は first_party に倒す。</strong> 第三者判定のほうが重大度が高いため、迷ったときに安全側へ倒すとは「一次コンテンツとみなす」ことを意味する。</p>
+
+<p><strong>運営者側を示す語が同居する場合は first_party とする。</strong> 編集部レビュー、運営者による要約、掲載された導入事例は、いずれもサイト運営者の一次コンテンツである。</p>
+
+<h2>検出しないもの</h2>
+
+<p>これらを検出対象に含めてはならない。<strong>含めた瞬間に、この基準は使い物にならなくなる。</strong></p>
+
+<ul>
+<li><strong>通常の広告表現。</strong>「最適です」「多くの企業に選ばれています」「今すぐご購入ください」</li>
+<li><strong>構造化データ、<code>llms.txt</code>、<code>robots.txt</code> への正当な記述。</strong> 機械可読な自己提示は白である</li>
+<li><strong>AIに言及しているだけの文。</strong>「当社のAIアシスタントがご案内します」は誘導ではない</li>
+<li><strong>隠されているが無害なテキスト。</strong> スキップリンク、スクリーンリーダー向けテキスト、Cookieバナー、アコーディオンやタブの初期状態、カルーセルの非アクティブスライド</li>
+<li><strong>一人称の本物のレビュー。</strong>「これを勧めます」と書く実在の投稿者を、注入と混同しない</li>
+<li><strong>プロンプトインジェクションの解説記事。</strong> 例示として制御記号を含む文書は、攻撃ではない</li>
+</ul>
+
+<h2>判定の限界</h2>
+
+<ul>
+<li>外部CSSを取得しない限り、<code>display:none</code> を外部CSSに置いた隠蔽は検出できない</li>
+<li>JavaScriptによる動的な表示制御は評価しない</li>
+<li>第三者領域の判定は推定であり、確実ではない</li>
+<li>英語・日本語以外の言語は現時点で対象外</li>
+</ul>
+
+<p><strong>この限界を隠して「検出できる」と主張しない。</strong> 検出できていないことを「問題なし」と表示するのは、この種の基準にとって最悪の失敗である。</p>
+
+<h2>機械可読版</h2>
+
+<p>同じ内容を機械が読める形でも提供する。<strong>この基準自身が「構造化データや <code>llms.txt</code> による機械可読な自己提示は正当である」と定めている以上、まず自分がそれを実演する。</strong></p>
+
+<ul>
+<li><a href="/definition.json"><code>definition.json</code></a> — 定義の構造化版。2軸、重大度表、検出種別、対象外、限界を含む</li>
+<li><a href="/llms.txt"><code>llms.txt</code></a> — 機械の読み手向けの索引</li>
+<li><a href="/conformance/cases.json"><code>conformance/cases.json</code></a> — 適合性テスト13ケース</li>
+<li><a href="/robots.txt"><code>robots.txt</code></a> — 全て公開。読み手によって内容を変えない</li>
+</ul>
+
+<p>これらは人間向けの文章と同じ内容であり、機械にだけ別のことを伝えない。<strong>読み手によって違うものを見せる仕組みは、この文書が問題にしているものそのものである。</strong></p>
+
+<h2>版と改訂</h2>
+
+<p>v0.1（2026-07-30）初版。</p>
+
+<p>改訂時は旧版を削除せず、変更点と理由を残す。<strong>基準は、変わらないことではなく、変わり方が追えることで信頼される。</strong></p>
+
+<footer>
+<p>この定義は、第三者が同じ入力から同じ判定に到達できることを要件としている。確認用の<a href="/conformance/">適合性テスト</a>（13ケース）を同梱している。陽性・陰性の両方を含み、<strong>陰性側が最多である</strong>。この基準の実体は「何を検出するか」より「何を検出しないか」にあるためである。</p>
+<p>不一致が出た場合、あなたの実装が誤っているとは限らない。定義の解釈が割れている箇所を示しているので、<a href="https://github.com/perpensum/agent-directed-manipulation/issues">指摘してほしい</a>。</p>
+<p>発行: Perpensum. <a href="/">English (authoritative)</a></p>
+</footer>
+
+</main>
+</body>
+</html>

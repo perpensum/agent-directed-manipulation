@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>適合性テスト — エージェント向け誘導の定義 v0.1</title>
+<meta name="description" content="実装がこの定義と同じ判定に到達するかを確かめる13ケースの適合性テスト。">
+<link rel="canonical" href="https://perpensum.org/conformance/ja">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/conformance/">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance/">
+<style>
+  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    -webkit-text-size-adjust:100%}
+  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+  h1{font-size:1.6rem;line-height:1.4;margin:0 0 .5rem}
+  h2{font-size:1.15rem;margin:2.5rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
+  p,li{margin:.75rem 0}
+  ul{padding-left:1.25rem}
+  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
+  pre{background:var(--code);padding:.9rem 1rem;border-radius:4px;overflow-x:auto;font-size:.88rem;line-height:1.6}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
+  th{background:var(--code);font-weight:600;white-space:nowrap}
+  td.n{text-align:right}
+  strong{font-weight:600}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>適合性テスト <span style="font-weight:400;color:var(--muted)">v0.1</span></h1>
+<p class="sub">「<a href="/ja">エージェント向け誘導の定義</a>」の確認用 &middot; <a href="/conformance/">English</a></p>
+
+<p><strong>基準は、誰が測っても同じ判定になって初めて基準になる。</strong> この一式は、あなたの実装がこの定義と同じ判定に到達するかを確かめるためのものである。</p>
+
+<h2>使い方</h2>
+
+<pre><code>node run.mjs &lt;あなたの実装のパス&gt;</code></pre>
+
+<p>実装は次のいずれかの形の関数を export する（<code>default</code> / <code>scan</code> / <code>scanHtml</code> のいずれか）。</p>
+
+<pre><code>(html)     =&gt; ({ findings: [{ severity: "info" | "warn" | "high" }] })
+({ html }) =&gt; ({ findings: [{ severity: "info" | "warn" | "high" }] })</code></pre>
+
+<p><strong>どちらでも構わない。</strong> 引数の受け取り方も、findings の並び順も、定義の一部ではない。重大度は findings の最大値で比較する。</p>
+
+<p>依存パッケージはない。Node 18以上で動く。終了コードは、全一致で <code>0</code>、不一致があれば <code>1</code>。</p>
+
+<h2>中身</h2>
+
+<p><a href="/conformance/cases.json"><code>cases.json</code></a> に13件。<strong>「検出すべき」と「検出してはならない」の両方</strong>が入っている。</p>
+
+<table>
+<tr><th>群</th><th>件数</th><th>何を固定するか</th></tr>
+<tr><td>4象限</td><td class="n">4</td><td>領域×可視性から重大度が機械的に決まること</td></tr>
+<tr><td>検出しないもの</td><td class="n">7</td><td>広告表現、構造化データ、AI言及、隠れた無害テキスト、本物のレビュー、条件付きCSS、編集部レビュー</td></tr>
+<tr><td>断定しないもの</td><td class="n">1</td><td>外部CSSを解決できないとき hidden と断定しないこと</td></tr>
+<tr><td><strong>合計</strong></td><td class="n"><strong>13</strong></td><td></td></tr>
+</table>
+
+<p><strong>陰性側（検出してはならない）が7件と最多なのは意図的である。</strong> この基準の実体は「何を検出するか」より「何を検出しないか」にある。誤検知は、この種の判定にとって唯一の致命傷である。</p>
+
+<h2>不一致が出たら</h2>
+
+<p><strong>あなたの実装が誤っているとは限らない。</strong></p>
+
+<p>不一致は、定義の解釈が割れている箇所を示している。<code>cases.json</code> の <code>clause</code> と <code>why</code> に、その条項が何を守ろうとしているかを書いてある。読んだうえで納得できなければ、<strong>定義のほうが悪い可能性が高い</strong>ので<a href="https://github.com/perpensum/agent-directed-manipulation/issues">指摘してほしい</a>。</p>
+
+<h2>ファイル</h2>
+
+<ul>
+<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 13ケース。期待判定と、その条項の意図</li>
+<li><a href="/conformance/run.mjs"><code>run.mjs</code></a> — 実行スクリプト。依存なし</li>
+<li><a href="/conformance/README.md"><code>README.md</code></a> — この内容のテキスト版</li>
+</ul>
+
+<footer>
+<p>v0.1（2026-07-30）。定義本文は <a href="/">English（正）</a>／<a href="/ja">日本語</a>。構造化版は <a href="/definition.json"><code>definition.json</code></a>。</p>
+<p><strong>基準は、変わらないことではなく、変わり方が追えることで信頼される。</strong></p>
+</footer>
+
+</main>
+</body>
+</html>

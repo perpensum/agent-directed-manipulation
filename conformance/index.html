@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conformance Suite — Defining Agent-Directed Manipulation v0.1</title>
+<meta name="description" content="Thirteen conformance cases that check whether an implementation reaches the same verdicts as this definition.">
+<link rel="canonical" href="https://perpensum.org/conformance/">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/conformance/">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance/">
+<style>
+  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+  h1{font-size:1.6rem;line-height:1.3;margin:0 0 .5rem}
+  h2{font-size:1.15rem;margin:2.5rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
+  p,li{margin:.75rem 0}
+  ul{padding-left:1.25rem}
+  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
+  pre{background:var(--code);padding:.9rem 1rem;border-radius:4px;overflow-x:auto;font-size:.88rem;line-height:1.6}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
+  th{background:var(--code);font-weight:600;white-space:nowrap}
+  td.n{text-align:right}
+  strong{font-weight:600}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Conformance Suite <span style="font-weight:400;color:var(--muted)">v0.1</span></h1>
+<p class="sub">For <a href="/">Defining Agent-Directed Manipulation</a> &middot; <a href="/conformance/ja">日本語</a></p>
+
+<p><strong>A standard is only a standard once everyone measuring reaches the same verdict.</strong> This suite checks whether your implementation agrees with the definition.</p>
+
+<h2>Running it</h2>
+
+<pre><code>node run.mjs &lt;path-to-your-implementation&gt;</code></pre>
+
+<p>Your implementation exports a function under one of <code>default</code>, <code>scan</code>, or <code>scanHtml</code>, in either of these shapes:</p>
+
+<pre><code>(html)     =&gt; ({ findings: [{ severity: "info" | "warn" | "high" }] })
+({ html }) =&gt; ({ findings: [{ severity: "info" | "warn" | "high" }] })</code></pre>
+
+<p><strong>Either is fine.</strong> Neither the argument shape nor the ordering of <code>findings</code> is part of the definition. Severity is compared using the <em>maximum</em> across findings.</p>
+
+<p>No dependencies. Node 18 or later. Exit code is <code>0</code> when every case agrees and <code>1</code> otherwise.</p>
+
+<h2>What is in it</h2>
+
+<p><a href="/conformance/cases.json"><code>cases.json</code></a> holds 13 cases. It contains both <strong>what must be detected and what must not be</strong>.</p>
+
+<table>
+<tr><th>Group</th><th>Cases</th><th>What it pins down</th></tr>
+<tr><td>Four quadrants</td><td class="n">4</td><td>That severity follows mechanically from region × visibility</td></tr>
+<tr><td>Not detected</td><td class="n">7</td><td>Advertising copy, structured data, AI mentions, hidden-but-harmless text, genuine reviews, conditional CSS, editorial reviews</td></tr>
+<tr><td>Not concluded</td><td class="n">1</td><td>That unresolvable external CSS is not declared hidden</td></tr>
+<tr><td><strong>Total</strong></td><td class="n"><strong>13</strong></td><td></td></tr>
+</table>
+
+<p><strong>That the negative side is the largest group, at seven, is deliberate.</strong> The substance of this standard lies more in what it does not flag than in what it does. For a judgement like this one, false positives are the only fatal failure.</p>
+
+<h2>If you disagree</h2>
+
+<p><strong>Your implementation is not necessarily the one that is wrong.</strong></p>
+
+<p>A disagreement marks a place where the definition is open to more than one reading. Each case in <code>cases.json</code> carries a <code>clause</code> and a <code>why</code> describing what that provision is trying to protect. If you read them and remain unconvinced, <strong>the definition is the more likely culprit</strong> — please <a href="https://github.com/perpensum/agent-directed-manipulation/issues">open an issue</a>.</p>
+
+<h2>Files</h2>
+
+<ul>
+<li><a href="/conformance/cases.json"><code>cases.json</code></a> — 13 cases with expected verdicts and the intent behind each provision</li>
+<li><a href="/conformance/run.mjs"><code>run.mjs</code></a> — the runner. No dependencies</li>
+<li><a href="/conformance/README.md"><code>README.md</code></a> — this page as text</li>
+</ul>
+
+<p><strong>Known gap in v0.1:</strong> the <code>clause</code> and <code>why</code> fields in <code>cases.json</code> are written in Japanese, because the definition was drafted in Japanese first. English strings will be added alongside them in v0.2. The case HTML, the expected verdicts, and the runner are language-independent, so the suite runs correctly either way.</p>
+
+<footer>
+<p>v0.1 (2026-07-30). The definition: <a href="/">English</a> / <a href="/ja">日本語</a>. Structured form: <a href="/definition.json"><code>definition.json</code></a>.</p>
+<p><strong>A standard earns trust not by never changing, but by making its changes traceable.</strong></p>
+</footer>
+
+</main>
+</body>
+</html>

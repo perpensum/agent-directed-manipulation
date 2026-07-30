@@ -1,0 +1,16 @@
+# This site publishes a definition. Nothing here is withheld from any reader,
+# human or machine. There is no cloaking, no crawler-specific content, and no
+# disallowed path. Every URL below serves the same bytes to everyone.
+#
+# A document that defines agent-directed manipulation should be verifiable by
+# the readers it describes.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://perpensum.org/sitemap.xml
+
+# Machine-readable index: /llms.txt
+# Structured definition: /definition.json
+# Conformance suite:     /conformance/cases.json
+# Source repository:     https://github.com/perpensum/agent-directed-manipulation
