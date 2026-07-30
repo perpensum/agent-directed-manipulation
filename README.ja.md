@@ -98,6 +98,18 @@ node conformance/run.mjs <あなたの実装のパス>
 **あなたの実装が誤っているとは限らない。** 不一致は定義の解釈が割れている箇所を示しており、
 それは定義側の欠陥である。
 [Issueで指摘してほしい](https://github.com/perpensum/agent-directed-manipulation/issues)。
+書き方は [CONTRIBUTING.md](CONTRIBUTING.md) にある。**日本語で構わない。**
+
+## 答えを持っていない論点
+
+v0.1 は議論されるために出しているので、著者側の未解決点も公開している。
+
+- [#1 実行時JavaScriptによる可視性を対象外にしているが、それでよいか](https://github.com/perpensum/agent-directed-manipulation/issues/1)
+- [#2 `alt` は本当に hidden か。スクリーンリーダーは人間に読み上げる](https://github.com/perpensum/agent-directed-manipulation/issues/2)
+- [#3 `third_party` の推定が英語圏の形をしており、それ以外を取りこぼす](https://github.com/perpensum/agent-directed-manipulation/issues/3)
+
+**特に #3 は、単独の著者が持ちえない知識を必要としている。**
+列挙できていない言語圏で、コメント欄やレビュー欄がどんな class / id を使っているか。
 
 ## 状態とライセンス
 

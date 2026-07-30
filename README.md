@@ -113,7 +113,18 @@ should expose.
 where the definition is open to more than one reading — which is a defect in the definition.
 
 Please [open an issue](https://github.com/perpensum/agent-directed-manipulation/issues).
-Disagreements are the main thing this repository is for.
+Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Open questions we do not have answers to
+
+These are filed by the authors, in the open, because v0.1 is published to be argued with:
+
+- [#1 Runtime JavaScript visibility is out of scope — should it be?](https://github.com/perpensum/agent-directed-manipulation/issues/1)
+- [#2 Is `alt` really hidden? Screen readers reach it](https://github.com/perpensum/agent-directed-manipulation/issues/2)
+- [#3 `third_party` inference is English-shaped, and under-reports on everything else](https://github.com/perpensum/agent-directed-manipulation/issues/3)
+
+**#3 in particular needs knowledge one author cannot have**: the class and id conventions that
+comment and review systems use in languages we have not enumerated.
 
 ## Status and licensing
 
