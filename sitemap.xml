@@ -16,10 +16,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/"/>
   </url>
   <url>
-    <loc>https://perpensum.org/conformance/</loc>
+    <loc>https://perpensum.org/conformance</loc>
     <lastmod>2026-07-30</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/conformance/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/conformance"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance"/>
   </url>
 </urlset>
