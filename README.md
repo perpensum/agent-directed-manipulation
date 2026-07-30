@@ -115,6 +115,16 @@ where the definition is open to more than one reading — which is a defect in t
 Please [open an issue](https://github.com/perpensum/agent-directed-manipulation/issues).
 Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## If you want your own site watched
+
+A one-off check is not the useful thing — **being told when something changes is.** Third-party
+regions are exactly where you are not looking.
+
+Perpensum is building that continuous check. **It does not exist as a product yet**, and there is
+no date, no price, and no waitlist that guarantees anything. If you want it,
+[say so on #4](https://github.com/perpensum/agent-directed-manipulation/issues/4). A comment is
+the whole mechanism — no form, no email address, no signup.
+
 ## Open questions we do not have answers to
 
 These are filed by the authors, in the open, because v0.1 is published to be argued with:
