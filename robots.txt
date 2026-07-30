@@ -11,6 +11,7 @@ Allow: /
 Sitemap: https://perpensum.org/sitemap.xml
 
 # Machine-readable index: /llms.txt
+# Full text, one file:   /llms-full.txt
 # Structured definition: /definition.json
 # Conformance suite:     /conformance/cases.json
 # Source repository:     https://github.com/perpensum/agent-directed-manipulation

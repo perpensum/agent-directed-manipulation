@@ -18,6 +18,7 @@ first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high
 
 - [Definition (English, authoritative)](https://perpensum.org/): The full definition — two axes, severity matrix, what counts as hidden, what is deliberately not detected, and the known limits.
 - [定義（日本語）](https://perpensum.org/ja): 同じ内容の日本語版。解釈が割れた場合は英語版を正とする。
+- [Full text in one file](https://perpensum.org/llms-full.txt): The complete definition as a single markdown file, for readers that prefer one fetch.
 - [Machine-readable definition](https://perpensum.org/definition.json): The same definition as structured JSON — axes, severity matrix, detection kinds, exclusions, and limits, with Japanese and English strings side by side.
 
 ## Verifying an implementation
