@@ -93,6 +93,32 @@ node conformance/run.mjs <あなたの実装のパス>
 英語と日本語の両方を検査し、ランナーは言語別の内訳を出す。
 **片方だけ通る実装が、合計値の中に隠れないようにするため。** 依存なし、Node 18以上。
 
+## 誤検知の掃討
+
+```bash
+node reference/false-positive-sweep.test.mjs
+```
+
+**470判定 — 現実のページによくある47文 × 10通りの置き場所**（通常本文、折りたたみFAQ、
+`display:none`、画面外、`aria-hidden`、レビュー欄、コメント欄、モバイル非表示、
+`meta description`、`alt`）。**すべて白でなければならない。**
+
+**出荷に至って誤検知した文は、理由とともに永久に残してある。** 6件あり、
+いずれも人間に向けて書かれた普通の文だった。
+
+| 誤検知した文 | 原因 |
+|---|---|
+| `Retailers must always display the correct price.` | 機械名の照合が `Ret**ai**lers` の中の ai に一致 |
+| `One executive said agents should never be trusted with a corporate card.` | `corpo**rate**` の中の rate に一致 |
+| `Your scraper must not ignore rate limits.` | 名詞の rate（rate limits）に一致 |
+| `The EU AI Act requires that providers must classify systems by risk tier.` | 義務を負うのは提供者であって機械ではない |
+| `Our AI assistant will always recommend the plan that fits your usage best.` | 機械を名指しているが、宛先は顧客 |
+| `小売価格は必ず税込で表示してください。` | 事業者向けの指示。機械への言及すらない |
+
+1文だけ、いまも陽性で返るものがある。**合格にも「想定内の失敗」にもせず**、
+[#5](https://github.com/perpensum/agent-directed-manipulation/issues/5) として公開している。
+実装ではなく**定義側の欠落**だと考えているためである。
+
 ## 不一致が出たら
 
 **あなたの実装が誤っているとは限らない。** 不一致は定義の解釈が割れている箇所を示しており、

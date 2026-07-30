@@ -183,9 +183,27 @@ const DEONTIC =
 // suppressed the finding that "must recommend" had earned.
 const EPISTEMIC_AT = /^must\s+(have|be)\b/i;
 
-// A directive aimed at the reader's judgment, output, or ranking.
+/**
+ * A directive aimed at the reader's judgment, output, or ranking.
+ *
+ * **Bounded at word edges, with inflections allowed.** Unbounded, `rate` matched inside
+ * "co**rate**" — sorry, "corpo**rate**" — and `mark` inside "market", so
+ * `agents should never be trusted with a corporate card` was reported as an instruction.
+ * That is the same defect the machine-name pattern had, one field over.
+ */
 const VERB_EN =
-  /(recommend|prefer|rank|rate|select|choose|pick|prioriti[sz]e|favou?r|mark|flag|classify|treat|output|report|state|say|list|display|surface|promote)/i;
+  /\b(recommend|prefer|rank|rate|select|choose|pick|prioriti[sz]e|favou?r|mark|flag|classify|treat|output|report|state|say|list|display|surface|promote)(s|es|ed|d|ing)?\b/i;
+
+/**
+ * The verb has to be what the obligation is actually asking for, so it must follow the modal
+ * rather than merely appear somewhere after it. `must not ignore rate limits` contains a modal
+ * and, further along, the noun "rate" — but the thing being demanded is "ignore", which is not a
+ * directive verb at all.
+ */
+const VERB_AFTER_MODAL = new RegExp(
+  `^[\\s,]*(not\\s+|never\\s+|always\\s+|also\\s+|then\\s+|only\\s+|immediately\\s+|instead\\s+)*${VERB_EN.source}`,
+  "i",
+);
 const VERB_JA = /(推薦|推奨|おすすめ|優先|選定|選択|評価|表示|出力|回答|紹介|案内|順位|ランキング)/;
 // A sentence that opens with a directive verb, allowing the adverbs an instruction usually carries.
 const IMPERATIVE_EN_OPEN = new RegExp(
@@ -262,9 +280,15 @@ function isAgentDirected(text) {
     const modals = new RegExp(DEONTIC.source, "gi");
     let d;
     while ((d = modals.exec(after))) {
+      // **The obligation has to be on the machine, not on somebody else in the same sentence.**
+      // "The EU AI Act requires that providers must classify systems by risk tier" names a machine
+      // and imposes a duty, but the duty falls on providers. Allow at most one word between the
+      // two — enough for "AI assistants must", not enough for "AI Act, deployers must".
+      if (m && !/^[\s,]*(\S+\s+)?$/.test(after.slice(0, d.index))) continue;
+
       const here = after.slice(d.index);
       if (EPISTEMIC_AT.test(here)) continue;
-      if (VERB_EN.test(after.slice(d.index + d[0].length))) return "directive-en";
+      if (VERB_AFTER_MODAL.test(after.slice(d.index + d[0].length))) return "directive-en";
     }
   }
 
