@@ -60,6 +60,12 @@ was drafted in Japanese first. English strings will be added alongside them in v
 The case HTML, the expected verdicts, and the runner are language-independent, so the suite
 runs correctly either way.
 
+## License
+
+`cases.json` is [CC BY 4.0](../LICENSE), like the rest of the definition.
+**`run.mjs` is [MIT](../LICENSE-CODE)**, so you can vendor it into a build pipeline without
+carrying a content license through your toolchain.
+
 ## Version
 
 v0.1 (2026-07-30). The definition: <https://perpensum.org/> (English, authoritative) /

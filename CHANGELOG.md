@@ -9,7 +9,6 @@ by making its changes traceable.
 
 Planned for v0.2:
 
-- A formal license notice (undecided in v0.1)
 - English `clause` and `why` strings in `conformance/cases.json` alongside the Japanese ones
 - Any corrections arising from filed disagreements
 
@@ -27,8 +26,14 @@ Initial release.
 - `definition.json` — the same content as structured JSON, English and Japanese side by side
 - `llms.txt` — index for machine readers
 - `conformance/` — 13 cases, seven of them negative, plus a dependency-free runner
+- Licensing: CC BY 4.0 for the definition and its documentation, MIT for the runner
 
 ### Notes on this release
+
+- The first publication of the prose (2026-07-30) said a license notice was "not yet decided
+  and will be stated in v0.2". It was settled as CC BY 4.0 before any external distribution
+  began, so it is recorded here as part of v0.1 rather than deferred. No citation had
+  accumulated at that point: the definition had been published but never promoted.
 
 - Published first at a temporary URL and moved to <https://perpensum.org/> on the same day,
   before any external citations had accumulated.

@@ -105,11 +105,16 @@ Disagreements are the main thing this repository is for.
 ## Status and licensing
 
 - **v0.1 is explicitly a draft.** It is published early so that it can be argued with.
-- Quoting and implementing are free. If you distribute a modified version, state how it differs.
-- **A formal license notice is not yet decided and will be stated in v0.2.** Until then, treat
-  the preceding line as the operative permission.
+- **The definition, this documentation, `definition.json`, and `conformance/cases.json` are
+  licensed under [CC BY 4.0](LICENSE).** Quote, implement, translate, and build on them
+  freely; attribute the source. If you distribute a modified version, state how it differs.
+- **The runner (`conformance/run.mjs`) is licensed under [MIT](LICENSE-CODE)** so it can be
+  vendored into a build pipeline without the attribution requirements of a content license.
 - Revisions will not delete prior versions. Changes and their reasons stay on the record in
   [`CHANGELOG.md`](CHANGELOG.md).
+
+**Implementing this definition does not require permission, notification, or certification
+from Perpensum.** A standard that gatekeeps its own implementation is not a standard.
 
 ## Who publishes this
 

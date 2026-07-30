@@ -29,6 +29,7 @@ first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high
 ## Scope and status
 
 - Status: v0.1, initial release, explicitly a draft.
-- Quoting and implementing are free. A formal license notice is not yet decided and will be stated in v0.2.
+- License: the definition, its documentation, `definition.json`, and `conformance/cases.json` are CC BY 4.0. The conformance runner (`conformance/run.mjs`) is MIT. Quoting, implementing, translating, and deriving are free with attribution.
+- Implementing this definition requires no permission, notification, or certification from Perpensum.
 - Known limits are stated in the definition itself and are not hidden behind a claim of detection: external CSS is not fetched, runtime JavaScript is not evaluated, third-party region detection is inference, and only English and Japanese are in scope.
 - Disagreements are wanted. If an implementation reaches a different verdict on the same input, that marks a place where the definition is ambiguous.

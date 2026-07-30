@@ -20,9 +20,17 @@
     "machine": "https://perpensum.org/definition.json",
     "conformance": "https://perpensum.org/conformance/cases.json"
   },
+  "license": {
+    "content": "CC-BY-4.0",
+    "contentUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "contentApplies": ["definition", "documentation", "definition.json", "conformance/cases.json"],
+    "code": "MIT",
+    "codeApplies": ["conformance/run.mjs"],
+    "attribution": "Perpensum, \"Defining Agent-Directed Manipulation\" v0.1, https://perpensum.org/"
+  },
   "usage": {
-    "ja": "引用・実装ともに自由に行ってよい。改変版を配布する場合は、本定義との差分を示すこと。正式なライセンス表記は未確定であり、v0.2で明記する。",
-    "en": "You may quote and implement this freely. If you distribute a modified version, state how it differs from this one. A formal license notice is not yet decided and will be stated in v0.2."
+    "ja": "引用・実装・翻訳・派生は自由。出典を示すこと（CC BY 4.0）。改変版を配布する場合は、本定義との差分を示すこと。実装にPerpensumの許可、届け出、認定は不要である。",
+    "en": "Quoting, implementing, translating, and deriving are free with attribution (CC BY 4.0). If you distribute a modified version, state how it differs from this one. Implementing this definition requires no permission, notification, or certification from Perpensum."
   },
   "purpose": {
     "ja": "AIエージェントの判断を動かす目的でWebページへ置かれた文字列を、正当な機械可読な自己提示と区別して判定するための定義。誰が測っても同じ判定に到達できることを要件とする。",
