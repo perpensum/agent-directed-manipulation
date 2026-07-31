@@ -126,6 +126,15 @@ node reference/false-positive-sweep.test.mjs
 [Issueで指摘してほしい](https://github.com/perpensum/agent-directed-manipulation/issues)。
 書き方は [CONTRIBUTING.md](CONTRIBUTING.md) にある。**日本語で構わない。**
 
+## APQV Playground
+
+このリポジトリには、定義とは別の依存なし実験として
+[APQV Playground](https://perpensum.org/playground) も含む。提供側が `succeeded` を返したことと、
+買い手の事前目的に対して購買成果が利用可能だったことが別であると、合成証拠を変更しながら確認できる。
+
+実在売主の評価、不正の断定、絶対品質、横断相場は扱わない。ブラウザへ静的ファイルを配るだけで、
+入力はアップロードも保存もされない。Playgroundのコードは [MIT](LICENSE-CODE) で公開する。
+
 ## 答えを持っていない論点
 
 v0.1 は議論されるために出しているので、著者側の未解決点も公開している。

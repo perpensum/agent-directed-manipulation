@@ -145,6 +145,17 @@ where the definition is open to more than one reading — which is a defect in t
 Please [open an issue](https://github.com/perpensum/agent-directed-manipulation/issues).
 Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## APQV Playground
+
+The repository also contains a separate, dependency-free experiment:
+[the APQV Playground](https://perpensum.org/playground). It uses synthetic evidence to show why
+a provider reporting `succeeded` does not establish that a purchase outcome was usable for the
+buyer's frozen purpose.
+
+It makes no real-seller evaluation, fraud conclusion, absolute quality claim, or cross-buyer
+benchmark. The browser receives static files only; no input is uploaded or saved. The playground
+code is licensed under [MIT](LICENSE-CODE).
+
 ## If you want your own site watched
 
 A one-off check is not the useful thing — **being told when something changes is.** Third-party

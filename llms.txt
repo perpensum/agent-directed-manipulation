@@ -14,6 +14,12 @@ rather than a finding, but a document that defines the line should not sit on it
 The severity matrix in one line: first_party+visible = info (not a finding),
 first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high.
 
+## APQV Playground
+
+- [Interactive synthetic demo](https://perpensum.org/playground): Change payment, delivery, provider status, retry rights, and buyer-side usability evidence. The demo returns one of five bounded outcome states and a next-purchase action.
+- Scope: synthetic data only; no login, upload, persistence, real seller evaluation, fraud conclusion, or cross-buyer benchmark.
+- Source: [playground directory](https://github.com/perpensum/agent-directed-manipulation/tree/main/playground), licensed under MIT.
+
 ## Definition
 
 - [Definition (English, authoritative)](https://perpensum.org/): The full definition — two axes, severity matrix, what counts as hidden, what is deliberately not detected, and the known limits.

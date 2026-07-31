@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>APQV Playground — Perpensum</title>
+  <meta name="description" content="Change synthetic purchase evidence and see how buyer-side usability changes the next machine purchase decision.">
+  <link rel="canonical" href="https://perpensum.org/playground">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="APQV Playground — Perpensum">
+  <meta property="og:description" content="Provider success is not the same as a usable purchase outcome. Try the distinction with synthetic evidence.">
+  <meta property="og:url" content="https://perpensum.org/playground">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/playground/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/playground/og.png">
+  <link rel="stylesheet" href="/playground/styles.css">
+  <script type="module" src="/playground/app.js"></script>
+</head>
+<body>
+<main>
+  <p class="eyebrow"><a href="/">Perpensum</a> / APQV Playground</p>
+  <h1>Was this machine purchase usable?</h1>
+  <p class="lede">A provider can return <strong>succeeded</strong> while the buyer still receives an unusable result. Change the evidence below to see how Agentic Purchase Quality Verification separates the two.</p>
+  <p class="muted">This public demo uses synthetic data. Nothing is sent to a server or saved.</p>
+
+  <ol class="flow" aria-label="Purchase evidence sequence">
+    <li><strong>1. Mandate</strong><span>What the buyer needed</span></li>
+    <li><strong>2. Promise</strong><span>What the seller represented</span></li>
+    <li><strong>3. Payment</strong><span>What was charged</span></li>
+    <li><strong>4. Delivery</strong><span>What the provider returned</span></li>
+    <li><strong>5. Buyer outcome</strong><span>What was actually usable</span></li>
+  </ol>
+
+  <div class="workspace">
+    <section class="panel" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Synthetic purchase evidence</h2>
+      <p><strong>Mandate:</strong> Extract 8 required invoice fields and 2 line items as readable JSON within 60 seconds.</p>
+      <p><strong>Seller promise:</strong> Structured invoice extraction suitable for downstream processing.</p>
+
+      <h3>Try a case</h3>
+      <div class="presets" id="presets" aria-label="Example cases"></div>
+      <p id="case-summary" class="muted"></p>
+
+      <form id="evidence-form">
+        <fieldset>
+          <legend>Change individual observations</legend>
+          <label class="field">
+            <span>Provider-reported status</span>
+            <select name="provider_status">
+              <option value="succeeded">Succeeded</option>
+              <option value="failed">Failed</option>
+              <option value="unknown">Unknown</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Payment</span>
+            <select name="payment_status">
+              <option value="paid">Paid</option>
+              <option value="not_paid">Not paid</option>
+              <option value="unknown">Unknown</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Delivery</span>
+            <select name="delivery_status">
+              <option value="received">Received</option>
+              <option value="missing">Missing</option>
+              <option value="unknown">Unknown</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Retry without repurchasing</span>
+            <select name="retry_entitlement">
+              <option value="none">Not available</option>
+              <option value="available">Available</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Usable for the mandate</span>
+            <select name="buyer_usability">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              <option value="unknown">Not observed</option>
+            </select>
+          </label>
+          <label class="field check">
+            <input type="checkbox" name="requirements_frozen_before_purchase">
+            <span>Acceptance criteria were recorded before purchase</span>
+          </label>
+        </fieldset>
+      </form>
+    </section>
+
+    <aside class="result" id="result" data-tone="unknown" aria-live="polite">
+      <p class="eyebrow">APQV outcome state</p>
+      <p class="result-state" id="result-state">—</p>
+      <p class="result-action" id="result-action"></p>
+      <h3>Why</h3>
+      <ul id="result-reasons"></ul>
+      <h3>Evidence gaps</h3>
+      <ul id="evidence-gaps"></ul>
+      <h3>Fraud conclusion</h3>
+      <p>Not determined. A mismatch or failure is not, by itself, proof of fraud.</p>
+    </aside>
+  </div>
+
+  <section class="limits">
+    <h2>What this demonstrates</h2>
+    <ul>
+      <li>Purchase authorization and provider success do not establish buyer-side usability.</li>
+      <li>Pre-purchase criteria make the outcome comparison reproducible.</li>
+      <li>The result can change the next purchase action: allow, hold, retry, or collect evidence.</li>
+    </ul>
+    <h2>What it does not claim</h2>
+    <ul>
+      <li>No real seller, product, or transaction is evaluated.</li>
+      <li>No absolute quality, satisfaction, ROI, or fraudulent intent is determined.</li>
+      <li>No cross-buyer benchmark or market price is used.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Experimental public artifact, 2026-08-01. The evaluation code is available under the MIT License in the <a href="https://github.com/perpensum/agent-directed-manipulation/tree/main/playground">source repository</a>. <a href="/contact">Contact Perpensum</a>.</p>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,67 @@
+export const CASES = Object.freeze([
+  {
+    id: "provider-success-unusable",
+    name: "Provider succeeded; buyer cannot use it",
+    summary: "The API returned success, but two required invoice fields are missing.",
+    input: {
+      provider_status: "succeeded",
+      payment_status: "paid",
+      delivery_status: "received",
+      retry_entitlement: "none",
+      buyer_usability: "no",
+      requirements_frozen_before_purchase: true,
+    },
+  },
+  {
+    id: "usable",
+    name: "Delivered and usable",
+    summary: "The result contains all required fields in readable JSON.",
+    input: {
+      provider_status: "succeeded",
+      payment_status: "paid",
+      delivery_status: "received",
+      retry_entitlement: "none",
+      buyer_usability: "yes",
+      requirements_frozen_before_purchase: true,
+    },
+  },
+  {
+    id: "paid-no-delivery",
+    name: "Paid; nothing delivered",
+    summary: "Payment settled, no output arrived, and there is no durable retry right.",
+    input: {
+      provider_status: "failed",
+      payment_status: "paid",
+      delivery_status: "missing",
+      retry_entitlement: "none",
+      buyer_usability: "no",
+      requirements_frozen_before_purchase: true,
+    },
+  },
+  {
+    id: "retryable",
+    name: "Delivery pending; retry remains",
+    summary: "No output arrived, but the paid job can still be retried without repurchasing.",
+    input: {
+      provider_status: "failed",
+      payment_status: "paid",
+      delivery_status: "missing",
+      retry_entitlement: "available",
+      buyer_usability: "no",
+      requirements_frozen_before_purchase: true,
+    },
+  },
+  {
+    id: "insufficient",
+    name: "Evidence is incomplete",
+    summary: "A result exists, but the buyer never recorded whether it was usable.",
+    input: {
+      provider_status: "succeeded",
+      payment_status: "paid",
+      delivery_status: "received",
+      retry_entitlement: "none",
+      buyer_usability: "unknown",
+      requirements_frozen_before_purchase: true,
+    },
+  },
+]);
