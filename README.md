@@ -150,15 +150,14 @@ Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](C
 A one-off check is not the useful thing — **being told when something changes is.** Third-party
 regions are exactly where you are not looking.
 
-**Until it exists, I will scan it for you by hand.** Name a domain you run on
-[issue #4](https://github.com/perpensum/agent-directed-manipulation/issues/4) — no signup, no form,
-no email address, nothing to install. You get back two numbers, `N pages scanned, M findings`, and
-that is all that goes in public. **A count is not an accusation, and it is not a map.** Locations
-and evidence go only to whoever controls the domain.
+**I am not offering to scan it for you.** That offer stood for a few hours on 2026-07-31 and was
+withdrawn the same day: our own scanning is paused, and the offer went out without that being
+checked. It is [retracted in the open](https://github.com/perpensum/agent-directed-manipulation/issues/4)
+rather than edited away.
 
-**You should know what I get out of it:** I need to find out how often this definition is wrong
-about real sites, and I cannot learn that from sites I own. **If a finding on your site turns out
-to be wrong, that is the most useful thing that can happen to me that day.**
+**What works needs nothing from us.** [`reference/scan.mjs`](reference/scan.mjs) runs on your
+machine, on any page you give it. **If it says something wrong about your page, that is the most
+useful thing you can tell us** — it becomes a conformance case.
 
 Continuous monitoring does not exist as a product. There is no date, no price, and no waitlist.
 
