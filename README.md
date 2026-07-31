@@ -1,5 +1,10 @@
 # Defining Agent-Directed Manipulation
 
+> **Perpensum's primary category proposal is now [Agentic Purchase Quality Verification
+> (APQV)](https://perpensum.org/apqv), a buyer-side quality layer for agentic commerce.**
+> This repository keeps the supporting threat definition below and also hosts the APQV proposal
+> and its synthetic Playground. The older definition has not been deleted or renamed.
+
 **A reproducible definition that separates agent-directed manipulation from legitimate
 machine-readable self-presentation.**
 
@@ -8,6 +13,8 @@ machine-readable self-presentation.**
 - Structured form: [`definition.json`](definition.json)
 - Conformance suite: [`conformance/`](conformance/) — 26 cases
 - Status: **v0.1, draft**, published 2026-07-30
+- APQV proposal: <https://perpensum.org/apqv>
+- APQV Playground: <https://perpensum.org/playground>
 
 日本語版の README: [`README.ja.md`](README.ja.md)
 

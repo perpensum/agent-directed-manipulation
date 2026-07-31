@@ -7,6 +7,14 @@ by making its changes traceable.
 
 ## [Unreleased]
 
+### APQV proposal added as separate work (2026-08-01)
+
+- Added `/apqv` as Perpensum's proposed category for buyer-side agentic purchase quality
+  verification, with a matching structured definition and synthetic Playground.
+- Reframed this repository and the public navigation so Agent-Directed Manipulation is clearly a
+  supporting threat definition, not the whole APQV category.
+- **The Agent-Directed Manipulation v0.1 definition and its conformance verdicts did not change.**
+
 Planned for v0.2:
 
 - English `clause` and `why` strings in `conformance/cases.json` alongside the Japanese ones

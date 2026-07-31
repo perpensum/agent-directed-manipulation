@@ -1,5 +1,10 @@
 # エージェント向け誘導の定義
 
+> **Perpensumが現在主語にするカテゴリー提案は
+> [Agentic Purchase Quality Verification（APQV）](https://perpensum.org/apqv) です。**
+> 本リポジトリは、以下の補助的な脅威定義を履歴ごと残しつつ、APQVの公開定義と
+> 合成Playgroundも収録します。旧定義は削除も改名もしていません。
+
 **AIエージェントの判断を動かすためにWebページへ置かれた文字列を、
 正当な機械可読な自己提示と区別して判定するための定義。**
 
@@ -8,6 +13,8 @@
 - 構造化版: [`definition.json`](definition.json)
 - 適合性テスト: [`conformance/`](conformance/) — 26ケース
 - 状態: **v0.1 ドラフト**（2026-07-30 公開）
+- APQV提案: <https://perpensum.org/apqv>
+- APQV Playground: <https://perpensum.org/playground>
 
 English README: [`README.md`](README.md)（こちらが正）
 

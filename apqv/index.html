@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agentic Purchase Quality Verification (APQV) — Perpensum</title>
+  <meta name="description" content="A proposed buyer-side quality layer for agentic commerce: compare the purchase mandate, seller promise, transaction, delivery, and buyer-observed outcome before the next machine purchase.">
+  <link rel="canonical" href="https://perpensum.org/apqv">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Agentic Purchase Quality Verification (APQV)">
+  <meta property="og:description" content="A proposed buyer-side quality layer for agentic commerce.">
+  <meta property="og:url" content="https://perpensum.org/apqv">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/apqv/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/apqv/og.png">
+  <link rel="stylesheet" href="/apqv/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Agentic Purchase Quality Verification (APQV)",
+    "description": "A proposed buyer-side quality layer for agentic commerce.",
+    "datePublished": "2026-08-01",
+    "version": "0.1",
+    "creativeWorkStatus": "Proposal",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://perpensum.org/apqv",
+    "author": {
+      "@type": "Organization",
+      "name": "Perpensum",
+      "url": "https://perpensum.org/"
+    }
+  }
+  </script>
+</head>
+<body>
+<main>
+  <p class="eyebrow"><a href="/">Perpensum</a> / Proposed category / Version 0.1</p>
+  <h1>Agentic Purchase Quality Verification</h1>
+  <p class="subtitle">APQV: a proposed buyer-side quality layer for agentic commerce</p>
+
+  <div class="definition">
+    <p><strong>Agentic Purchase Quality Verification (APQV)</strong> is the continuous, evidence-based process of independently comparing an AI agent's purchase mandate and constraints with the selected source, seller representations, price, transaction, delivery, and buyer-observed outcome, then using observed matches, mismatches, risk signals, and evidence gaps to inform the next purchase decision.</p>
+  </div>
+
+  <p><strong>Quality here means the quality of the purchase as a whole, not the absolute quality of the product or service.</strong> APQV does not answer whether a purchase was universally good. It asks how the executed purchase and observed outcome aligned with the buyer's conditions, and what the evidence justifies doing next.</p>
+
+  <p class="actions"><a class="primary" href="/playground">Try the synthetic Playground</a> <a href="/apqv/definition.json">Read the machine-readable definition</a></p>
+
+  <h2>The missing question</h2>
+
+  <table>
+    <thead><tr><th>Existing evidence</th><th>Question it can answer</th><th>Question that remains</th></tr></thead>
+    <tbody>
+      <tr><td>Mandate and authorization</td><td>Was the agent allowed to buy?</td><td>Did the authorized purchase satisfy the purpose?</td></tr>
+      <tr><td>Checkout and payment</td><td>Was an order placed and value transferred?</td><td>Was the result usable by the buyer?</td></tr>
+      <tr><td>Provider status and delivery receipt</td><td>Did the provider report success or issue a response?</td><td>Did the response meet the pre-purchase criteria?</td></tr>
+      <tr><td>Order and fulfillment record</td><td>What did the seller record as fulfilled?</td><td>What did the buyer independently observe?</td></tr>
+    </tbody>
+  </table>
+
+  <p>These layers are complementary. <a href="https://modelcontextprotocol.io/specification/latest/server/tools">MCP</a> and <a href="https://a2a-protocol.org/latest/specification/">A2A</a> connect tools and agents. <a href="https://ucp.dev/">UCP</a> and <a href="https://github.com/agentic-commerce-protocol/agentic-commerce-protocol">ACP</a> represent commerce flows. <a href="https://github.com/google-agentic-commerce/AP2">AP2</a> supplies mandate and authorization evidence. Payment and receipt systems record settlement and response events. <strong>APQV would consume that evidence without treating any one of those events as proof that the buyer's purpose was met.</strong></p>
+
+  <h2>Why this becomes necessary</h2>
+
+  <p>Companies are beginning to give AI agents mandates and budgets. If agents buy data, inference, research, software actions, and work from other agents or APIs, transaction volume can grow beyond what people can inspect one purchase at a time.</p>
+
+  <p>A buyer agent can learn from its own history, but its view begins cold and remains narrow. The APQV hypothesis is that machine purchasing needs an independent quality layer that observes the same bounded evidence across purchases, detects repeatable mismatches, and returns that evidence to the point where the next purchase is selected.</p>
+
+  <p>This is structurally similar to media quality verification in digital advertising: once machines execute purchases at high volume, the buyer needs an independent measurement and control layer. The object being measured is different. APQV measures an agentic purchase against the buyer's mandate and observed outcome.</p>
+
+  <h2>The APQV loop</h2>
+
+  <ol class="loop">
+    <li><strong>Commit the buyer's purpose.</strong><span>Record constraints and acceptance criteria before the result is known.</span></li>
+    <li><strong>Snapshot the offer.</strong><span>Preserve the selected source, seller representations, price, and terms.</span></li>
+    <li><strong>Observe the transaction.</strong><span>Keep authorization, order, payment, delivery, retry, and refund evidence separate by provenance.</span></li>
+    <li><strong>Observe the buyer-side outcome.</strong><span>Test whether the delivered result can actually be used for the committed purpose.</span></li>
+    <li><strong>Compare and return.</strong><span>Report matches, mismatches, risk signals, evidence gaps, and the bounded action justified before the next purchase.</span></li>
+  </ol>
+
+  <h2>A minimal outcome vocabulary</h2>
+
+  <p>The current experiment uses five states. They are deliberately operational rather than universal seller scores.</p>
+
+  <table>
+    <thead><tr><th>State</th><th>Observed meaning</th><th>Typical next action</th></tr></thead>
+    <tbody>
+      <tr><td><code>usable</code></td><td>Delivery met the frozen criteria for this purpose.</td><td>Keep eligible</td></tr>
+      <tr><td><code>delivered_unusable</code></td><td>A delivery arrived but did not meet the frozen criteria.</td><td>Hold for the same purpose</td></tr>
+      <tr><td><code>paid_without_delivery</code></td><td>Payment was observed without delivery or a durable recovery path.</td><td>Hold and investigate</td></tr>
+      <tr><td><code>delivery_pending_recoverable</code></td><td>Delivery is missing, but retry remains available without repurchasing.</td><td>Retry the entitlement</td></tr>
+      <tr><td><code>insufficient_evidence</code></td><td>The record cannot support a bounded conclusion.</td><td>Collect evidence</td></tr>
+    </tbody>
+  </table>
+
+  <p><a href="/playground">The APQV Playground</a> lets you change synthetic evidence and see these states update. Its default case is a provider that reports <code>succeeded</code> while the buyer's required fields are missing.</p>
+
+  <h2>What APQV does not claim</h2>
+
+  <ul>
+    <li>It does not determine absolute product or service quality.</li>
+    <li>It does not measure satisfaction, taste, or emotional value.</li>
+    <li>It does not infer fraudulent intent from a mismatch or failure alone.</li>
+    <li>It does not claim safety or fitness outside the observed evidence and committed purpose.</li>
+    <li>It does not manufacture a benchmark when comparable data is insufficient.</li>
+  </ul>
+
+  <h2>Initial scope</h2>
+
+  <p>The first practical scope is <strong>machine-verifiable digital outcomes and services</strong>: API results, extraction, transcription, translation, generation, analysis, datasets, and paid agent work. These can be observed by the buying system without requiring a person, sensor, or logistics partner to inspect a physical item.</p>
+
+  <p>Physical goods remain within the long-term idea, but they add evidence problems—condition, authenticity, durability, returns—that should not be hidden behind a premature claim of coverage.</p>
+
+  <h2>Open questions</h2>
+
+  <ol>
+    <li>Which buyer-side observations can be collected without exposing sensitive business data?</li>
+    <li>Where should an independent quality check sit so it can affect the next purchase?</li>
+    <li>Which outcome states remain comparable across different digital purchase purposes?</li>
+    <li>How should cross-buyer evidence be aggregated without exposing participants or coordinating prices?</li>
+    <li>When is a mismatch evidence of poor fulfillment, and when is there enough evidence to investigate fraud?</li>
+  </ol>
+
+  <h2>Status and authorship</h2>
+
+  <p><strong>APQV is a proposed category, not an adopted standard.</strong> Version 0.1 is published to make the boundary testable and to invite disagreement. The five outcome states are a minimal working vocabulary, not a claim that every future purchase fits them.</p>
+
+  <p>Perpensum proposes the term and is building an independent APQV evaluation layer, so it has a commercial interest in the category. That interest is stated rather than hidden. Perpensum does not accept payment, partnership, or preferential terms from an evaluated party in exchange for how that party is evaluated.</p>
+
+  <p>The definition and this document are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Quote, critique, implement, and derive from them with attribution. The <a href="/apqv/definition.json">structured definition</a> is published alongside the prose.</p>
+
+  <footer>
+    <p>Published 2026-08-01 by Perpensum. <a href="/playground">Playground</a> · <a href="/apqv/definition.json">JSON definition</a> · <a href="https://github.com/perpensum/agent-directed-manipulation/tree/main/apqv">Source</a> · <a href="/contact">Contact</a></p>
+    <p><a href="/">Agent-Directed Manipulation</a> remains published as a supporting threat definition. It is not the APQV category itself.</p>
+  </footer>
+</main>
+</body>
+</html>

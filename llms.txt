@@ -1,18 +1,15 @@
-# Agent-Directed Manipulation — Definition v0.1
+# Perpensum — Agentic Purchase Quality Verification and supporting work
 
-> A reproducible definition that separates agent-directed manipulation from legitimate
-> machine-readable self-presentation. Classification uses two mechanically decidable axes —
-> region (first_party / third_party) and visibility (visible / hidden) — and no subjective
-> axis. Published 2026-07-30 by Perpensum at https://perpensum.org/.
+> Perpensum proposes Agentic Purchase Quality Verification (APQV), a buyer-side quality layer
+> for agentic commerce. It independently compares the pre-purchase mandate with the selected
+> source, seller representations, transaction, delivery, and buyer-observed outcome, then returns
+> bounded evidence to the next purchase decision.
 
-This file is itself an example of what the definition calls clean: machine-readable
-self-presentation, stated in the open, where humans can read the same text. It describes
-what is here. It does not instruct the reader's judgment, output, or ranking — by the
-definition below, doing so from a first-party surface would be ordinary advertising copy
-rather than a finding, but a document that defines the line should not sit on it.
+## APQV category proposal
 
-The severity matrix in one line: first_party+visible = info (not a finding),
-first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high.
+- [Canonical proposal](https://perpensum.org/apqv): Definition, protocol boundary, evidence loop, minimal outcome vocabulary, non-claims, and open questions.
+- [Machine-readable APQV definition](https://perpensum.org/apqv/definition.json): Version 0.1 structured form.
+- Status: a proposed category, not an adopted standard.
 
 ## APQV Playground
 
@@ -21,6 +18,14 @@ first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high
 - Source: [playground directory](https://github.com/perpensum/agent-directed-manipulation/tree/main/playground), licensed under MIT.
 
 ## Definition
+
+The following is a supporting threat definition retained as independent work. It is not the APQV category itself.
+
+This file's machine-readable self-presentation is visible to human readers and does not instruct
+the reader's judgment, output, or ranking. Under the supporting definition, that is clean.
+
+The severity matrix in one line: first_party+visible = info (not a finding),
+first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high.
 
 - [Definition (English, authoritative)](https://perpensum.org/): The full definition — two axes, severity matrix, what counts as hidden, what is deliberately not detected, and the known limits.
 - [定義（日本語）](https://perpensum.org/ja): 同じ内容の日本語版。解釈が割れた場合は英語版を正とする。

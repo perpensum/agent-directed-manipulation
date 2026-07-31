@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Agentic Purchase Quality Verification",
+  "acronym": "APQV",
+  "version": "0.1",
+  "status": "proposed-category",
+  "date_published": "2026-08-01",
+  "proposed_by": "Perpensum",
+  "canonical_url": "https://perpensum.org/apqv",
+  "definition": "Agentic Purchase Quality Verification (APQV) is the continuous, evidence-based process of independently comparing an AI agent's purchase mandate and constraints with the selected source, seller representations, price, transaction, delivery, and buyer-observed outcome, then using observed matches, mismatches, risk signals, and evidence gaps to inform the next purchase decision.",
+  "quality_meaning": "Quality means the quality of the purchase as a whole, not the absolute quality of the product or service.",
+  "primary_question": "How did the executed purchase and its observed outcome align with the buyer's pre-purchase mandate and constraints?",
+  "authorization_boundary": {
+    "authorization_question": "Was this agent allowed to make this purchase?",
+    "apqv_question": "Did the authorized purchase produce an outcome that aligned with the buyer's pre-purchase conditions?"
+  },
+  "loop": [
+    {
+      "stage": "commit",
+      "evidence": ["buyer purpose", "constraints", "acceptance criteria"],
+      "timing": "before purchase"
+    },
+    {
+      "stage": "snapshot",
+      "evidence": ["selected source", "seller representations", "price", "terms"],
+      "timing": "before purchase"
+    },
+    {
+      "stage": "observe_transaction",
+      "evidence": ["authorization", "order", "payment", "delivery", "retry or refund rights"],
+      "timing": "during and after purchase"
+    },
+    {
+      "stage": "observe_outcome",
+      "evidence": ["buyer-side usability", "downstream acceptance", "measured result"],
+      "timing": "after delivery"
+    },
+    {
+      "stage": "compare_and_return",
+      "evidence": ["matches", "mismatches", "risk signals", "evidence gaps", "next-purchase action"],
+      "timing": "before the next purchase"
+    }
+  ],
+  "minimal_outcome_states": [
+    {
+      "id": "usable",
+      "meaning": "The observed delivery met the buyer's frozen acceptance criteria for this purpose."
+    },
+    {
+      "id": "delivered_unusable",
+      "meaning": "A delivery was observed, but it did not meet the buyer's frozen acceptance criteria."
+    },
+    {
+      "id": "paid_without_delivery",
+      "meaning": "Payment was observed, but delivery and a durable recovery path were not."
+    },
+    {
+      "id": "delivery_pending_recoverable",
+      "meaning": "Delivery was not observed, but the buyer retains a durable right to retry without repurchasing."
+    },
+    {
+      "id": "insufficient_evidence",
+      "meaning": "The available record cannot support a bounded purchase-quality conclusion."
+    }
+  ],
+  "does_not_claim": [
+    "absolute product or service quality",
+    "buyer satisfaction or emotional value",
+    "fraudulent intent from a mismatch alone",
+    "seller safety outside the observed evidence",
+    "fitness for purposes not committed before purchase",
+    "a market benchmark when comparison data is insufficient"
+  ],
+  "protocol_relationships": [
+    {
+      "layer": "MCP and A2A",
+      "role": "Connect tools and agents and carry task evidence.",
+      "apqv_use": "Evidence transport, not the quality judgment itself."
+    },
+    {
+      "layer": "UCP and ACP",
+      "role": "Represent commerce objects, checkout, orders, and fulfillment.",
+      "apqv_use": "Structured transaction and seller-side fulfillment evidence."
+    },
+    {
+      "layer": "AP2",
+      "role": "Provide mandate and payment authorization evidence.",
+      "apqv_use": "Evidence that a purchase was authorized, not that its outcome was usable."
+    },
+    {
+      "layer": "Payment and receipt systems",
+      "role": "Provide payment, settlement, and response evidence.",
+      "apqv_use": "Evidence that value or bytes moved, not that the buyer's purpose was met."
+    }
+  ],
+  "initial_scope": "Machine-verifiable digital outcomes and services, including API results, data extraction, transcription, translation, generation, analysis, and paid agent work.",
+  "open_questions": [
+    "Which buyer-side observations can be collected without exposing sensitive business data?",
+    "Where should an independent quality check sit so that it can affect the next purchase?",
+    "Which outcome states remain comparable across different digital purchase purposes?",
+    "How should cross-buyer evidence be aggregated without exposing participants or coordinating prices?",
+    "When is a mismatch evidence of poor fulfillment, and when is there enough evidence to investigate fraud?"
+  ],
+  "playground": "https://perpensum.org/playground",
+  "source": "https://github.com/perpensum/agent-directed-manipulation/tree/main/apqv",
+  "license": "CC-BY-4.0"
+}
