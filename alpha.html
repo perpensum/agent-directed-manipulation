@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hosted Alpha — Perpensum</title>
+<meta name="description" content="Connect a Claude Code or Codex buyer agent to Perpensum and run one no-money synthetic machine purchase through an independent APQV loop.">
+<link rel="canonical" href="https://perpensum.org/alpha">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Perpensum Hosted Alpha">
+<meta property="og:description" content="Run one no-money synthetic machine purchase through an independent buyer-side quality loop.">
+<meta property="og:url" content="https://perpensum.org/alpha">
+<meta property="og:site_name" content="Perpensum">
+<style>
+  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+  h1{font-size:1.8rem;line-height:1.25;margin:0 0 .5rem}
+  h2{font-size:1.15rem;margin:2.5rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
+  p,li{margin:.75rem 0}
+  ol,ul{padding-left:1.25rem}
+  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
+  .note{border-left:3px solid var(--accent);padding:.6rem 0 .6rem 1rem;margin:1.5rem 0;color:var(--muted)}
+  .action{margin:1.75rem 0}
+  .button{display:inline-block;background:var(--fg);color:var(--bg);padding:.65rem 1rem;border-radius:4px;text-decoration:none;font-weight:600}
+  .button:hover{text-decoration:underline}
+  strong{font-weight:600}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Connect your buyer agent to Perpensum</h1>
+<p class="sub">Private Hosted Alpha · one synthetic purchase · no money or production credentials</p>
+
+<div class="note">
+<strong>This is an acceptance test, not a production service.</strong> Your Claude Code or Codex agent sends a purchase plan to its local Perpensum Gateway, receives a pre-purchase decision, executes a no-money synthetic digital purchase, and returns a buyer-observed outcome. A person does not re-enter the plan or evidence for the transaction.
+</div>
+
+<p>Perpensum is testing <a href="/apqv">Agentic Purchase Quality Verification (APQV)</a>: an independent buyer-side layer that compares what an agent intended to buy with what was selected, delivered, and usable before the next machine purchase.</p>
+
+<p class="action"><a class="button" href="mailto:hello@perpensum.org?subject=Hosted%20Alpha%20pilot">Request a private Alpha invitation</a></p>
+
+<h2>Who this is for</h2>
+
+<ul>
+<li>You build or operate a buyer-side AI agent.</li>
+<li>You use Claude Code or Codex on a Mac.</li>
+<li>You are willing to let the agent run one synthetic digital purchase through Perpensum.</li>
+<li>You want to test where purchase intent, authorization, delivery, and buyer-observed usability should meet.</li>
+</ul>
+
+<p>No agentic-commerce protocol or live payment integration is required for the first run. The included synthetic seller returns machine-readable JSON and charges nothing.</p>
+
+<h2>What happens</h2>
+
+<ol>
+<li><strong>We issue one private invitation.</strong> It is scoped to one pseudonymous buyer agent and a one-purchase, no-money mandate.</li>
+<li><strong>You install the buyer-side Gateway.</strong> The Console provides a Mac download and a local setup page for Claude Code or Codex.</li>
+<li><strong>Your agent makes the request.</strong> It fixes the purpose and success condition before the synthetic purchase, then calls one Perpensum purchase tool.</li>
+<li><strong>Perpensum checks before execution.</strong> The Hosted Control Plane checks the mandate and returns a short-lived, one-use decision ticket.</li>
+<li><strong>The Gateway observes the outcome.</strong> It evaluates the returned result on your Mac and sends a sanitized outcome summary to Perpensum.</li>
+<li><strong>You see the full loop.</strong> The private Console shows the mandate, request, decision, observed outcome, and bounded next action.</li>
+</ol>
+
+<h2>What stays on your machine</h2>
+
+<ul>
+<li>provider and payment credentials</li>
+<li>provider-specific request payloads</li>
+<li>raw delivered content</li>
+<li>local recovery records for an interrupted provider operation</li>
+</ul>
+
+<p>The first synthetic run does not need any provider token, card, wallet, customer data, or production funds.</p>
+
+<h2>What Perpensum receives</h2>
+
+<ul>
+<li>a pseudonymous organization and buyer-agent identifier</li>
+<li>the precommitted purpose and machine-checkable success condition</li>
+<li>seller, offer, displayed price, and purchase route without credentials</li>
+<li>the pre-purchase allow or block decision</li>
+<li>a sanitized buyer-observed outcome after delivery</li>
+</ul>
+
+<p>Do not send personal data, customer records, private prompts, production credentials, or information you are not allowed to share.</p>
+
+<h2>What you get</h2>
+
+<ul>
+<li>a working buyer-side purchase gate on your own agent</li>
+<li>a machine-readable APQV outcome from one end-to-end purchase loop</li>
+<li>a private Console record showing what was known before and after execution</li>
+<li>direct input into the evidence and integration model before it is fixed</li>
+</ul>
+
+<p>Participation is free. There is no public seller score, cross-company price benchmark, commercial commitment, or request for access to your production systems.</p>
+
+<h2>Current limits</h2>
+
+<ul>
+<li>Invite-only Alpha; not production-ready.</li>
+<li>macOS, Node.js 22 or newer, and Claude Code or Codex are required.</li>
+<li>The installer is not yet a signed and notarized native Mac application, so macOS may require explicit approval to open it.</li>
+<li>The acceptance run uses a synthetic seller. A real provider pilot is a separate decision with a separate mandate.</li>
+<li>Current outcome checks prove the evidence loop, not universal or absolute quality.</li>
+</ul>
+
+<h2>Start</h2>
+
+<p>Email <a href="mailto:hello@perpensum.org?subject=Hosted%20Alpha%20pilot">hello@perpensum.org</a> with the buyer-agent runtime you use (<strong>Claude Code</strong> or <strong>Codex</strong>) and whether you can run the first synthetic test on macOS. Do not attach credentials, prompts, purchase records, or customer data.</p>
+
+<footer>
+<p>Perpensum · <a href="/apqv">APQV proposal</a> · <a href="/playground">Playground</a> · <a href="https://app.perpensum.org">Private Console</a> · <a href="/contact">Contact</a></p>
+</footer>
+
+</main>
+</body>
+</html>

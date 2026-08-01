@@ -15,6 +15,7 @@ machine-readable self-presentation.**
 - Status: **v0.1, draft**, published 2026-07-30
 - APQV proposal: <https://perpensum.org/apqv>
 - APQV Playground: <https://perpensum.org/playground>
+- Hosted Alpha: <https://perpensum.org/alpha>
 
 日本語版の README: [`README.ja.md`](README.ja.md)
 
@@ -162,6 +163,17 @@ buyer's frozen purpose.
 It makes no real-seller evaluation, fraud conclusion, absolute quality claim, or cross-buyer
 benchmark. The browser receives static files only; no input is uploaded or saved. The playground
 code is licensed under [MIT](LICENSE-CODE).
+
+## Hosted Alpha
+
+[The private Hosted Alpha](https://perpensum.org/alpha) lets a Claude Code or Codex buyer agent
+run one no-money synthetic digital purchase through the buyer-side APQV loop. The agent fixes its
+purpose and success condition before execution, receives a mandate decision, observes the result
+through a local Gateway, and returns a sanitized outcome without a person re-entering the plan or
+evidence for that transaction.
+
+The acceptance run does not require a provider token, card, wallet, production funds, customer
+data, or private prompts. It is invite-only and is not a production service.
 
 ## If you want your own site watched
 

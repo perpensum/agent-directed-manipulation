@@ -7,6 +7,18 @@ by making its changes traceable.
 
 ## [Unreleased]
 
+### Hosted Alpha participation route (2026-08-02)
+
+- Added `/alpha` with the actual acceptance flow for connecting a Claude Code or Codex buyer
+  agent and running one no-money synthetic machine purchase through the APQV loop.
+- Published the participant boundary: no production funds or credentials, no customer data, raw
+  provider payloads remain in the buyer environment, and the Hosted Control Plane receives only
+  a sanitized purchase intent and buyer-observed outcome.
+- Added `hello@perpensum.org` and linked the Alpha route from the APQV proposal, contact page,
+  public navigation, `llms.txt`, and sitemap.
+- **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not
+  change.**
+
 ### APQV proposal added as separate work (2026-08-01)
 
 - Added `/apqv` as Perpensum's proposed category for buyer-side agentic purchase quality

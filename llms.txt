@@ -17,6 +17,12 @@
 - Scope: synthetic data only; no login, upload, persistence, real seller evaluation, fraud conclusion, or cross-buyer benchmark.
 - Source: [playground directory](https://github.com/perpensum/agent-directed-manipulation/tree/main/playground), licensed under MIT.
 
+## Hosted Alpha
+
+- [Connect a buyer agent](https://perpensum.org/alpha): Private invite-only acceptance test for one no-money synthetic digital purchase from Claude Code or Codex.
+- The buyer-side Gateway fixes the purchase intent before execution, obtains a pre-purchase decision, evaluates the synthetic outcome locally, and sends a sanitized result to the private Console.
+- No production credentials, customer data, provider token, card, wallet, or live funds are required for the first run.
+
 ## Definition
 
 The following is a supporting threat definition retained as independent work. It is not the APQV category itself.
