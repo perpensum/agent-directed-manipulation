@@ -173,7 +173,7 @@ through a local Gateway, and returns a sanitized outcome without a person re-ent
 evidence for that transaction.
 
 The acceptance run does not require a provider token, card, wallet, production funds, customer
-data, or private prompts. It is invite-only and is not a production service.
+data, or private prompts. It uses approved email access and is not a production service.
 
 ## If you want your own site watched
 
