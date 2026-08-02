@@ -62,11 +62,11 @@
         <section class="panel dark" aria-live="polite">
           <p class="eyebrow">APQV lifecycle</p>
           <ol id="timeline" class="timeline">
-            <li><strong>Purchase mandate</strong><span>Waiting to run</span><a href="#trace-mandate">View details</a></li>
-            <li><strong>Pre-purchase decision</strong><span>Waiting to run</span><a href="#trace-decision">View details</a></li>
-            <li><strong>Synthetic provider execution</strong><span>Waiting to run</span><a href="#trace-execution">View details</a></li>
-            <li><strong>Buyer-observed verification</strong><span>Waiting to run</span><a href="#trace-verification">View details</a></li>
-            <li><strong>APQV evidence record</strong><span>Waiting to run</span><a href="#trace-evidence">View details</a></li>
+            <li data-trace-id="mandate"><strong>Purchase mandate</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-mandate">View details</button><div id="timeline-detail-mandate" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="decision"><strong>Pre-purchase decision</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-decision">View details</button><div id="timeline-detail-decision" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="execution"><strong>Synthetic provider execution</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-execution">View details</button><div id="timeline-detail-execution" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="verification"><strong>Buyer-observed verification</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">View details</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="evidence"><strong>APQV evidence record</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-evidence">View details</button><div id="timeline-detail-evidence" class="timeline-detail-panel" hidden></div></li>
           </ol>
           <div id="verdict" class="verdict" data-tone="wait">
             <small>Buyer outcome</small>
@@ -78,14 +78,6 @@
       </section>
 
       <p class="boundary"><strong>Public sandbox boundary.</strong> This demonstration makes no real purchase, evaluates no real seller, moves no money, uses no credentials, and retains no record. It does not determine fraud or absolute quality.</p>
-
-      <section id="behind-scenes" class="section trace-section" aria-labelledby="trace-heading">
-        <p class="eyebrow">Behind the five stages</p>
-        <h2 id="trace-heading">See exactly what Perpensum received, checked, and returned.</h2>
-        <p class="section-intro">Run the purchase above. This area will show the concrete mandate, requested purchase, authorization checks, seller delivery, requirement-by-requirement verification, and evidence boundary.</p>
-        <div id="trace-empty" class="trace-empty">No hidden score is being calculated yet. The five records will appear here after the run.</div>
-        <div id="trace-grid" class="trace-grid" hidden></div>
-      </section>
 
       <section class="section" aria-labelledby="terminal-heading">
         <p class="eyebrow">How to run this</p>

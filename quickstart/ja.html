@@ -62,11 +62,11 @@
         <section class="panel dark" aria-live="polite">
           <p class="eyebrow">APQVライフサイクル</p>
           <ol id="timeline" class="timeline">
-            <li><strong>購買マンデート</strong><span>実行待ち</span><a href="#trace-mandate">詳細を見る</a></li>
-            <li><strong>購入前判断</strong><span>実行待ち</span><a href="#trace-decision">詳細を見る</a></li>
-            <li><strong>合成提供者の実行</strong><span>実行待ち</span><a href="#trace-execution">詳細を見る</a></li>
-            <li><strong>買い手側の成果検証</strong><span>実行待ち</span><a href="#trace-verification">詳細を見る</a></li>
-            <li><strong>APQV証拠記録</strong><span>実行待ち</span><a href="#trace-evidence">詳細を見る</a></li>
+            <li data-trace-id="mandate"><strong>購買マンデート</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-mandate">詳細を見る</button><div id="timeline-detail-mandate" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="decision"><strong>購入前判断</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-decision">詳細を見る</button><div id="timeline-detail-decision" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="execution"><strong>合成提供者の実行</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-execution">詳細を見る</button><div id="timeline-detail-execution" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="verification"><strong>買い手側の成果検証</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">詳細を見る</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="evidence"><strong>APQV証拠記録</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-evidence">詳細を見る</button><div id="timeline-detail-evidence" class="timeline-detail-panel" hidden></div></li>
           </ol>
           <div id="verdict" class="verdict" data-tone="wait">
             <small>買い手側の成果</small>
@@ -78,14 +78,6 @@
       </section>
 
       <p class="boundary"><strong>公開Sandboxの境界。</strong> 実際の購入は行わず、実在の売り手を評価せず、お金を動かさず、資格情報を使用せず、記録を保存しません。不正や絶対的な品質も判定しません。</p>
-
-      <section id="behind-scenes" class="section trace-section" aria-labelledby="trace-heading">
-        <p class="eyebrow">5段階の裏側</p>
-        <h2 id="trace-heading">Perpensumが受け取り、確認し、返したものを見る。</h2>
-        <p class="section-intro">上の購買を実行すると、具体的なマンデート、購入依頼、許可条件、売り手の納品、条件ごとの検証、証拠の保存範囲がここに表示されます。</p>
-        <div id="trace-empty" class="trace-empty">まだ裏で評価は行われていません。実行後、5つの記録がここに表示されます。</div>
-        <div id="trace-grid" class="trace-grid" hidden></div>
-      </section>
 
       <section class="section" aria-labelledby="terminal-heading">
         <p class="eyebrow">コマンドで実行する</p>

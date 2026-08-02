@@ -32,12 +32,16 @@ test("public pages distinguish working paths from unpublished package previews",
   const script = await readFile(new URL("./quickstart.mjs", import.meta.url), "utf8");
   assert.match(quickstart, /The same flow in four commands/);
   assert.match(quickstart, /Choose what the synthetic seller delivers/);
-  assert.match(quickstart, /id="trace-grid"/);
+  assert.equal((quickstart.match(/class="timeline-detail-toggle"/g) ?? []).length, 5);
+  assert.match(quickstart, /id="timeline-detail-mandate"/);
+  assert.doesNotMatch(quickstart, /id="trace-grid"/);
   assert.match(quickstart, /href="\/quickstart\/ja"/);
   assert.match(quickstart, /not on npm yet/);
   assert.match(quickstartJa, /同じ流れを4コマンドで試す/);
   assert.match(quickstartJa, /合成売り手が何を納品するか選ぶ/);
-  assert.match(quickstartJa, /Perpensumが受け取り、確認し、返したものを見る/);
+  assert.equal((quickstartJa.match(/class="timeline-detail-toggle"/g) ?? []).length, 5);
+  assert.match(quickstartJa, /詳細を見る/);
+  assert.doesNotMatch(quickstartJa, /id="trace-grid"/);
   assert.match(quickstartJa, /href="\/quickstart"/);
   assert.match(docs, /not publicly installable packages yet/);
   assert.match(docs, /href="\/docs\/ja"/);
@@ -47,6 +51,9 @@ test("public pages distinguish working paths from unpublished package previews",
   assert.match(browserApp, /result\.mandate/);
   assert.match(browserApp, /result\.verification\.constraint_checks/);
   assert.match(browserApp, /result\.evidence_record/);
+  assert.match(browserApp, /function closeAllDetails\(\)/);
+  assert.match(browserApp, /aria-expanded/);
+  assert.match(browserApp, /timeline-detail-toggle/);
   assert.match(script, /provider_succeeded_unusable/);
   assert.doesNotMatch(`${quickstart}${quickstartJa}${docs}${docsJa}${browserApp}${script}`, /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{12,}/i);
 });

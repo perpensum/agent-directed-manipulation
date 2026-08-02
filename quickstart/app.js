@@ -10,8 +10,6 @@ const verdictDetail = document.querySelector("#verdict-detail");
 const nextAction = document.querySelector("#next-action");
 const copyButton = document.querySelector("#copy-commands");
 const commands = document.querySelector("#commands");
-const traceEmpty = document.querySelector("#trace-empty");
-const traceGrid = document.querySelector("#trace-grid");
 const isJapanese = document.documentElement.lang === "ja";
 
 const japanese = {
@@ -69,6 +67,7 @@ const traceCopy = isJapanese ? {
     yes: "あり", no: "なし", passed: "適合", failed: "不適合", authorized: "許可",
     singleUse: "1回限り", seconds: "秒", once: "1回", notDetermined: "判断していない",
     responseOnly: "このブラウザ応答内だけ", noPayload: "検査できる成果なし", unknown: "不明",
+    viewDetails: "詳細を見る", closeDetails: "詳細を閉じる",
   },
   checks: {
     required_fields: "必須項目", line_items: "明細件数", machine_readable_json: "機械可読JSON",
@@ -96,6 +95,7 @@ const traceCopy = isJapanese ? {
     yes: "Yes", no: "No", passed: "Passed", failed: "Failed", authorized: "Authorized",
     singleUse: "Single use", seconds: "seconds", once: "1", notDetermined: "Not determined",
     responseOnly: "This browser response only", noPayload: "No inspectable payload", unknown: "Unknown",
+    viewDetails: "View details", closeDetails: "Close details",
   },
   checks: {
     required_fields: "Required fields", line_items: "Line items", machine_readable_json: "Machine-readable JSON",
@@ -135,21 +135,11 @@ function displayConstraint(check) {
   return verdictWord;
 }
 
-function traceCard(id, stage, rows) {
-  const article = document.createElement("article");
-  article.className = "trace-card";
-  article.id = `trace-${id}`;
-  const header = document.createElement("div");
-  header.className = "trace-card-head";
-  const number = document.createElement("span");
-  number.textContent = stage[0];
-  const heading = document.createElement("div");
-  const title = document.createElement("h3");
-  title.textContent = stage[1];
+function tracePanel(stage, rows) {
+  const content = document.createDocumentFragment();
   const summary = document.createElement("p");
+  summary.className = "timeline-detail-summary";
   summary.textContent = stage[2];
-  heading.append(title, summary);
-  header.append(number, heading);
   const list = document.createElement("dl");
   rows.forEach((row) => {
     const wrapper = document.createElement("div");
@@ -161,8 +151,18 @@ function traceCard(id, stage, rows) {
     wrapper.append(term, value);
     list.append(wrapper);
   });
-  article.append(header, list);
-  return article;
+  content.append(summary, list);
+  return content;
+}
+
+function closeAllDetails() {
+  timeline.querySelectorAll(".timeline-detail-toggle").forEach((toggle) => {
+    const panel = document.querySelector(`#${toggle.getAttribute("aria-controls")}`);
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.textContent = traceCopy.words.viewDetails;
+    toggle.closest("li").dataset.expanded = "false";
+    if (panel) panel.hidden = true;
+  });
 }
 
 function renderTrace(result) {
@@ -198,15 +198,15 @@ function renderTrace(result) {
       ])
     : [[traceCopy.labels.requirement, traceCopy.words.noPayload, "wait"]];
 
-  const cards = [
-    traceCard("mandate", traceCopy.stages.mandate, [
+  const panels = {
+    mandate: [
       [traceCopy.labels.buyer, mandate.buyer_agent],
       [traceCopy.labels.purchases, isJapanese ? `${mandate.max_purchases}回` : `${mandate.max_purchases}`],
       [traceCopy.labels.budget, `${mandate.max_total_amount.currency} ${mandate.max_total_amount.amount}`],
       [traceCopy.labels.protocols, mandate.allowed_protocols.join(", ")],
       [traceCopy.labels.ticketLife, `${mandate.decision_ticket_ttl_seconds} ${traceCopy.words.seconds}`],
-    ]),
-    traceCard("decision", traceCopy.stages.decision, [
+    ],
+    decision: [
       [traceCopy.labels.purpose, purpose],
       [traceCopy.labels.success, successCondition],
       [traceCopy.labels.seller, isJapanese ? `合成請求書提供者（${seller}）` : seller],
@@ -218,29 +218,31 @@ function renderTrace(result) {
       [traceCopy.labels.routeCheck, checkWord(decisionChecks.find((item) => item.id === "allowed_protocol")), checkTone(decisionChecks.find((item) => item.id === "allowed_protocol"))],
       [traceCopy.labels.decision, result.decision.action === "execute" ? traceCopy.words.authorized : result.decision.action, result.decision.action === "execute" ? "pass" : "fail"],
       [traceCopy.labels.ticket, `${traceCopy.words.singleUse} · ${result.decision.ticket_id}`],
-    ]),
-    traceCard("execution", traceCopy.stages.execution, [
+    ],
+    execution: [
       [traceCopy.labels.provider, isJapanese ? japanese.statuses[result.delivery.provider_status] ?? result.delivery.provider_status ?? traceCopy.words.unknown : result.delivery.provider_status ?? traceCopy.words.unknown],
       [traceCopy.labels.delivery, displayDelivery(result.delivery.payload_summary)],
       [traceCopy.labels.external, result.delivery.external_provider_called ? traceCopy.words.yes : traceCopy.words.no],
       [traceCopy.labels.money, result.sandbox.money_moved ? traceCopy.words.yes : traceCopy.words.no],
-    ]),
-    traceCard("verification", traceCopy.stages.verification, [
+    ],
+    verification: [
       ...constraintRows,
       [traceCopy.labels.outcome, displayOutcome(result.verification.state), tone(result.verification.state)],
       [traceCopy.labels.observation, isJapanese ? japanese.outcomes[result.verification.state]?.[1] ?? result.verification.observation : result.verification.observation],
-    ]),
-    traceCard("evidence", traceCopy.stages.evidence, [
+    ],
+    evidence: [
       [traceCopy.labels.record, result.evidence_record?.id ?? traceCopy.words.unknown],
       [traceCopy.labels.stored, result.evidence_record?.persisted ? traceCopy.words.yes : traceCopy.words.responseOnly],
       [traceCopy.labels.credentials, result.evidence_record?.contains_provider_credentials ? traceCopy.words.yes : traceCopy.words.no],
       [traceCopy.labels.fraud, result.verification.fraud_conclusion === "not_determined" ? traceCopy.words.notDetermined : result.verification.fraud_conclusion],
       [traceCopy.labels.next, displayAction(result.verification.next_purchase_action)],
-    ]),
-  ];
-  traceGrid.replaceChildren(...cards);
-  traceEmpty.hidden = true;
-  traceGrid.hidden = false;
+    ],
+  };
+  closeAllDetails();
+  Object.entries(panels).forEach(([id, rows]) => {
+    const panel = document.querySelector(`#timeline-detail-${id}`);
+    if (panel) panel.replaceChildren(tracePanel(traceCopy.stages[id], rows));
+  });
 }
 
 function render(result) {
@@ -255,9 +257,9 @@ function render(result) {
       const detail = item.id === "verification"
         ? japanese.outcomes[item.status]?.[1] ?? item.detail
         : localized[1];
-      row.querySelector("span").textContent = `${japanese.statuses[item.status] ?? item.status} — ${detail}`;
+      row.querySelector(":scope > span").textContent = `${japanese.statuses[item.status] ?? item.status} — ${detail}`;
     } else {
-      row.querySelector("span").textContent = `${item.status} — ${item.detail}`;
+      row.querySelector(":scope > span").textContent = `${item.status} — ${item.detail}`;
     }
   });
   const localizedOutcome = isJapanese && japanese.outcomes[result.verification.state];
@@ -269,6 +271,20 @@ function render(result) {
     : `Next purchase action: ${result.verification.next_purchase_action}`;
   renderTrace(result);
 }
+
+timeline.addEventListener("click", (event) => {
+  const toggle = event.target.closest(".timeline-detail-toggle");
+  if (!toggle || !timeline.contains(toggle)) return;
+  const shouldOpen = toggle.getAttribute("aria-expanded") !== "true";
+  closeAllDetails();
+  if (!shouldOpen) return;
+  const panel = document.querySelector(`#${toggle.getAttribute("aria-controls")}`);
+  if (!panel) return;
+  toggle.setAttribute("aria-expanded", "true");
+  toggle.textContent = traceCopy.words.closeDetails;
+  toggle.closest("li").dataset.expanded = "true";
+  panel.hidden = false;
+});
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
