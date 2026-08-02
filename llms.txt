@@ -19,7 +19,7 @@
 
 ## Hosted Alpha
 
-- [Connect a buyer agent](https://perpensum.org/alpha): Private invite-only acceptance test for one no-money synthetic digital purchase from Claude Code or Codex.
+- [Connect a buyer agent](https://perpensum.org/alpha): Private approved-access acceptance test for one no-money synthetic digital purchase from Claude Code or Codex.
 - The buyer-side Gateway fixes the purchase intent before execution, obtains a pre-purchase decision, evaluates the synthetic outcome locally, and sends a sanitized result to the private Console.
 - No production credentials, customer data, provider token, card, wallet, or live funds are required for the first run.
 
