@@ -15,6 +15,9 @@
 - 状態: **v0.1 ドラフト**（2026-07-30 公開）
 - APQV提案: <https://perpensum.org/apqv>
 - APQV Playground: <https://perpensum.org/playground>
+- Quickstart（日本語）: <https://perpensum.org/quickstart/ja>
+- Developer Docs（日本語）: <https://perpensum.org/docs/ja>
+- Hosted Alpha: <https://perpensum.org/alpha>
 
 English README: [`README.md`](README.md)（こちらが正）
 

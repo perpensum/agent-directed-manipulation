@@ -38,4 +38,32 @@
     <loc>https://perpensum.org/alpha</loc>
     <lastmod>2026-08-02</lastmod>
   </url>
+  <url>
+    <loc>https://perpensum.org/quickstart</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/quickstart/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/quickstart"/>
+  </url>
+  <url>
+    <loc>https://perpensum.org/quickstart/ja</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/quickstart/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/quickstart"/>
+  </url>
+  <url>
+    <loc>https://perpensum.org/docs</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/docs"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs"/>
+  </url>
+  <url>
+    <loc>https://perpensum.org/docs/ja</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/docs"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs"/>
+  </url>
 </urlset>

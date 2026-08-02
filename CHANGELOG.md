@@ -7,6 +7,29 @@ by making its changes traceable.
 
 ## [Unreleased]
 
+### Developer Quickstart and docs (2026-08-02)
+
+- Added `/quickstart`, a browser and four-command Node entry to one synthetic, zero-dollar APQV
+  purchase lifecycle.
+- Added `/docs` with Try / Connect / Build paths, shared concepts, Gateway and security boundaries,
+  the public sandbox API, and honest SDK/MCP preview status.
+- Added Japanese counterparts at `/quickstart/ja` and `/docs/ja`, including localized dynamic
+  sandbox results and reciprocal language switching with `hreflang` metadata.
+- Reframed the scenario control as choosing a synthetic seller delivery rather than choosing
+  Perpensum's verdict, and added a five-stage trace showing the exact mandate, authorization
+  checks, delivery, requirement checks, evidence boundary, and next-purchase action.
+- Moved that trace into the APQV lifecycle Bento: each completed stage expands in place, and
+  opening one stage closes the previously open stage.
+- Prepared the next Quickstart view to separate direct content validity, downstream workflow
+  acceptance, bounded business progress, and verification economics. A downstream success is not
+  presented as proof that the purchased content was correct.
+- Added a selectable counterexample where all structural checks and downstream accounting pass,
+  while buyer-original evidence contradicts one extracted value.
+- The Quickstart uses no real seller, credential, funds, customer data, or persistence. The SDK and
+  MCP packages are not presented as publicly available.
+- **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not
+  change.**
+
 ### Hosted Alpha participation route (2026-08-02)
 
 - Added `/alpha` with the actual acceptance flow for connecting a Claude Code or Codex buyer

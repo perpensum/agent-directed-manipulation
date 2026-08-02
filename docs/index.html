@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Developer Docs — Perpensum</title>
+  <meta name="description" content="Concepts, quickstarts, security boundaries, and integration paths for Perpensum.">
+  <link rel="canonical" href="https://perpensum.org/docs">
+  <link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
+  <link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
+  <link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Perpensum Developer Docs">
+  <meta property="og:description" content="Connect a buyer agent to an independent machine-purchase quality layer.">
+  <meta property="og:url" content="https://perpensum.org/docs">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
+  <link rel="stylesheet" href="/developer.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Docs v0</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/quickstart">Quickstart</a>
+        <a href="/docs" aria-current="page">Docs</a>
+        <a href="/apqv">APQV</a>
+        <a class="console-link" href="https://app.perpensum.org">Console</a>
+        <a class="language-link" href="/docs/ja" lang="ja" hreflang="ja">日本語</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Perpensum Developer Docs · v0</p>
+        <h1>Put an independent quality layer in the purchase path.</h1>
+        <p class="lede">Perpensum helps a buyer agent state what it needs before purchase, obtain a bounded execution decision, verify the delivered result, and use that evidence in the next purchase.</p>
+        <div class="hero-actions"><a class="button" href="/quickstart">Run the Quickstart</a><a class="button secondary" href="/apqv">Read the APQV proposal</a></div>
+      </section>
+
+      <div class="doc-layout">
+        <nav class="doc-nav" aria-label="Documentation sections">
+          <a href="#start">Start here</a><a href="#flow">How it works</a><a href="#concepts">Concepts</a><a href="#gateway">Gateway</a><a href="#mcp">MCP</a><a href="#sdk">SDK</a><a href="#api">Sandbox API</a><a href="#security">Security</a><a href="#limits">Current limits</a>
+        </nav>
+
+        <div class="doc-content">
+          <section id="start">
+            <p class="eyebrow">Start here</p><h2>Three ways in</h2>
+            <div class="status-note"><strong>Current release status.</strong> The browser and four-command synthetic Quickstart are the public starting points. Hosted Alpha is approved-access. The SDK and MCP npm packages are private release candidates, not publicly installable packages yet.</div>
+            <div class="path-grid">
+              <article class="path-card"><span class="path-number">01</span><strong>Try</strong><p>Run one zero-dollar synthetic purchase in the browser.</p><a href="/quickstart">Open Quickstart →</a></article>
+              <article class="path-card"><span class="path-number">02</span><strong>Connect</strong><p>Add a real buyer agent through Hosted Alpha after its mandate is defined.</p><a href="/alpha">Hosted Alpha →</a></article>
+              <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>Build</strong><p>Embed the release-candidate JavaScript client after package release.</p><a href="#sdk">SDK preview →</a></article>
+            </div>
+          </section>
+
+          <section id="flow">
+            <p class="eyebrow">How it works</p><h2>One purchase, five evidence stages</h2>
+            <ol class="flow-list">
+              <li><b>1</b><div><strong>Mandate</strong><span>The organization sets the budget, allowed routes, and purchase count before the buyer agent acts.</span></div></li>
+              <li><b>2</b><div><strong>Plan and promise</strong><span>The buyer freezes its purpose, success condition, selected seller, offer, and represented claims.</span></div></li>
+              <li><b>3</b><div><strong>Decision</strong><span>Perpensum checks the request against the mandate and issues a short-lived, single-use execution ticket or blocks it.</span></div></li>
+              <li><b>4</b><div><strong>Local execution and observation</strong><span>The buyer-side Gateway calls the provider. Credentials and raw outputs can remain in the buyer environment.</span></div></li>
+              <li><b>5</b><div><strong>Verification and next action</strong><span>The observed result is compared with the frozen criteria. Evidence, mismatch, uncertainty, and a bounded next-purchase action are returned.</span></div></li>
+            </ol>
+          </section>
+
+          <section id="concepts">
+            <p class="eyebrow">Concepts</p><h2>The terms used across every integration</h2>
+            <table class="data-table"><thead><tr><th>Term</th><th>Plain meaning</th></tr></thead><tbody>
+              <tr><td>APQV</td><td>Agentic Purchase Quality Verification: comparing a buyer's frozen purchase intent with observable source, transaction, delivery, and outcome evidence.</td></tr>
+              <tr><td>Mandate</td><td>The authority, budget, count, time, and route limits delegated to a buyer agent.</td></tr>
+              <tr><td>Gateway</td><td>The buyer-side enforcement point that obtains a decision before execution and observes the result afterward.</td></tr>
+              <tr><td>Adapter</td><td>The small translator between the common Gateway contract and a particular provider or commerce protocol.</td></tr>
+              <tr><td>Control Plane</td><td>The hosted policy and evidence service. It evaluates mandates, issues one-use tickets, and receives bounded outcome telemetry.</td></tr>
+              <tr><td>Evidence record</td><td>The linked account of intent, decision, execution, delivery, buyer observation, gaps, and limits for one machine purchase.</td></tr>
+            </tbody></table>
+          </section>
+
+          <section id="gateway">
+            <p class="eyebrow">Gateway</p><h2>One Gateway per trust boundary, not one per purchase</h2>
+            <p>An organization normally installs one Gateway runtime inside a trusted environment. Multiple buyer-agent profiles can share that runtime while retaining separate identities, assigned mandates, private keys, provider credentials, and recovery records.</p>
+            <p>The Gateway does not mean Perpensum centrally buys everything on the customer's behalf. It means the customer's buyer agent sends the purchase through a controlled local execution point before reaching the provider.</p>
+          </section>
+
+          <section id="mcp">
+            <p class="eyebrow">MCP preview</p><h2>The shortest path for an AI agent</h2>
+            <p>The private release candidate exposes one sandbox tool: <span class="inline-code">run_apqv_sandbox_purchase</span>. It accepts no credential or arbitrary purchase target.</p>
+            <div class="code-card"><div class="code-head"><span>Proposed public command — not yet available on npm</span></div><pre>claude mcp add perpensum -- npx -y @perpensum/mcp</pre></div>
+            <p>Real provider purchases continue to use the authenticated Gateway profile issued from Hosted Alpha. The public MCP package will not silently gain spending authority.</p>
+          </section>
+
+          <section id="sdk">
+            <p class="eyebrow">JavaScript SDK preview</p><h2>A deliberately small client</h2>
+            <p>The release candidate starts with one method. Production methods will be added only after the smallest stable contract is clear.</p>
+            <div class="code-card"><div class="code-head"><span>Preview API — package not yet public</span></div><pre>import { PerpensumClient } from "@perpensum/sdk";
+
+const perpensum = new PerpensumClient();
+const result = await perpensum.runSandboxPurchase({
+  scenario: "provider_succeeded_unusable"
+});
+
+console.log(result.verification);</pre></div>
+          </section>
+
+          <section id="api">
+            <p class="eyebrow">Public sandbox API</p><h2>A real call with synthetic execution</h2>
+            <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span> accepts one field, <span class="inline-code">scenario</span>. It requires no authentication because it cannot target a real provider, move funds, or persist data.</p>
+            <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
+            <p>Supported scenarios are <span class="inline-code">usable</span>, <span class="inline-code">provider_succeeded_unusable</span>, and <span class="inline-code">insufficient_evidence</span>.</p>
+            <p>The response exposes the bounded mandate, purchase request, authorization checks, synthetic delivery, requirement-by-requirement verification, evidence record, and next-purchase action so the browser Quickstart can show what happened at every stage.</p>
+          </section>
+
+          <section id="security">
+            <p class="eyebrow">Security boundary</p><h2>What stays local and what becomes evidence</h2>
+            <table class="data-table"><thead><tr><th>Buyer environment</th><th>Hosted Control Plane</th></tr></thead><tbody>
+              <tr><td>Provider API tokens, cards, wallet secrets</td><td>Purchase purpose and frozen success condition</td></tr>
+              <tr><td>Raw prompts, inputs, and outputs when configured locally</td><td>Selected seller, offer, represented claims, price, and route</td></tr>
+              <tr><td>Agent-specific private key and execution recovery record</td><td>Mandate decision and bounded buyer-observed outcome</td></tr>
+            </tbody></table>
+            <p>The public sandbox stores neither side. Hosted Alpha stores bounded evidence but does not centrally store provider credentials.</p>
+          </section>
+
+          <section id="limits">
+            <p class="eyebrow">Current limits</p><h2>What v0 does not claim</h2>
+            <ul>
+              <li>It does not decide whether a purchase was absolutely good.</li>
+              <li>It does not infer fraud from a mismatch or failure alone.</li>
+              <li>It does not yet provide cross-buyer price benchmarks or market-wide optimization.</li>
+              <li>Its first market is machine-verifiable digital outcomes and services, not physical goods.</li>
+              <li>Deep semantic quality checks remain purpose-specific; a structurally valid output can still be inaccurate.</li>
+              <li>The public SDK and MCP package names, license, and release repository are not yet committed.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/quickstart">Quickstart</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
+  </div>
+</body>
+</html>
