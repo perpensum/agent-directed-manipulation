@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quickstart 日本語版 — Perpensum</title>
+  <meta name="description" content="費用0の合成機械購買を、Perpensumの買い手側APQVループに通して試します。">
+  <link rel="canonical" href="https://perpensum.org/quickstart/ja">
+  <link rel="alternate" hreflang="en" href="https://perpensum.org/quickstart">
+  <link rel="alternate" hreflang="ja" href="https://perpensum.org/quickstart/ja">
+  <link rel="alternate" hreflang="x-default" href="https://perpensum.org/quickstart">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Perpensum Quickstart 日本語版">
+  <meta property="og:description" content="合成機械購買を、マンデート、許可、実行、検証、証拠の順に数分で試せます。">
+  <meta property="og:url" content="https://perpensum.org/quickstart/ja">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
+  <link rel="stylesheet" href="/developer.css">
+  <script type="module" src="/quickstart/app.js"></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Developer Preview</span></a>
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="/quickstart/ja" aria-current="page">Quickstart</a>
+        <a href="/docs/ja">Docs</a>
+        <a href="/apqv">APQV</a>
+        <a class="console-link" href="https://app.perpensum.org">Console</a>
+        <a class="language-link" href="/quickstart" lang="en" hreflang="en">English</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">セットアップ不要・費用0・合成証拠</p>
+        <h1>機械購買を1件、Perpensumに通す。</h1>
+        <p class="lede">買い手側で実際に行われる流れを確認できます。購買マンデートを固定し、1回の実行を許可し、納品を観測し、利用可能性を検証して、次回の購買判断へ証拠を返します。</p>
+      </section>
+
+      <section class="sandbox-grid" aria-labelledby="browser-heading">
+        <form id="sandbox-form" class="panel">
+          <p class="eyebrow">ブラウザQuickstart</p>
+          <h2 id="browser-heading">観測する結果を選ぶ</h2>
+          <p class="muted">提供者は合成です。マンデート、1回限りの判断、Gateway実行、Outcomeの流れには、Hosted Alphaと同じ中核境界を使います。</p>
+          <div class="scenario-list">
+            <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>利用可能な成果</strong><span>事前に固定した条件をすべて満たします。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>提供者は成功、買い手は利用不能</strong><span>APIは成功を返しますが、必要な内容が不足しています。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>証拠が不足</strong><span>Perpensumは根拠のない結論を作りません。</span></span></label>
+          </div>
+          <button id="run-sandbox" class="button" type="submit">Sandbox購買を実行</button>
+          <p id="run-message" class="run-note" role="status">ログイン、APIキー、カード、ウォレット、提供者tokenは不要です。</p>
+        </form>
+
+        <section class="panel dark" aria-live="polite">
+          <p class="eyebrow">APQVライフサイクル</p>
+          <ol id="timeline" class="timeline">
+            <li><strong>購買マンデート</strong><span>実行待ち</span></li>
+            <li><strong>購入前判断</strong><span>実行待ち</span></li>
+            <li><strong>合成提供者の実行</strong><span>実行待ち</span></li>
+            <li><strong>買い手側の成果検証</strong><span>実行待ち</span></li>
+            <li><strong>APQV証拠記録</strong><span>実行待ち</span></li>
+          </ol>
+          <div id="verdict" class="verdict" data-tone="wait">
+            <small>買い手側の成果</small>
+            <strong id="verdict-state">未実行</strong>
+            <span id="verdict-detail">Sandboxを実行し、提供者の成功と買い手側の利用可能性を比較してください。</span>
+            <span id="next-action"></span>
+          </div>
+        </section>
+      </section>
+
+      <p class="boundary"><strong>公開Sandboxの境界。</strong> 実際の購入は行わず、実在の売り手を評価せず、お金を動かさず、資格情報を使用せず、記録を保存しません。不正や絶対的な品質も判定しません。</p>
+
+      <section class="section" aria-labelledby="terminal-heading">
+        <p class="eyebrow">コマンドで実行する</p>
+        <h2 id="terminal-heading">同じ流れを4コマンドで試す</h2>
+        <p class="section-intro">Node.js 18以降があれば動きます。取得するファイルは公開された合成APIだけを呼び、境界を限定した結果だけを表示します。</p>
+        <div class="code-card">
+          <div class="code-head"><span>ターミナル</span><button id="copy-commands" type="button">コピー</button></div>
+          <pre id="commands" class="command-list"><span>mkdir perpensum-quickstart</span><span>cd perpensum-quickstart</span><span>curl -O https://perpensum.org/quickstart/quickstart.mjs</span><span>node quickstart.mjs</span></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">接続方法を選ぶ</p>
+        <h2>まず試す。境界を理解してから接続する。</h2>
+        <div class="path-grid">
+          <article class="path-card"><span class="path-number">01</span><strong>ブラウザ</strong><p>何もインストールせず、実際の購買情報も渡さずにAPQVを理解します。</p><a href="#browser-heading">今すぐ実行 →</a></article>
+          <article class="path-card" data-status="preview"><span class="path-number">02</span><strong>MCP</strong><p>AIエージェント向けの限定された単一ツールです。パッケージは非公開で構築・検証済みですが、まだnpmにはありません。</p><a href="/docs/ja#mcp">接続案を読む →</a></article>
+          <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>SDK</strong><p>Perpensumを組み込むための小さなJavaScript clientです。ライセンスと名称が確定するまで公開しません。</p><a href="/docs/ja#sdk">SDK Previewを読む →</a></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/docs/ja">Docs</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
+  </div>
+</body>
+</html>

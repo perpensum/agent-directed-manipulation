@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Developer Docs 日本語版 — Perpensum</title>
+  <meta name="description" content="Perpensumの概念、Quickstart、安全境界、接続方法を説明する日本語版開発者文書。">
+  <link rel="canonical" href="https://perpensum.org/docs/ja">
+  <link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
+  <link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
+  <link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Perpensum Developer Docs 日本語版">
+  <meta property="og:description" content="買い手AIの購買経路に、独立した品質検証レイヤーを接続します。">
+  <meta property="og:url" content="https://perpensum.org/docs/ja">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
+  <link rel="stylesheet" href="/developer.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Docs v0</span></a>
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="/quickstart/ja">Quickstart</a>
+        <a href="/docs/ja" aria-current="page">Docs</a>
+        <a href="/apqv">APQV</a>
+        <a class="console-link" href="https://app.perpensum.org">Console</a>
+        <a class="language-link" href="/docs" lang="en" hreflang="en">English</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Perpensum Developer Docs · v0</p>
+        <h1>購買経路に、独立した品質検証レイヤーを置く。</h1>
+        <p class="lede">Perpensumは、買い手AIが購入前に必要条件を固定し、範囲を限定した実行判断を受け取り、納品結果を検証し、その証拠を次回の購買へ使えるようにします。</p>
+        <div class="hero-actions"><a class="button" href="/quickstart/ja">Quickstartを実行</a><a class="button secondary" href="/apqv">APQV提案を読む</a></div>
+      </section>
+
+      <div class="doc-layout">
+        <nav class="doc-nav" aria-label="文書内の項目">
+          <a href="#start">最初に読む</a><a href="#flow">仕組み</a><a href="#concepts">基本概念</a><a href="#gateway">Gateway</a><a href="#mcp">MCP</a><a href="#sdk">SDK</a><a href="#api">Sandbox API</a><a href="#security">安全境界</a><a href="#limits">現在の限界</a>
+        </nav>
+
+        <div class="doc-content">
+          <section id="start">
+            <p class="eyebrow">最初に読む</p><h2>3つの入口</h2>
+            <div class="status-note"><strong>現在の公開状況。</strong> ブラウザ版と4コマンドの合成Quickstartは公開済みです。Hosted Alphaは承認制です。SDKとMCPのnpm packageは非公開の候補版であり、まだ誰でもinstallできるpackageではありません。</div>
+            <div class="path-grid">
+              <article class="path-card"><span class="path-number">01</span><strong>試す</strong><p>費用0の合成購買をブラウザで1件実行します。</p><a href="/quickstart/ja">Quickstartを開く →</a></article>
+              <article class="path-card"><span class="path-number">02</span><strong>接続する</strong><p>マンデートを定めた買い手AIをHosted Alphaから追加します。</p><a href="/alpha">Hosted Alpha →</a></article>
+              <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>組み込む</strong><p>package公開後、候補版のJavaScript clientを自分の仕組みに組み込みます。</p><a href="#sdk">SDK Preview →</a></article>
+            </div>
+          </section>
+
+          <section id="flow">
+            <p class="eyebrow">仕組み</p><h2>1回の購買、5段階の証拠</h2>
+            <ol class="flow-list">
+              <li><b>1</b><div><strong>マンデート</strong><span>組織が、買い手AIが動く前に予算、許可する経路、購買回数を設定します。</span></div></li>
+              <li><b>2</b><div><strong>計画と約束</strong><span>買い手AIが、目的、成功条件、選んだ売り手、商品、売り手の表示内容を固定します。</span></div></li>
+              <li><b>3</b><div><strong>判断</strong><span>Perpensumが依頼をマンデートと照合し、短命で1回限りの実行券を発行するか、購買を止めます。</span></div></li>
+              <li><b>4</b><div><strong>手元での実行と観測</strong><span>買い手側Gatewayが提供者を呼びます。資格情報や生の成果は買い手環境内に残せます。</span></div></li>
+              <li><b>5</b><div><strong>検証と次回行動</strong><span>観測結果を固定済み条件と比較し、証拠、乖離、不確実性、範囲を限定した次回購買行動を返します。</span></div></li>
+            </ol>
+          </section>
+
+          <section id="concepts">
+            <p class="eyebrow">基本概念</p><h2>すべての接続方法で使う用語</h2>
+            <table class="data-table"><thead><tr><th>用語</th><th>平易な意味</th></tr></thead><tbody>
+              <tr><td>APQV</td><td>Agentic Purchase Quality Verification。購入前に固定した買い手の意図と、提供元、取引、納品、成果について観測できた証拠を比較すること。</td></tr>
+              <tr><td>Mandate</td><td>買い手AIへ委任された権限、予算、回数、期間、購買経路の制限。</td></tr>
+              <tr><td>Gateway</td><td>実行前に判断を取得し、実行後に結果を観測する、買い手側の購買関門。</td></tr>
+              <tr><td>Adapter</td><td>共通Gatewayの形式と、個別の提供者またはコマースプロトコルの形式をつなぐ小さな翻訳部品。</td></tr>
+              <tr><td>Control Plane</td><td>ホストされた方針・証拠サービス。マンデートを評価し、1回限りの実行券を発行し、範囲を限定したOutcome telemetryを受け取ります。</td></tr>
+              <tr><td>Evidence record</td><td>1回の機械購買について、意図、判断、実行、納品、買い手観測、証拠不足、検証限界を結び付けた記録。</td></tr>
+            </tbody></table>
+          </section>
+
+          <section id="gateway">
+            <p class="eyebrow">Gateway</p><h2>購買ごとではなく、1つの信頼境界に1つ</h2>
+            <p>通常、組織は信頼できる環境内にGateway runtimeを1つ導入します。複数の買い手AI profileが同じGatewayを共有しながら、それぞれの身元、割り当てられたマンデート、秘密鍵、提供者資格情報、復旧記録を分離できます。</p>
+            <p>Gatewayは、顧客のすべての購買をPerpensumが中央で代理購入するという意味ではありません。顧客の買い手AIが提供者へ到達する前に、管理された顧客側の実行地点を通すという意味です。</p>
+          </section>
+
+          <section id="mcp">
+            <p class="eyebrow">MCP Preview</p><h2>AIエージェントにとって最短の接続方法</h2>
+            <p>非公開の候補版は、Sandbox用に<span class="inline-code">run_apqv_sandbox_purchase</span>という1つのツールだけを公開します。資格情報や任意の購買先は受け取りません。</p>
+            <div class="code-card"><div class="code-head"><span>公開予定のコマンド — npmではまだ利用できません</span></div><pre>claude mcp add perpensum -- npx -y @perpensum/mcp</pre></div>
+            <p>実在の提供者から購入する場合は、Hosted Alphaから発行された認証済みGateway profileを使います。公開MCP packageが、利用者の知らないうちに支出権限を持つことはありません。</p>
+          </section>
+
+          <section id="sdk">
+            <p class="eyebrow">JavaScript SDK Preview</p><h2>意図的に小さくしたclient</h2>
+            <p>候補版は1つのmethodから始めます。最小で安定した契約が明確になってから、Production用methodを追加します。</p>
+            <div class="code-card"><div class="code-head"><span>Preview API — packageはまだ非公開です</span></div><pre>import { PerpensumClient } from "@perpensum/sdk";
+
+const perpensum = new PerpensumClient();
+const result = await perpensum.runSandboxPurchase({
+  scenario: "provider_succeeded_unusable"
+});
+
+console.log(result.verification);</pre></div>
+          </section>
+
+          <section id="api">
+            <p class="eyebrow">公開Sandbox API</p><h2>実API呼び出し、合成された実行</h2>
+            <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span>は、<span class="inline-code">scenario</span>という1項目だけを受け取ります。実在の提供者を指定できず、資金を動かさず、データも保存しないため、認証は不要です。</p>
+            <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
+            <p>選べるscenarioは<span class="inline-code">usable</span>、<span class="inline-code">provider_succeeded_unusable</span>、<span class="inline-code">insufficient_evidence</span>です。</p>
+          </section>
+
+          <section id="security">
+            <p class="eyebrow">安全境界</p><h2>手元に残すものと、証拠になるもの</h2>
+            <table class="data-table"><thead><tr><th>買い手環境</th><th>Hosted Control Plane</th></tr></thead><tbody>
+              <tr><td>提供者API token、カード情報、wallet secret</td><td>購買目的と、購入前に固定した成功条件</td></tr>
+              <tr><td>設定に応じて、生のprompt、入力、出力</td><td>選んだ売り手、商品、表示された約束、価格、購買経路</td></tr>
+              <tr><td>AIごとの秘密鍵と実行復旧記録</td><td>マンデート判断と、範囲を限定した買い手側の成果観測</td></tr>
+            </tbody></table>
+            <p>公開Sandboxはどちらの情報も保存しません。Hosted Alphaは範囲を限定した証拠を保存しますが、提供者資格情報を中央保存しません。</p>
+          </section>
+
+          <section id="limits">
+            <p class="eyebrow">現在の限界</p><h2>v0が主張しないこと</h2>
+            <ul>
+              <li>その購買が絶対的に良かったかは判定しません。</li>
+              <li>乖離や失敗だけから不正と断定しません。</li>
+              <li>買い手横断の価格基準や市場全体の最適化はまだ提供しません。</li>
+              <li>最初の市場は、機械検証可能なデジタル成果物とサービスです。物理商品は対象外です。</li>
+              <li>意味内容の深い品質検査は目的ごとに異なります。構造が正しい成果でも、内容が不正確な場合があります。</li>
+              <li>公開SDKとMCP packageの名称、ライセンス、公開repositoryはまだ確定していません。</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/quickstart/ja">Quickstart</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
+  </div>
+</body>
+</html>

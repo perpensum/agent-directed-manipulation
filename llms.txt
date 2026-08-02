@@ -20,7 +20,9 @@
 ## Developer Quickstart and docs
 
 - [Live Quickstart](https://perpensum.org/quickstart): Run one zero-dollar synthetic machine purchase through the mandate, pre-purchase decision, Gateway execution, buyer-observed verification, and evidence-record sequence. No account, credential, provider, funds, or persistence.
+- [Quickstart 日本語版](https://perpensum.org/quickstart/ja): 同じ合成APQV購買ループを日本語で実行できる。
 - [Developer docs](https://perpensum.org/docs): Concepts, integration paths, Gateway boundary, MCP and JavaScript SDK previews, sandbox API, security boundary, and current limits.
+- [Developer Docs 日本語版](https://perpensum.org/docs/ja): 概念、接続方法、Gateway、安全境界、現在の限界を日本語で説明する。
 - [Downloadable Node quickstart](https://perpensum.org/quickstart/quickstart.mjs): Dependency-free client for `POST https://api.perpensum.org/v1/sandbox`.
 - The browser and four-command Quickstart are public. The `@perpensum/sdk` and `@perpensum/mcp` packages are private release candidates and are not published to npm yet.
 

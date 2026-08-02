@@ -13,6 +13,8 @@ by making its changes traceable.
   purchase lifecycle.
 - Added `/docs` with Try / Connect / Build paths, shared concepts, Gateway and security boundaries,
   the public sandbox API, and honest SDK/MCP preview status.
+- Added Japanese counterparts at `/quickstart/ja` and `/docs/ja`, including localized dynamic
+  sandbox results and reciprocal language switching with `hreflang` metadata.
 - The Quickstart uses no real seller, credential, funds, customer data, or persistence. The SDK and
   MCP packages are not presented as publicly available.
 - **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not

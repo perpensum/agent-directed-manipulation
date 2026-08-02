@@ -15,7 +15,7 @@
   --danger: #b7473f;
   --warning: #946614;
   --shadow: 0 14px 42px rgba(23, 24, 25, .07), 0 2px 8px rgba(23, 24, 25, .035);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -35,6 +35,8 @@ a { color: inherit; }
 .site-nav a:hover, .site-nav a[aria-current="page"] { background: white; color: var(--ink); }
 .site-nav .console-link { border: 1px solid var(--dark); background: var(--dark); color: white; }
 .site-nav .console-link:hover { background: #080909; color: white; }
+.site-nav .language-link { border: 1px solid var(--line-strong); color: var(--ink); }
+.site-nav .language-link:hover { border-color: #aeb1b2; }
 
 h1, h2, h3, p { margin-top: 0; }
 h1 { max-width: 850px; margin-bottom: 18px; font-size: clamp(43px, 7vw, 78px); line-height: .99; letter-spacing: -.06em; }

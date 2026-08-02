@@ -16,7 +16,9 @@ machine-readable self-presentation.**
 - APQV proposal: <https://perpensum.org/apqv>
 - APQV Playground: <https://perpensum.org/playground>
 - Live Quickstart: <https://perpensum.org/quickstart>
+- Quickstart（日本語）: <https://perpensum.org/quickstart/ja>
 - Developer docs: <https://perpensum.org/docs>
+- Developer docs（日本語）: <https://perpensum.org/docs/ja>
 - Hosted Alpha: <https://perpensum.org/alpha>
 
 日本語版の README: [`README.ja.md`](README.ja.md)

@@ -25,12 +25,35 @@ test("browser client sends only a selected synthetic scenario", async () => {
 
 test("public pages distinguish working paths from unpublished package previews", async () => {
   const quickstart = await readFile(new URL("./index.html", import.meta.url), "utf8");
+  const quickstartJa = await readFile(new URL("./ja.html", import.meta.url), "utf8");
   const docs = await readFile(new URL("../docs/index.html", import.meta.url), "utf8");
+  const docsJa = await readFile(new URL("../docs/ja.html", import.meta.url), "utf8");
   const script = await readFile(new URL("./quickstart.mjs", import.meta.url), "utf8");
   assert.match(quickstart, /The same flow in four commands/);
+  assert.match(quickstart, /href="\/quickstart\/ja"/);
   assert.match(quickstart, /not on npm yet/);
+  assert.match(quickstartJa, /同じ流れを4コマンドで試す/);
+  assert.match(quickstartJa, /href="\/quickstart"/);
   assert.match(docs, /not publicly installable packages yet/);
+  assert.match(docs, /href="\/docs\/ja"/);
   assert.match(docs, /will not silently gain spending authority/);
+  assert.match(docsJa, /npm packageは非公開の候補版/);
+  assert.match(docsJa, /href="\/docs"/);
   assert.match(script, /provider_succeeded_unusable/);
-  assert.doesNotMatch(`${quickstart}${docs}${script}`, /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{12,}/i);
+  assert.doesNotMatch(`${quickstart}${quickstartJa}${docs}${docsJa}${script}`, /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{12,}/i);
+});
+
+test("Japanese developer pages publish reciprocal language metadata", async () => {
+  const quickstart = await readFile(new URL("./index.html", import.meta.url), "utf8");
+  const quickstartJa = await readFile(new URL("./ja.html", import.meta.url), "utf8");
+  const docs = await readFile(new URL("../docs/index.html", import.meta.url), "utf8");
+  const docsJa = await readFile(new URL("../docs/ja.html", import.meta.url), "utf8");
+  for (const page of [quickstart, quickstartJa]) {
+    assert.match(page, /hreflang="en" href="https:\/\/perpensum\.org\/quickstart"/);
+    assert.match(page, /hreflang="ja" href="https:\/\/perpensum\.org\/quickstart\/ja"/);
+  }
+  for (const page of [docs, docsJa]) {
+    assert.match(page, /hreflang="en" href="https:\/\/perpensum\.org\/docs"/);
+    assert.match(page, /hreflang="ja" href="https:\/\/perpensum\.org\/docs\/ja"/);
+  }
 });
