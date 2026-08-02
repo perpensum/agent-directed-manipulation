@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quickstart — Perpensum</title>
+  <meta name="description" content="Run one zero-dollar synthetic machine purchase through Perpensum's buyer-side APQV loop.">
+  <link rel="canonical" href="https://perpensum.org/quickstart">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Perpensum Quickstart">
+  <meta property="og:description" content="Mandate, authorize, execute, verify, and record one synthetic machine purchase in minutes.">
+  <meta property="og:url" content="https://perpensum.org/quickstart">
+  <meta property="og:site_name" content="Perpensum">
+  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
+  <link rel="stylesheet" href="/developer.css">
+  <script type="module" src="/quickstart/app.js"></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Developer Preview</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/quickstart" aria-current="page">Quickstart</a>
+        <a href="/docs">Docs</a>
+        <a href="/apqv">APQV</a>
+        <a class="console-link" href="https://app.perpensum.org">Console</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Zero setup · zero dollars · synthetic evidence</p>
+        <h1>Run one machine purchase through Perpensum.</h1>
+        <p class="lede">See the actual buyer-side sequence: freeze the mandate, authorize one execution, observe delivery, verify usability, and return evidence to the next purchase decision.</p>
+      </section>
+
+      <section class="sandbox-grid" aria-labelledby="browser-heading">
+        <form id="sandbox-form" class="panel">
+          <p class="eyebrow">Browser Quickstart</p>
+          <h2 id="browser-heading">Choose the observed outcome</h2>
+          <p class="muted">The provider is synthetic. The mandate, one-use decision, Gateway execution, and outcome flow use the same core boundaries as Hosted Alpha.</p>
+          <div class="scenario-list">
+            <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>Usable outcome</strong><span>All frozen requirements are met.</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>Provider succeeded, buyer cannot use it</strong><span>The API returns success, but required content is missing.</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>Evidence is insufficient</strong><span>Perpensum refuses to invent a conclusion.</span></span></label>
+          </div>
+          <button id="run-sandbox" class="button" type="submit">Run the sandbox purchase</button>
+          <p id="run-message" class="run-note" role="status">No sign-in, API key, card, wallet, or provider token required.</p>
+        </form>
+
+        <section class="panel dark" aria-live="polite">
+          <p class="eyebrow">APQV lifecycle</p>
+          <ol id="timeline" class="timeline">
+            <li><strong>Purchase mandate</strong><span>Waiting to run</span></li>
+            <li><strong>Pre-purchase decision</strong><span>Waiting to run</span></li>
+            <li><strong>Synthetic provider execution</strong><span>Waiting to run</span></li>
+            <li><strong>Buyer-observed verification</strong><span>Waiting to run</span></li>
+            <li><strong>APQV evidence record</strong><span>Waiting to run</span></li>
+          </ol>
+          <div id="verdict" class="verdict" data-tone="wait">
+            <small>Buyer outcome</small>
+            <strong id="verdict-state">Not run</strong>
+            <span id="verdict-detail">Run the sandbox to compare provider success with buyer-side usability.</span>
+            <span id="next-action"></span>
+          </div>
+        </section>
+      </section>
+
+      <p class="boundary"><strong>Public sandbox boundary.</strong> This demonstration makes no real purchase, evaluates no real seller, moves no money, uses no credentials, and retains no record. It does not determine fraud or absolute quality.</p>
+
+      <section class="section" aria-labelledby="terminal-heading">
+        <p class="eyebrow">How to run this</p>
+        <h2 id="terminal-heading">The same flow in four commands</h2>
+        <p class="section-intro">Node.js 18 or later is enough. The downloaded file calls the public synthetic endpoint and prints only the bounded outcome.</p>
+        <div class="code-card">
+          <div class="code-head"><span>Terminal</span><button id="copy-commands" type="button">Copy</button></div>
+          <pre id="commands" class="command-list"><span>mkdir perpensum-quickstart</span><span>cd perpensum-quickstart</span><span>curl -O https://perpensum.org/quickstart/quickstart.mjs</span><span>node quickstart.mjs</span></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">Choose an integration path</p>
+        <h2>Try first. Connect when the boundary is clear.</h2>
+        <div class="path-grid">
+          <article class="path-card"><span class="path-number">01</span><strong>Browser</strong><p>Understand APQV without installing anything or exposing a real purchase.</p><a href="#browser-heading">Run it now →</a></article>
+          <article class="path-card" data-status="preview"><span class="path-number">02</span><strong>MCP</strong><p>One narrow tool for an AI agent. The package is built and tested privately, but is not on npm yet.</p><a href="/docs#mcp">Read the proposed connection →</a></article>
+          <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>SDK</strong><p>A small JavaScript client for embedding Perpensum. The release candidate is private until licensing and naming are approved.</p><a href="/docs#sdk">Read the SDK preview →</a></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/docs">Docs</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
+  </div>
+</body>
+</html>

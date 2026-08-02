@@ -15,6 +15,8 @@ machine-readable self-presentation.**
 - Status: **v0.1, draft**, published 2026-07-30
 - APQV proposal: <https://perpensum.org/apqv>
 - APQV Playground: <https://perpensum.org/playground>
+- Live Quickstart: <https://perpensum.org/quickstart>
+- Developer docs: <https://perpensum.org/docs>
 - Hosted Alpha: <https://perpensum.org/alpha>
 
 日本語版の README: [`README.ja.md`](README.ja.md)
@@ -174,6 +176,19 @@ evidence for that transaction.
 
 The acceptance run does not require a provider token, card, wallet, production funds, customer
 data, or private prompts. It uses approved email access and is not a production service.
+
+## Developer Quickstart
+
+[The live Quickstart](https://perpensum.org/quickstart) runs one synthetic, zero-dollar purchase
+through Perpensum's mandate, one-use pre-purchase decision, Gateway execution, buyer-observed
+verification, and evidence-record sequence. The browser path requires no account or install. A
+downloadable dependency-free Node script runs the same public sandbox call in four terminal
+commands.
+
+[Developer docs](https://perpensum.org/docs) explain the shared concepts and security boundary.
+The browser and Node Quickstart are public. The proposed `@perpensum/sdk` and `@perpensum/mcp`
+packages remain private release candidates; they are not published to npm and the docs do not
+present their proposed commands as currently available.
 
 ## If you want your own site watched
 

@@ -7,6 +7,17 @@ by making its changes traceable.
 
 ## [Unreleased]
 
+### Developer Quickstart and docs (2026-08-02)
+
+- Added `/quickstart`, a browser and four-command Node entry to one synthetic, zero-dollar APQV
+  purchase lifecycle.
+- Added `/docs` with Try / Connect / Build paths, shared concepts, Gateway and security boundaries,
+  the public sandbox API, and honest SDK/MCP preview status.
+- The Quickstart uses no real seller, credential, funds, customer data, or persistence. The SDK and
+  MCP packages are not presented as publicly available.
+- **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not
+  change.**
+
 ### Hosted Alpha participation route (2026-08-02)
 
 - Added `/alpha` with the actual acceptance flow for connecting a Claude Code or Codex buyer
