@@ -1,6 +1,7 @@
 export const DEFAULT_SANDBOX_ENDPOINT = "https://api.perpensum.org/v1/sandbox";
 export const SCENARIOS = Object.freeze([
   "usable",
+  "wrong_content_workflow_accepted",
   "provider_succeeded_unusable",
   "insufficient_evidence",
 ]);

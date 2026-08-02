@@ -37,7 +37,7 @@
       <section class="hero">
         <p class="eyebrow">セットアップ不要・費用0・合成証拠</p>
         <h1>機械購買を1件、Perpensumに通す。</h1>
-        <p class="lede">買い手側で実際に行われる流れを確認できます。購買マンデートを固定し、1回の実行を許可し、納品を観測し、利用可能性を検証して、次回の購買判断へ証拠を返します。</p>
+        <p class="lede">購買から価値までの買い手側の流れを確認できます。抽出内容を買い手が持つ元文書内の根拠と照合し、後続の会計処理で使えたかを観測し、二つの証拠を次回の購買判断へ返します。</p>
       </section>
 
       <section class="sandbox-grid" aria-labelledby="browser-heading">
@@ -52,6 +52,7 @@
           </div>
           <div class="scenario-list">
             <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>完全な納品</strong><span>売り手が8項目と明細2件をJSONで返します。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="wrong_content_workflow_accepted"><span><strong>誤った内容を後続処理が受け入れる</strong><span>形式検査はすべて通りますが、抽出値の一つが買い手の原文と食い違います。</span></span></label>
             <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>不完全だが「成功」とされた納品</strong><span>売り手は成功と報告しますが、5項目と明細1件しか返しません。</span></span></label>
             <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>検証できない納品</strong><span>買い手が検査できる成果が、売り手の応答に含まれません。</span></span></label>
           </div>
@@ -65,11 +66,11 @@
             <li data-trace-id="mandate"><strong>購買マンデート</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-mandate">詳細を見る</button><div id="timeline-detail-mandate" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="decision"><strong>購入前判断</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-decision">詳細を見る</button><div id="timeline-detail-decision" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="execution"><strong>合成提供者の実行</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-execution">詳細を見る</button><div id="timeline-detail-execution" class="timeline-detail-panel" hidden></div></li>
-            <li data-trace-id="verification"><strong>買い手側の成果検証</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">詳細を見る</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="verification"><strong>内容品質と後続利用の検証</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">詳細を見る</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="evidence"><strong>APQV証拠記録</strong><span>実行待ち</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-evidence">詳細を見る</button><div id="timeline-detail-evidence" class="timeline-detail-panel" hidden></div></li>
           </ol>
           <div id="verdict" class="verdict" data-tone="wait">
-            <small>買い手側の成果</small>
+            <small>購入した成果</small>
             <strong id="verdict-state">未実行</strong>
             <span id="verdict-detail">Sandboxを実行し、提供者の成功と買い手側の利用可能性を比較してください。</span>
             <span id="next-action"></span>

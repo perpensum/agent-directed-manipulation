@@ -37,7 +37,7 @@
       <section class="hero">
         <p class="eyebrow">Zero setup · zero dollars · synthetic evidence</p>
         <h1>Run one machine purchase through Perpensum.</h1>
-        <p class="lede">See the actual buyer-side sequence: freeze the mandate, authorize one execution, observe delivery, verify usability, and return evidence to the next purchase decision.</p>
+        <p class="lede">See the buyer-side sequence from purchase to value: check extracted content against local evidence in the buyer-original document, observe whether downstream accounting can use it, and return both signals to the next purchase decision.</p>
       </section>
 
       <section class="sandbox-grid" aria-labelledby="browser-heading">
@@ -52,6 +52,7 @@
           </div>
           <div class="scenario-list">
             <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>Complete delivery</strong><span>The seller returns all 8 fields and both line items as JSON.</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="wrong_content_workflow_accepted"><span><strong>Wrong content accepted downstream</strong><span>Every structural check passes, but one extracted value conflicts with the buyer's source document.</span></span></label>
             <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>Incomplete delivery marked “success”</strong><span>The seller returns only 5 fields and 1 line item, but reports success.</span></span></label>
             <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>Unverifiable delivery</strong><span>The seller response contains no buyer-observed payload to inspect.</span></span></label>
           </div>
@@ -65,11 +66,11 @@
             <li data-trace-id="mandate"><strong>Purchase mandate</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-mandate">View details</button><div id="timeline-detail-mandate" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="decision"><strong>Pre-purchase decision</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-decision">View details</button><div id="timeline-detail-decision" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="execution"><strong>Synthetic provider execution</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-execution">View details</button><div id="timeline-detail-execution" class="timeline-detail-panel" hidden></div></li>
-            <li data-trace-id="verification"><strong>Buyer-observed verification</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">View details</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
+            <li data-trace-id="verification"><strong>Content and workflow verification</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-verification">View details</button><div id="timeline-detail-verification" class="timeline-detail-panel" hidden></div></li>
             <li data-trace-id="evidence"><strong>APQV evidence record</strong><span>Waiting to run</span><button class="timeline-detail-toggle" type="button" aria-expanded="false" aria-controls="timeline-detail-evidence">View details</button><div id="timeline-detail-evidence" class="timeline-detail-panel" hidden></div></li>
           </ol>
           <div id="verdict" class="verdict" data-tone="wait">
-            <small>Buyer outcome</small>
+            <small>Purchased outcome</small>
             <strong id="verdict-state">Not run</strong>
             <span id="verdict-detail">Run the sandbox to compare provider success with buyer-side usability.</span>
             <span id="next-action"></span>

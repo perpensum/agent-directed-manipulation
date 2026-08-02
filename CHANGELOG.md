@@ -20,6 +20,11 @@ by making its changes traceable.
   checks, delivery, requirement checks, evidence boundary, and next-purchase action.
 - Moved that trace into the APQV lifecycle Bento: each completed stage expands in place, and
   opening one stage closes the previously open stage.
+- Prepared the next Quickstart view to separate direct content validity, downstream workflow
+  acceptance, bounded business progress, and verification economics. A downstream success is not
+  presented as proof that the purchased content was correct.
+- Added a selectable counterexample where all structural checks and downstream accounting pass,
+  while buyer-original evidence contradicts one extracted value.
 - The Quickstart uses no real seller, credential, funds, customer data, or persistence. The SDK and
   MCP packages are not presented as publicly available.
 - **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not
