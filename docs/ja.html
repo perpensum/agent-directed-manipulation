@@ -110,6 +110,7 @@ console.log(result.verification);</pre></div>
             <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span>は、<span class="inline-code">scenario</span>という1項目だけを受け取ります。実在の提供者を指定できず、資金を動かさず、データも保存しないため、認証は不要です。</p>
             <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
             <p>選べるscenarioは<span class="inline-code">usable</span>、<span class="inline-code">provider_succeeded_unusable</span>、<span class="inline-code">insufficient_evidence</span>です。</p>
+            <p>応答には、範囲を限定したマンデート、購入依頼、許可条件、合成された納品、項目ごとの検証、証拠記録、次回購買行動が含まれます。Browser Quickstartはこれを使って各段階の裏側を表示します。</p>
           </section>
 
           <section id="security">

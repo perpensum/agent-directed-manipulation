@@ -28,19 +28,27 @@ test("public pages distinguish working paths from unpublished package previews",
   const quickstartJa = await readFile(new URL("./ja.html", import.meta.url), "utf8");
   const docs = await readFile(new URL("../docs/index.html", import.meta.url), "utf8");
   const docsJa = await readFile(new URL("../docs/ja.html", import.meta.url), "utf8");
+  const browserApp = await readFile(new URL("./app.js", import.meta.url), "utf8");
   const script = await readFile(new URL("./quickstart.mjs", import.meta.url), "utf8");
   assert.match(quickstart, /The same flow in four commands/);
+  assert.match(quickstart, /Choose what the synthetic seller delivers/);
+  assert.match(quickstart, /id="trace-grid"/);
   assert.match(quickstart, /href="\/quickstart\/ja"/);
   assert.match(quickstart, /not on npm yet/);
   assert.match(quickstartJa, /同じ流れを4コマンドで試す/);
+  assert.match(quickstartJa, /合成売り手が何を納品するか選ぶ/);
+  assert.match(quickstartJa, /Perpensumが受け取り、確認し、返したものを見る/);
   assert.match(quickstartJa, /href="\/quickstart"/);
   assert.match(docs, /not publicly installable packages yet/);
   assert.match(docs, /href="\/docs\/ja"/);
   assert.match(docs, /will not silently gain spending authority/);
   assert.match(docsJa, /npm packageは非公開の候補版/);
   assert.match(docsJa, /href="\/docs"/);
+  assert.match(browserApp, /result\.mandate/);
+  assert.match(browserApp, /result\.verification\.constraint_checks/);
+  assert.match(browserApp, /result\.evidence_record/);
   assert.match(script, /provider_succeeded_unusable/);
-  assert.doesNotMatch(`${quickstart}${quickstartJa}${docs}${docsJa}${script}`, /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{12,}/i);
+  assert.doesNotMatch(`${quickstart}${quickstartJa}${docs}${docsJa}${browserApp}${script}`, /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{12,}/i);
 });
 
 test("Japanese developer pages publish reciprocal language metadata", async () => {

@@ -15,6 +15,9 @@ by making its changes traceable.
   the public sandbox API, and honest SDK/MCP preview status.
 - Added Japanese counterparts at `/quickstart/ja` and `/docs/ja`, including localized dynamic
   sandbox results and reciprocal language switching with `hreflang` metadata.
+- Reframed the scenario control as choosing a synthetic seller delivery rather than choosing
+  Perpensum's verdict, and added a five-stage trace showing the exact mandate, authorization
+  checks, delivery, requirement checks, evidence boundary, and next-purchase action.
 - The Quickstart uses no real seller, credential, funds, customer data, or persistence. The SDK and
   MCP packages are not presented as publicly available.
 - **The Agent-Directed Manipulation v0.1 definition, APQV v0.1 proposal, and their verdicts did not

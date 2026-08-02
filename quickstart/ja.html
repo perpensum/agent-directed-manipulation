@@ -43,12 +43,17 @@
       <section class="sandbox-grid" aria-labelledby="browser-heading">
         <form id="sandbox-form" class="panel">
           <p class="eyebrow">ブラウザQuickstart</p>
-          <h2 id="browser-heading">観測する結果を選ぶ</h2>
-          <p class="muted">提供者は合成です。マンデート、1回限りの判断、Gateway実行、Outcomeの流れには、Hosted Alphaと同じ中核境界を使います。</p>
+          <h2 id="browser-heading">合成売り手が何を納品するか選ぶ</h2>
+          <p class="muted">選ぶのはPerpensumの判定ではなく、テスト用の納品内容です。Perpensumは毎回、同じ購入目的と売り手の約束に照らして判定します。</p>
+          <div class="purchase-brief">
+            <div><small>買い手の目的</small><strong>会計処理に使う請求書データの抽出</strong><span>60秒以内に読めるJSON</span></div>
+            <div><small>売り手の約束</small><strong>請求書8項目と明細2件</strong><span>機械可読なJSON</span></div>
+            <div><small>マンデート</small><strong>合成購買1回、上限0米ドル</strong><span>Sandbox経路だけを許可</span></div>
+          </div>
           <div class="scenario-list">
-            <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>利用可能な成果</strong><span>事前に固定した条件をすべて満たします。</span></span></label>
-            <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>提供者は成功、買い手は利用不能</strong><span>APIは成功を返しますが、必要な内容が不足しています。</span></span></label>
-            <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>証拠が不足</strong><span>Perpensumは根拠のない結論を作りません。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="usable" checked><span><strong>完全な納品</strong><span>売り手が8項目と明細2件をJSONで返します。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="provider_succeeded_unusable"><span><strong>不完全だが「成功」とされた納品</strong><span>売り手は成功と報告しますが、5項目と明細1件しか返しません。</span></span></label>
+            <label class="scenario"><input type="radio" name="scenario" value="insufficient_evidence"><span><strong>検証できない納品</strong><span>買い手が検査できる成果が、売り手の応答に含まれません。</span></span></label>
           </div>
           <button id="run-sandbox" class="button" type="submit">Sandbox購買を実行</button>
           <p id="run-message" class="run-note" role="status">ログイン、APIキー、カード、ウォレット、提供者tokenは不要です。</p>
@@ -57,11 +62,11 @@
         <section class="panel dark" aria-live="polite">
           <p class="eyebrow">APQVライフサイクル</p>
           <ol id="timeline" class="timeline">
-            <li><strong>購買マンデート</strong><span>実行待ち</span></li>
-            <li><strong>購入前判断</strong><span>実行待ち</span></li>
-            <li><strong>合成提供者の実行</strong><span>実行待ち</span></li>
-            <li><strong>買い手側の成果検証</strong><span>実行待ち</span></li>
-            <li><strong>APQV証拠記録</strong><span>実行待ち</span></li>
+            <li><strong>購買マンデート</strong><span>実行待ち</span><a href="#trace-mandate">詳細を見る</a></li>
+            <li><strong>購入前判断</strong><span>実行待ち</span><a href="#trace-decision">詳細を見る</a></li>
+            <li><strong>合成提供者の実行</strong><span>実行待ち</span><a href="#trace-execution">詳細を見る</a></li>
+            <li><strong>買い手側の成果検証</strong><span>実行待ち</span><a href="#trace-verification">詳細を見る</a></li>
+            <li><strong>APQV証拠記録</strong><span>実行待ち</span><a href="#trace-evidence">詳細を見る</a></li>
           </ol>
           <div id="verdict" class="verdict" data-tone="wait">
             <small>買い手側の成果</small>
@@ -73,6 +78,14 @@
       </section>
 
       <p class="boundary"><strong>公開Sandboxの境界。</strong> 実際の購入は行わず、実在の売り手を評価せず、お金を動かさず、資格情報を使用せず、記録を保存しません。不正や絶対的な品質も判定しません。</p>
+
+      <section id="behind-scenes" class="section trace-section" aria-labelledby="trace-heading">
+        <p class="eyebrow">5段階の裏側</p>
+        <h2 id="trace-heading">Perpensumが受け取り、確認し、返したものを見る。</h2>
+        <p class="section-intro">上の購買を実行すると、具体的なマンデート、購入依頼、許可条件、売り手の納品、条件ごとの検証、証拠の保存範囲がここに表示されます。</p>
+        <div id="trace-empty" class="trace-empty">まだ裏で評価は行われていません。実行後、5つの記録がここに表示されます。</div>
+        <div id="trace-grid" class="trace-grid" hidden></div>
+      </section>
 
       <section class="section" aria-labelledby="terminal-heading">
         <p class="eyebrow">コマンドで実行する</p>

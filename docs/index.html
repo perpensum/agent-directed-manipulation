@@ -110,6 +110,7 @@ console.log(result.verification);</pre></div>
             <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span> accepts one field, <span class="inline-code">scenario</span>. It requires no authentication because it cannot target a real provider, move funds, or persist data.</p>
             <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
             <p>Supported scenarios are <span class="inline-code">usable</span>, <span class="inline-code">provider_succeeded_unusable</span>, and <span class="inline-code">insufficient_evidence</span>.</p>
+            <p>The response exposes the bounded mandate, purchase request, authorization checks, synthetic delivery, requirement-by-requirement verification, evidence record, and next-purchase action so the browser Quickstart can show what happened at every stage.</p>
           </section>
 
           <section id="security">
