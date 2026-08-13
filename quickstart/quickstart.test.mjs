@@ -23,7 +23,7 @@ test("browser client sends only a selected synthetic scenario", async () => {
   assert.equal(calls[0].options.headers.authorization, undefined);
 });
 
-test("public pages distinguish working paths from unpublished package previews", async () => {
+test("archived developer demos are separated from the current CEN product", async () => {
   const quickstart = await readFile(new URL("./index.html", import.meta.url), "utf8");
   const quickstartJa = await readFile(new URL("./ja.html", import.meta.url), "utf8");
   const docs = await readFile(new URL("../docs/index.html", import.meta.url), "utf8");
@@ -38,7 +38,11 @@ test("public pages distinguish working paths from unpublished package previews",
   assert.match(quickstart, /id="timeline-detail-mandate"/);
   assert.doesNotMatch(quickstart, /id="trace-grid"/);
   assert.match(quickstart, /href="\/quickstart\/ja"/);
-  assert.match(quickstart, /not on npm yet/);
+  assert.match(quickstart, /Archived research demo/);
+  assert.match(quickstart, /not the current Perpensum product contract or current MCP integration/);
+  assert.match(quickstart, /CEN and the Decision Engine/);
+  assert.match(quickstart, /https:\/\/api\.perpensum\.org\//);
+  assert.doesNotMatch(quickstart, /app\.perpensum\.org|@perpensum\/mcp|@perpensum\/sdk/);
   assert.match(quickstartJa, /同じ流れを4コマンドで試す/);
   assert.match(quickstartJa, /合成売り手が何を納品するか選ぶ/);
   assert.match(quickstartJa, /内容品質と後続利用の検証/);
@@ -47,10 +51,17 @@ test("public pages distinguish working paths from unpublished package previews",
   assert.match(quickstartJa, /詳細を見る/);
   assert.doesNotMatch(quickstartJa, /id="trace-grid"/);
   assert.match(quickstartJa, /href="\/quickstart"/);
-  assert.match(docs, /not publicly installable packages yet/);
+  assert.match(quickstartJa, /アーカイブ済み研究demo/);
+  assert.match(quickstartJa, /現行Perpensumの製品契約やMCP接続ではありません/);
+  assert.match(quickstartJa, /CENとDecision Engine/);
+  assert.doesNotMatch(quickstartJa, /app\.perpensum\.org|@perpensum\/mcp|@perpensum\/sdk/);
+  assert.match(docs, /three-call MCP loop/);
   assert.match(docs, /href="\/docs\/ja"/);
-  assert.match(docs, /will not silently gain spending authority/);
-  assert.match(docsJa, /npm packageは非公開の候補版/);
+  assert.match(docs, /structured invoice extraction through Replicate/);
+  assert.match(docs, /not plug-and-play today/);
+  assert.match(docsJa, /3-call MCP loop/);
+  assert.match(docsJa, /Replicate経由の構造化請求書抽出/);
+  assert.match(docsJa, /そのまますぐ接続できるという意味ではありません/);
   assert.match(docsJa, /href="\/docs"/);
   assert.match(browserApp, /result\.mandate/);
   assert.match(browserApp, /result\.verification\.constraint_checks/);

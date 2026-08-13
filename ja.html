@@ -3,206 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>エージェント向け誘導の定義 v0.1</title>
-<meta name="description" content="AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。">
+<title>Perpensum — AIの購買に、経験の記憶を</title>
+<meta name="description" content="Perpensumは、AIの購買経験をCollective Experience Networkに蓄積し、Decision Engineから根拠の範囲を超えない判断材料を返す買い手側のサービスです。">
 <link rel="canonical" href="https://perpensum.org/ja">
 <link rel="alternate" hreflang="en" href="https://perpensum.org/">
 <link rel="alternate" hreflang="ja" href="https://perpensum.org/ja">
 <link rel="alternate" hreflang="x-default" href="https://perpensum.org/">
-<meta property="og:type" content="article">
-<meta property="og:title" content="エージェント向け誘導の定義 v0.1">
-<meta property="og:description" content="AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Perpensum — AIの購買に、経験の記憶を">
+<meta property="og:description" content="機械購買のための、買い手側Collective Experience NetworkとDecision Engine。">
 <meta property="og:url" content="https://perpensum.org/ja">
 <meta property="og:site_name" content="Perpensum">
-<!-- この基準は「構造化データは正当な機械可読の自己提示である」と定めている。
-     まず自分が実演する。本文と同じことをここでも言う。 -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "TechArticle",
-      "@id": "https://perpensum.org/ja#document",
-      "url": "https://perpensum.org/ja",
-      "name": "エージェント向け誘導の定義",
-      "headline": "エージェント向け誘導の定義 v0.1",
-      "description": "AIエージェントの判断を動かすためにWebページへ置かれた文字列を、正当な機械可読化と区別して判定するための定義。",
-      "inLanguage": "ja",
-      "datePublished": "2026-07-30",
-      "version": "0.1",
-      "creativeWorkStatus": "Draft",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "isAccessibleForFree": true,
-      "author": { "@id": "https://perpensum.org/#publisher" },
-      "publisher": { "@id": "https://perpensum.org/#publisher" },
-      "about": { "@id": "https://perpensum.org/#term" },
-      "translationOfWork": {
-        "@type": "TechArticle",
-        "url": "https://perpensum.org/",
-        "inLanguage": "en",
-        "name": "Defining Agent-Directed Manipulation"
-      },
-      "encoding": {
-        "@type": "MediaObject",
-        "encodingFormat": "application/json",
-        "contentUrl": "https://perpensum.org/definition.json"
-      },
-      "codeRepository": "https://github.com/perpensum/agent-directed-manipulation"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://perpensum.org/#publisher",
-      "name": "Perpensum",
-      "url": "https://perpensum.org/",
-      "sameAs": ["https://github.com/perpensum"]
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Perpensum","url":"https://perpensum.org/ja","applicationCategory":"BusinessApplication","operatingSystem":"Web; MCP-compatible AI runtimes","description":"機械購買のための、買い手側Collective Experience NetworkとDecision Engine。","provider":{"@type":"Organization","name":"Perpensum","url":"https://perpensum.org/"}}
 </script>
 <style>
-  :root{--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#e2e2e2;--accent:#8a2b2b;--code:#f6f6f4}
-  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e3;--muted:#a0a0a0;--bg:#141414;--line:#333;--accent:#e0857f;--code:#1e1e1e}}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-    -webkit-text-size-adjust:100%}
-  main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
-  h1{font-size:1.75rem;line-height:1.4;margin:0 0 .5rem}
-  h2{font-size:1.2rem;margin:3rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
-  h3{font-size:1rem;margin:2rem 0 .5rem}
-  .sub{color:var(--muted);font-size:.9rem;margin:0 0 2.5rem}
-  p,li{margin:.75rem 0}
-  ul{padding-left:1.25rem}
-  code{background:var(--code);padding:.1em .35em;border-radius:3px;font-size:.88em}
-  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
-  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
-  th{background:var(--code);font-weight:600;white-space:nowrap}
-  .note{border-left:3px solid var(--accent);padding:.6rem 0 .6rem 1rem;margin:1.5rem 0;color:var(--muted)}
-  strong{font-weight:600}
-  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+  :root{--fg:#17202a;--muted:#667085;--bg:#f7f8fa;--panel:#fff;--line:#e6e8ec;--accent:#5b47d6;--soft:#f0edff;--cyan:#1292a2;--good:#138a5b}
+  @media(prefers-color-scheme:dark){:root{--fg:#f2f4f7;--muted:#a8b0bd;--bg:#111318;--panel:#191c22;--line:#30343b;--accent:#9d91ff;--soft:#27233e;--cyan:#55c5d1;--good:#62d3a5}}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",sans-serif;-webkit-text-size-adjust:100%}main{max-width:68rem;margin:0 auto;padding:1.25rem 1.25rem 6rem}.nav{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0 4.2rem}.brand{font-weight:750;color:var(--fg);text-decoration:none}.links{display:flex;gap:1.25rem}.links a{color:var(--muted);text-decoration:none}.links a:hover{text-decoration:underline}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;margin-bottom:4.5rem}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.11em;font-size:.75rem;font-weight:750}.hero h1{font-size:clamp(2.8rem,7vw,5.4rem);letter-spacing:-.055em;line-height:1.08;margin:.45rem 0 1.4rem;max-width:11ch}.lede{font-size:1.2rem;color:var(--muted);max-width:41rem}.button{display:inline-block;background:var(--fg);color:var(--panel);padding:.8rem 1.15rem;border-radius:.65rem;text-decoration:none;font-weight:650;margin:.6rem .55rem 0 0}.button.secondary{background:transparent;color:var(--fg);border:1px solid var(--line)}.loop{background:var(--panel);border:1px solid var(--line);border-radius:1.2rem;padding:1.3rem;box-shadow:0 18px 50px rgba(16,24,40,.06)}.loop-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.65rem;margin:.8rem 0}.node{border:1px solid var(--line);border-radius:.8rem;padding:.75rem;background:var(--bg);font-weight:650;text-align:center}.node.network{border-color:color-mix(in srgb,var(--cyan) 35%,var(--line));color:var(--cyan)}.node.engine{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));color:var(--accent)}.arrow{color:var(--muted)}.truth{padding:1rem 1.1rem;border-radius:.9rem;background:var(--soft);color:var(--muted)}.truth strong{color:var(--accent)}h2{font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.035em;margin:0 0 .65rem}.section{margin:4.5rem 0}.section-lede{color:var(--muted);max-width:44rem}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1.3rem}.card{background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:1.2rem}.card h3{margin:.1rem 0 .5rem;font-size:1.05rem}.card p,.card li{color:var(--muted)}.card ul{padding-left:1.1rem}.boundary{border-left:3px solid var(--good)}.statement{font-size:clamp(1.5rem,4vw,2.3rem);letter-spacing:-.035em;line-height:1.4;max-width:32ch}.small{font-size:.9rem;color:var(--muted)}footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font-size:.88rem}footer a{color:inherit}
+  @media(max-width:760px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.links a:not(:last-child){display:none}.nav{padding-bottom:2.8rem}footer{display:block}.hero h1{max-width:12ch}}
 </style>
 </head>
-<body>
-<main>
+<body><main>
+<nav class="nav"><a class="brand" href="/ja">Perpensum</a><div class="links"><a href="/docs/ja">ドキュメント</a><a href="/alpha">非公開パイロット</a><a href="https://api.perpensum.org/?lang=ja">Console</a><a href="/" lang="en" hreflang="en">English</a></div></nav>
 
-<h1>エージェント向け誘導の定義 <span style="font-weight:400;color:var(--muted)">v0.1</span></h1>
-<p class="sub">2026-07-30 公開 &middot; <a href="/">English</a> &middot; <a href="https://github.com/perpensum/agent-directed-manipulation">GitHub</a></p>
+<section class="hero">
+  <div><p class="eyebrow">AIエージェントのための買い手側インテリジェンス</p><h1>AIの購買に、経験の記憶を。</h1><p class="lede">Perpensumは、1つの買い手だけでは集めきれない購買経験をAIが判断材料として使えるようにします。根拠が足りなければ、足りないと答えます。</p><p><a class="button" href="/alpha">最初の買い手パイロットを見る</a><a class="button secondary" href="/docs/ja">仕組みを見る</a></p></div>
+  <div class="loop"><p class="small">1回の購買経験</p><div class="loop-row"><div class="node">買い手AI</div><span class="arrow">→</span><div class="node engine">Decision Engine</div></div><div class="loop-row"><div class="node">Ask · Choice · Outcome</div><span class="arrow">↕</span><div class="node network">Collective Experience Network</div></div><p class="truth"><strong>現在地:</strong> 基盤は稼働していますが、独立した買い手をまたぐ経験ネットワークは始まったばかりです。当面は、追加の証拠を求めるか、判断を控える回答が多くなります。</p></div>
+</section>
 
-<div class="note">
-<strong>この文書は日本語版である。</strong> 正となる版は <a href="/">English</a> であり、解釈が割れた場合は英語版を優先する。
-</div>
+<section class="section"><p class="eyebrow">製品</p><h2>まず経験を残し、その範囲で判断する。</h2><p class="section-lede">支払い履歴だけでは、なぜ選んだのか、ほかに何を検討したのか、結果が使えたのかは分かりません。Perpensumは、その文脈、選択肢、選択、観測結果を残し、比較できる経験だけを判断に使います。</p><div class="grid"><article class="card"><h3>購入前に尋ねる</h3><p>買い手は、目的、すべての選択肢、制約、観測予定のOutcomeを、結果を見る前に固定します。</p></article><article class="card"><h3>起きたことを記録する</h3><p>購入は既存の経路で実行し、その後にChoiceと型付きOutcome、または観測できなかった理由を追記します。</p></article><article class="card"><h3>証拠の範囲で答える</h3><p>Decision Engineは直接使える証拠と弱い手掛かりを分け、推奨、追加収集、判断保留のいずれかを返します。根拠のない確信は作りません。</p></article></div></section>
 
-<p>AIエージェントがWebページを読んで購買や推薦の判断を行うようになった。それに伴い、<strong>人間の読者には見えない形で、あるいは第三者の投稿領域に、エージェントの判断を動かすための文字列を置く</strong>行為が現れている。</p>
+<section class="section"><p class="eyebrow">なぜネットワークか</p><p class="statement">1つの買い手が学べるのは、自分がすでに試した選択肢と失敗だけです。CENは、生の顧客データを共有データベースにせず、独立した買い手の経験を蓄積するための仕組みです。</p></section>
 
-<p>一方で、機械可読な自己提示（構造化データ、<code>llms.txt</code>、明快な仕様記述）はまっとうな施策であり、これと混同されてはならない。</p>
+<section class="section"><p class="eyebrow">データ境界</p><h2>購買の証拠は入れる。非公開の中身は入れない。</h2><div class="grid"><article class="card boundary"><h3>買い手の手元に残す</h3><ul><li>提供者と決済の資格情報</li><li>生のプロンプト、入力、出力</li><li>顧客記録と非公開成果物</li><li>購入の実行と最終権限</li></ul></article><article class="card"><h3>非公開の購買台帳</h3><ul><li>型付きのGoalとSituation</li><li>検討したAction一式</li><li>Choiceと購買証拠のdigest</li><li>型付きOutcome、欠測、時刻</li></ul></article><article class="card"><h3>Collective Projection</h3><ul><li>同意済みで適格な項目だけ</li><li>独立controlの集計</li><li>支持数、不確実性、限界</li><li>売り手を名指しした公開スコアは出さない</li></ul></article></div><p class="small">最初のパイロットでは、買い手をまたぐ価格共有は無効です。</p></section>
 
-<p><strong>この文書は、両者を分ける線を定義する。</strong> 誰が測っても同じ判定になることを目指す。</p>
+<section class="section"><div class="truth"><p class="eyebrow">最初の独立した買い手</p><h2>自然な購買を3回。30日間。無料。</h2><p>現在実装しているパイロット対象は、<strong>Replicate経由の構造化請求書抽出</strong>という限定プロファイルです。ほかの有料モデル、API、エージェント、デジタルサービスにすぐ接続できる段階ではありません。この対象で複数の選択肢を繰り返し選んでいるAIネイティブな運営者を、非公開の設計パートナーとして1組募集しています。</p><p><a class="button" href="/alpha">対象条件と参加条件を読む</a></p></div></section>
 
-<h2>定義</h2>
-
-<div class="note">
-<strong>エージェント向け誘導</strong>とは、Webページ上の文字列のうち、人間の読者ではなく機械の読み手に宛てられ、かつ <strong>(a) 人間に見えない形で置かれている</strong>、または <strong>(b) 第三者の投稿領域に置かれている</strong> もののうち、読み手の判断・出力・順位づけを指示するものをいう。
-</div>
-
-<h2>判定の2軸</h2>
-
-<p>判定は次の2軸だけで行う。<strong>主観的な悪質性の評価を含めない。</strong></p>
-
-<table>
-<tr><th>軸</th><th>値</th><th>定義</th></tr>
-<tr><td rowspan="2">領域</td><td>first_party</td><td>サイト運営者自身の領域（本文、メタ、構造化データ）</td></tr>
-<tr><td>third_party</td><td>第三者が投稿できる領域（レビュー、コメント、UGC、埋め込み）</td></tr>
-<tr><td rowspan="2">可視性</td><td>visible</td><td>通常のレンダリングで人間が読める</td></tr>
-<tr><td>hidden</td><td>人間の読者には到達しない形で置かれている</td></tr>
-</table>
-
-<h3>重大度</h3>
-
-<table>
-<tr><th>領域</th><th>可視性</th><th>重大度</th><th>意味</th></tr>
-<tr><td>first_party</td><td>visible</td><td>info（白）</td><td>ただの広告表現。問題視しない</td></tr>
-<tr><td>first_party</td><td>hidden</td><td>warn（灰）</td><td>隠しテキスト。検索エンジンのクローキング相当</td></tr>
-<tr><td>third_party</td><td>visible</td><td>warn（灰）</td><td>第三者がエージェント向け指示を置いた</td></tr>
-<tr><td>third_party</td><td>hidden</td><td>high（黒）</td><td>第三者による不可視の注入</td></tr>
-</table>
-
-<p><strong>なぜ2軸だけか。</strong> 「大げさか」「誇張か」といった軸を入れると、正当な広告表現との線が引けなくなり、判定が測る人によって変わる。基準として機能させるには、機械的に決まる軸だけで構成する必要がある。</p>
-
-<h2>「可視性: hidden」に含めるもの</h2>
-
-<table>
-<tr><th>手法</th><th>例</th></tr>
-<tr><td>CSSによる非表示</td><td><code>display:none</code>、<code>visibility:hidden</code>、<code>hidden</code> 属性</td></tr>
-<tr><td>実質的な不可視</td><td><code>font-size:0</code>、<code>opacity:0</code>、文字色と背景色の一致</td></tr>
-<tr><td>画面外配置</td><td>大きな負のオフセット</td></tr>
-<tr><td>マークアップ上のみ</td><td>HTMLコメント、<code>&lt;template&gt;</code> の中</td></tr>
-<tr><td>支援技術からの隠蔽</td><td><code>aria-hidden="true"</code></td></tr>
-<tr><td>属性値のみ</td><td><code>meta</code> の <code>content</code>、<code>alt</code>、<code>title</code>、<code>data-*</code></td></tr>
-</table>
-
-<p><strong>条件付きのCSSは hidden に数えない。</strong> <code>@media (max-width:640px)</code>、<code>@media print</code>、<code>@supports</code>、<code>@container</code> の中の宣言は、特定の条件下でのみ効く。レスポンシブ設計や印刷用スタイルを「隠しテキスト」と呼ぶのは誤りである。</p>
-
-<p><strong>外部CSSを解決できない場合、hidden と断定しない。</strong> 判定は「不明」とし、その旨を明示する。断定できないものを黒に倒すと誤検知になる。</p>
-
-<h2>「領域: third_party」の判定</h2>
-
-<p>第三者領域は、<code>itemprop="review"</code> 等の構造化マークアップ、<code>class</code>／<code>id</code> に投稿領域を示す語、埋め込み要素から推定する。</p>
-
-<p><strong>推定である。確信が持てない場合は first_party に倒す。</strong> 第三者判定のほうが重大度が高いため、迷ったときに安全側へ倒すとは「一次コンテンツとみなす」ことを意味する。</p>
-
-<p><strong>運営者側を示す語が同居する場合は first_party とする。</strong> 編集部レビュー、運営者による要約、掲載された導入事例は、いずれもサイト運営者の一次コンテンツである。</p>
-
-<h2>検出しないもの</h2>
-
-<p>これらを検出対象に含めてはならない。<strong>含めた瞬間に、この基準は使い物にならなくなる。</strong></p>
-
-<ul>
-<li><strong>通常の広告表現。</strong>「最適です」「多くの企業に選ばれています」「今すぐご購入ください」</li>
-<li><strong>構造化データ、<code>llms.txt</code>、<code>robots.txt</code> への正当な記述。</strong> 機械可読な自己提示は白である</li>
-<li><strong>AIに言及しているだけの文。</strong>「当社のAIアシスタントがご案内します」は誘導ではない</li>
-<li><strong>隠されているが無害なテキスト。</strong> スキップリンク、スクリーンリーダー向けテキスト、Cookieバナー、アコーディオンやタブの初期状態、カルーセルの非アクティブスライド</li>
-<li><strong>一人称の本物のレビュー。</strong>「これを勧めます」と書く実在の投稿者を、注入と混同しない</li>
-<li><strong>プロンプトインジェクションの解説記事。</strong> 例示として制御記号を含む文書は、攻撃ではない</li>
-</ul>
-
-<h2>判定の限界</h2>
-
-<ul>
-<li>外部CSSを取得しない限り、<code>display:none</code> を外部CSSに置いた隠蔽は検出できない</li>
-<li>JavaScriptによる動的な表示制御は評価しない</li>
-<li>第三者領域の判定は推定であり、確実ではない</li>
-<li>英語・日本語以外の言語は現時点で対象外</li>
-</ul>
-
-<p><strong>この限界を隠して「検出できる」と主張しない。</strong> 検出できていないことを「問題なし」と表示するのは、この種の基準にとって最悪の失敗である。</p>
-
-<h2>機械可読版</h2>
-
-<p>同じ内容を機械が読める形でも提供する。<strong>この基準自身が「構造化データや <code>llms.txt</code> による機械可読な自己提示は正当である」と定めている以上、まず自分がそれを実演する。</strong></p>
-
-<ul>
-<li><a href="/definition.json"><code>definition.json</code></a> — 定義の構造化版。2軸、重大度表、検出種別、対象外、限界を含む</li>
-<li><a href="/llms.txt"><code>llms.txt</code></a> — 機械の読み手向けの索引</li>
-<li><a href="/conformance/cases.json"><code>conformance/cases.json</code></a> — 適合性テスト26ケース。うち20ケースは「検出しない」ことを期待する</li>
-<li><a href="/reference/scan.mjs"><code>reference/scan.mjs</code></a> — 最小の参照実装。依存なしで26ケース全てを通る</li>
-<li><a href="/robots.txt"><code>robots.txt</code></a> — 全て公開。読み手によって内容を変えない</li>
-</ul>
-
-<p>これらは人間向けの文章と同じ内容であり、機械にだけ別のことを伝えない。<strong>読み手によって違うものを見せる仕組みは、この文書が問題にしているものそのものである。</strong></p>
-
-<h2>版と改訂</h2>
-
-<p>v0.1（2026-07-30）初版。</p>
-
-<p>改訂時は旧版を削除せず、変更点と理由を残す。<strong>基準は、変わらないことではなく、変わり方が追えることで信頼される。</strong></p>
-
-<footer>
-<p>この定義は、第三者が同じ入力から同じ判定に到達できることを要件としている。確認用の<a href="/conformance">適合性テスト</a>（26ケース）を同梱している。陽性・陰性の両方を含み、<strong>陰性側が最多である</strong>。この基準の実体は「何を検出するか」より「何を検出しないか」にあるためである。</p>
-<p>不一致が出た場合、あなたの実装が誤っているとは限らない。定義の解釈が割れている箇所を示しているので、<a href="https://github.com/perpensum/agent-directed-manipulation/issues">指摘してほしい</a>。</p>
-<p><strong>ライセンス。</strong> この定義と付属文書は <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>、適合性テストのランナーは MIT。出典を示せば引用・実装・翻訳・派生は自由である。<strong>実装にPerpensumの許可、届け出、認定は不要である。</strong> 自らの実装を関所にする基準は、基準ではない。</p>
-<p>発行: Perpensum. <a href="/contact">連絡先とクローラの情報</a> &middot; <a href="/">English (authoritative)</a></p>
-</footer>
-
-</main>
-</body>
-</html>
+<footer><span>Perpensum · 機械購買のための買い手側エビデンス</span><span><a href="/docs/ja">ドキュメント</a> · <a href="/alpha">パイロット</a> · <a href="/contact">連絡先</a> · <a href="/" lang="en" hreflang="en">English</a></span></footer>
+</main></body></html>

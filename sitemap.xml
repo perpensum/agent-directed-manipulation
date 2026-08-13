@@ -1,69 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://perpensum.org/</loc>
-    <lastmod>2026-08-01</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/ja</loc>
-    <lastmod>2026-07-30</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/conformance</loc>
-    <lastmod>2026-07-30</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/conformance"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/conformance/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/conformance"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/contact</loc>
-    <lastmod>2026-07-31</lastmod>
-  </url>
-  <url>
-    <loc>https://perpensum.org/playground</loc>
-    <lastmod>2026-08-01</lastmod>
-  </url>
-  <url>
-    <loc>https://perpensum.org/apqv</loc>
-    <lastmod>2026-08-01</lastmod>
-  </url>
-  <url>
-    <loc>https://perpensum.org/alpha</loc>
-    <lastmod>2026-08-02</lastmod>
-  </url>
-  <url>
-    <loc>https://perpensum.org/quickstart</loc>
-    <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/quickstart"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/quickstart/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/quickstart"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/quickstart/ja</loc>
-    <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/quickstart"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/quickstart/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/quickstart"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/docs</loc>
-    <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/docs"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs"/>
-  </url>
-  <url>
-    <loc>https://perpensum.org/docs/ja</loc>
-    <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://perpensum.org/docs"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs"/>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://perpensum.org/</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://perpensum.org/ja</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://perpensum.org/alpha</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://perpensum.org/docs</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://perpensum.org/docs/ja</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://perpensum.org/contact</loc><lastmod>2026-08-13</lastmod></url>
 </urlset>

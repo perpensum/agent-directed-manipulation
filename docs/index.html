@@ -1,144 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Developer Docs — Perpensum</title>
-  <meta name="description" content="Concepts, quickstarts, security boundaries, and integration paths for Perpensum.">
-  <link rel="canonical" href="https://perpensum.org/docs">
-  <link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
-  <link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
-  <link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Perpensum Developer Docs">
-  <meta property="og:description" content="Connect a buyer agent to an independent machine-purchase quality layer.">
-  <meta property="og:url" content="https://perpensum.org/docs">
-  <meta property="og:site_name" content="Perpensum">
-  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
-  <link rel="stylesheet" href="/developer.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Perpensum Docs — CEN and Decision Engine</title>
+<meta name="description" content="How a buyer AI uses Perpensum before and after a machine purchase, and what enters the Collective Experience Network.">
+<link rel="canonical" href="https://perpensum.org/docs">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
+<style>
+  :root{--fg:#17202a;--muted:#667085;--bg:#f7f8fa;--panel:#fff;--line:#e6e8ec;--accent:#5b47d6;--soft:#f0edff;--good:#138a5b;--code:#f1f3f5}
+  @media(prefers-color-scheme:dark){:root{--fg:#f2f4f7;--muted:#a8b0bd;--bg:#111318;--panel:#191c22;--line:#30343b;--accent:#9d91ff;--soft:#27233e;--good:#62d3a5;--code:#22262d}}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}main{max-width:64rem;margin:0 auto;padding:1.25rem 1.25rem 6rem}.nav{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0 3.5rem}.nav a{color:var(--muted);text-decoration:none}.brand{font-weight:750!important;color:var(--fg)!important}h1{font-size:clamp(2.5rem,7vw,4.8rem);letter-spacing:-.055em;line-height:1;margin:.4rem 0 1rem;max-width:13ch}h2{font-size:1.55rem;letter-spacing:-.025em;margin:3.8rem 0 .7rem}.lede{font-size:1.15rem;color:var(--muted);max-width:42rem}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.11em;font-size:.75rem;font-weight:750}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.card{background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:1.2rem}.card p,.card li{color:var(--muted)}.step{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;margin:1.3rem 0}.number{display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--soft);color:var(--accent);font-weight:750;font-size:.8rem}.note{border-left:3px solid var(--good);padding:.8rem 0 .8rem 1rem;color:var(--muted)}code{background:var(--code);border-radius:.3rem;padding:.12rem .35rem;font-size:.88em}pre{background:var(--code);border:1px solid var(--line);border-radius:.8rem;padding:1rem;overflow:auto;white-space:pre-wrap}.tag{display:inline-block;background:var(--soft);color:var(--accent);font-size:.78rem;font-weight:650;border-radius:99px;padding:.2rem .55rem;margin:.15rem}.small{font-size:.9rem;color:var(--muted)}footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}footer a{color:inherit}@media(max-width:720px){.grid{grid-template-columns:1fr}.nav span a:not(:last-child){display:none}}
+</style>
 </head>
-<body>
-  <div class="site-shell">
-    <header class="site-header">
-      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Docs v0</span></a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/quickstart">Quickstart</a>
-        <a href="/docs" aria-current="page">Docs</a>
-        <a href="/apqv">APQV</a>
-        <a class="console-link" href="https://app.perpensum.org">Console</a>
-        <a class="language-link" href="/docs/ja" lang="ja" hreflang="ja">日本語</a>
-      </nav>
-    </header>
+<body><main>
+<nav class="nav"><a class="brand" href="/">Perpensum</a><span><a href="/alpha">Private pilot</a> · <a href="https://api.perpensum.org/">Console</a> · <a href="/docs/ja" lang="ja" hreflang="ja">日本語</a></span></nav>
+<p class="eyebrow">Product documentation</p><h1>One purchase, preserved as experience.</h1><p class="lede">Perpensum surrounds a purchase the buyer AI already makes. It seals what was known before the decision, records the chosen action, and appends the observed result afterwards.</p>
 
-    <main>
-      <section class="hero">
-        <p class="eyebrow">Perpensum Developer Docs · v0</p>
-        <h1>Put an independent quality layer in the purchase path.</h1>
-        <p class="lede">Perpensum helps a buyer agent state what it needs before purchase, obtain a bounded execution decision, verify the delivered result, and use that evidence in the next purchase.</p>
-        <div class="hero-actions"><a class="button" href="/quickstart">Run the Quickstart</a><a class="button secondary" href="/apqv">Read the APQV proposal</a></div>
-      </section>
+<h2>The three-call loop</h2>
+<div class="step"><span class="number">1</span><div><strong>Ask before acting</strong><br><span class="small"><code>ask_purchase_advice</code> fixes the goal, situation, complete action set—including not buying—and the planned Outcome observations. The Decision Engine may return bounded evidence or abstain.</span></div></div>
+<div class="step"><span class="number">2</span><div><strong>Record the Choice</strong><br><span class="small"><code>record_purchase_choice</code> records the selected action and, for a buy action, the purchase state and evidence digest. The purchase still happens through the buyer’s existing provider route.</span></div></div>
+<div class="step"><span class="number">3</span><div><strong>Report each Outcome</strong><br><span class="small"><code>report_purchase_outcome</code> appends a typed observation or an explicit missing reason. It may be called again for later metrics or horizons; missing is never silently converted into failure.</span></div></div>
+<p class="small">Two maintenance tools complete the lifecycle: <code>withdraw_purchase_outcome</code> retracts an invalid observation without rewriting history, and <code>get_purchase_episode</code> returns a typed summary.</p>
 
-      <div class="doc-layout">
-        <nav class="doc-nav" aria-label="Documentation sections">
-          <a href="#start">Start here</a><a href="#flow">How it works</a><a href="#concepts">Concepts</a><a href="#gateway">Gateway</a><a href="#mcp">MCP</a><a href="#sdk">SDK</a><a href="#api">Sandbox API</a><a href="#security">Security</a><a href="#limits">Current limits</a>
-        </nav>
+<h2>How the two core parts differ</h2>
+<div class="grid"><article class="card"><p class="eyebrow">CEN</p><h3>Collective Experience Network</h3><p>The evidence memory. It preserves the causal purchase sequence, independent-control identity, consent, time, missingness, corrections, and the minimum typed context needed to decide whether past experience applies.</p></article><article class="card"><p class="eyebrow">DE</p><h3>Decision Engine</h3><p>The bounded interpreter. It reads an admitted CEN projection for the exact decision time, separates direct evidence from looser signals, applies the buyer’s sealed constraints, and returns a preference only when the gate is satisfied.</p></article><article class="card"><p class="eyebrow">Buyer AI</p><h3>Final authority</h3><p>The buyer owns its mandate, utility, credentials, provider route, and execution. Perpensum supplies evidence; it is not a purchasing proxy or a universal objective function.</p></article></div>
 
-        <div class="doc-content">
-          <section id="start">
-            <p class="eyebrow">Start here</p><h2>Three ways in</h2>
-            <div class="status-note"><strong>Current release status.</strong> The browser and four-command synthetic Quickstart are the public starting points. Hosted Alpha is approved-access. The SDK and MCP npm packages are private release candidates, not publicly installable packages yet.</div>
-            <div class="path-grid">
-              <article class="path-card"><span class="path-number">01</span><strong>Try</strong><p>Run one zero-dollar synthetic purchase in the browser.</p><a href="/quickstart">Open Quickstart →</a></article>
-              <article class="path-card"><span class="path-number">02</span><strong>Connect</strong><p>Add a real buyer agent through Hosted Alpha after its mandate is defined.</p><a href="/alpha">Hosted Alpha →</a></article>
-              <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>Build</strong><p>Embed the release-candidate JavaScript client after package release.</p><a href="#sdk">SDK preview →</a></article>
-            </div>
-          </section>
+<h2>What a Decision may say</h2>
+<p><span class="tag">bounded preference</span><span class="tag">collect more</span><span class="tag">abstain</span></p>
+<p>A preference requires directly applicable evidence, adequate independent support and coverage, current identities and methods, compatible units, satisfied hard constraints, and no unsupported feasible alternative that could still be better. Otherwise the normal result is to collect more evidence or abstain.</p>
+<p class="note">Logged Outcome distributions are not automatically causal effects. Analogical transfer, prediction, policy optimization, and Contextual Bandit behavior remain separate gates and are not opened by a thin cohort.</p>
 
-          <section id="flow">
-            <p class="eyebrow">How it works</p><h2>One purchase, five evidence stages</h2>
-            <ol class="flow-list">
-              <li><b>1</b><div><strong>Mandate</strong><span>The organization sets the budget, allowed routes, and purchase count before the buyer agent acts.</span></div></li>
-              <li><b>2</b><div><strong>Plan and promise</strong><span>The buyer freezes its purpose, success condition, selected seller, offer, and represented claims.</span></div></li>
-              <li><b>3</b><div><strong>Decision</strong><span>Perpensum checks the request against the mandate and issues a short-lived, single-use execution ticket or blocks it.</span></div></li>
-              <li><b>4</b><div><strong>Local execution and observation</strong><span>The buyer-side Gateway calls the provider. Credentials and raw outputs can remain in the buyer environment.</span></div></li>
-              <li><b>5</b><div><strong>Verification and next action</strong><span>The observed result is compared with the frozen criteria. Evidence, mismatch, uncertainty, and a bounded next-purchase action are returned.</span></div></li>
-            </ol>
-          </section>
+<h2>Data boundary</h2>
+<div class="grid"><article class="card"><h3>Never send</h3><ul><li>provider or payment credentials</li><li>raw prompts, inputs, or outputs</li><li>customer records or source documents</li><li>receipt bodies or private artifacts</li></ul></article><article class="card"><h3>Typed private record</h3><ul><li>goal, situation, and complete actions</li><li>offering and release identity</li><li>Choice and purchase evidence digest</li><li>Outcome value or missing reason</li></ul></article><article class="card"><h3>Collective use</h3><ul><li>explicit participant consent</li><li>server-owned Share Profile</li><li>comparability and evidence gates</li><li>non-identifying aggregate support</li></ul></article></div>
 
-          <section id="concepts">
-            <p class="eyebrow">Concepts</p><h2>The terms used across every integration</h2>
-            <table class="data-table"><thead><tr><th>Term</th><th>Plain meaning</th></tr></thead><tbody>
-              <tr><td>APQV</td><td>Agentic Purchase Quality Verification: comparing a buyer's frozen purchase intent with observable source, transaction, delivery, and outcome evidence.</td></tr>
-              <tr><td>Mandate</td><td>The authority, budget, count, time, and route limits delegated to a buyer agent.</td></tr>
-              <tr><td>Gateway</td><td>The buyer-side enforcement point that obtains a decision before execution and observes the result afterward.</td></tr>
-              <tr><td>Adapter</td><td>The small translator between the common Gateway contract and a particular provider or commerce protocol.</td></tr>
-              <tr><td>Control Plane</td><td>The hosted policy and evidence service. It evaluates mandates, issues one-use tickets, and receives bounded outcome telemetry.</td></tr>
-              <tr><td>Evidence record</td><td>The linked account of intent, decision, execution, delivery, buyer observation, gaps, and limits for one machine purchase.</td></tr>
-            </tbody></table>
-          </section>
+<h2>Connecting Claude Code</h2>
+<p>Participation is private while CEN is thin. After approval, sign in to the <a href="https://api.perpensum.org/">Console</a>, accept the displayed participation terms, generate a one-time MCP key, and copy the complete command shown by the Console. It has this form:</p>
+<pre>claude mcp add --transport http --scope user perpensum \
+  'https://api.perpensum.org/v1/mcp' \
+  --header 'Authorization: Bearer &lt;your key&gt;'</pre>
+<p>Do not paste the key into a prompt or send it to Perpensum support. The Console shows it once; rotating the key invalidates the previous one.</p>
 
-          <section id="gateway">
-            <p class="eyebrow">Gateway</p><h2>One Gateway per trust boundary, not one per purchase</h2>
-            <p>An organization normally installs one Gateway runtime inside a trusted environment. Multiple buyer-agent profiles can share that runtime while retaining separate identities, assigned mandates, private keys, provider credentials, and recovery records.</p>
-            <p>The Gateway does not mean Perpensum centrally buys everything on the customer's behalf. It means the customer's buyer agent sends the purchase through a controlled local execution point before reaching the provider.</p>
-          </section>
+<h2>Current scope</h2>
+<p>The production core and the three-call MCP loop are live. The currently implemented participation profile is limited to <strong>structured invoice extraction through Replicate</strong>. Other paid models, APIs, agents, and digital services are not plug-and-play today; each expansion requires its Offering, release, Situation, Outcome schema, measurement method, and data boundary to be registered and validated.</p>
+<p>The initial CEN evidence comes from one internal control and cannot establish cross-buyer reliability. The first private pilot therefore targets three natural repetitions within that limited profile. It does not promise a best provider, universal quality score, causal improvement, price benchmark, or automatic purchasing.</p>
+<p><a href="/alpha">Read the first-buyer pilot</a> or contact <a href="mailto:hello@perpensum.org">hello@perpensum.org</a> without attaching credentials, prompts, outputs, purchase records, or customer data.</p>
 
-          <section id="mcp">
-            <p class="eyebrow">MCP preview</p><h2>The shortest path for an AI agent</h2>
-            <p>The private release candidate exposes one sandbox tool: <span class="inline-code">run_apqv_sandbox_purchase</span>. It accepts no credential or arbitrary purchase target.</p>
-            <div class="code-card"><div class="code-head"><span>Proposed public command — not yet available on npm</span></div><pre>claude mcp add perpensum -- npx -y @perpensum/mcp</pre></div>
-            <p>Real provider purchases continue to use the authenticated Gateway profile issued from Hosted Alpha. The public MCP package will not silently gain spending authority.</p>
-          </section>
-
-          <section id="sdk">
-            <p class="eyebrow">JavaScript SDK preview</p><h2>A deliberately small client</h2>
-            <p>The release candidate starts with one method. Production methods will be added only after the smallest stable contract is clear.</p>
-            <div class="code-card"><div class="code-head"><span>Preview API — package not yet public</span></div><pre>import { PerpensumClient } from "@perpensum/sdk";
-
-const perpensum = new PerpensumClient();
-const result = await perpensum.runSandboxPurchase({
-  scenario: "provider_succeeded_unusable"
-});
-
-console.log(result.verification);</pre></div>
-          </section>
-
-          <section id="api">
-            <p class="eyebrow">Public sandbox API</p><h2>A real call with synthetic execution</h2>
-            <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span> accepts one field, <span class="inline-code">scenario</span>. It requires no authentication because it cannot target a real provider, move funds, or persist data.</p>
-            <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
-            <p>Supported scenarios are <span class="inline-code">usable</span>, <span class="inline-code">provider_succeeded_unusable</span>, and <span class="inline-code">insufficient_evidence</span>.</p>
-            <p>The response exposes the bounded mandate, purchase request, authorization checks, synthetic delivery, requirement-by-requirement verification, evidence record, and next-purchase action so the browser Quickstart can show what happened at every stage.</p>
-          </section>
-
-          <section id="security">
-            <p class="eyebrow">Security boundary</p><h2>What stays local and what becomes evidence</h2>
-            <table class="data-table"><thead><tr><th>Buyer environment</th><th>Hosted Control Plane</th></tr></thead><tbody>
-              <tr><td>Provider API tokens, cards, wallet secrets</td><td>Purchase purpose and frozen success condition</td></tr>
-              <tr><td>Raw prompts, inputs, and outputs when configured locally</td><td>Selected seller, offer, represented claims, price, and route</td></tr>
-              <tr><td>Agent-specific private key and execution recovery record</td><td>Mandate decision and bounded buyer-observed outcome</td></tr>
-            </tbody></table>
-            <p>The public sandbox stores neither side. Hosted Alpha stores bounded evidence but does not centrally store provider credentials.</p>
-          </section>
-
-          <section id="limits">
-            <p class="eyebrow">Current limits</p><h2>What v0 does not claim</h2>
-            <ul>
-              <li>It does not decide whether a purchase was absolutely good.</li>
-              <li>It does not infer fraud from a mismatch or failure alone.</li>
-              <li>It does not yet provide cross-buyer price benchmarks or market-wide optimization.</li>
-              <li>Its first market is machine-verifiable digital outcomes and services, not physical goods.</li>
-              <li>Deep semantic quality checks remain purpose-specific; a structurally valid output can still be inaccurate.</li>
-              <li>The public SDK and MCP package names, license, and release repository are not yet committed.</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/quickstart">Quickstart</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
-  </div>
-</body>
-</html>
+<footer>Perpensum · <a href="/">Home</a> · <a href="/alpha">Pilot</a> · <a href="https://api.perpensum.org/">Console</a> · <a href="/contact">Contact</a></footer>
+</main></body></html>

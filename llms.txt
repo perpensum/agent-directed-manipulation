@@ -1,63 +1,55 @@
-# Perpensum — Agentic Purchase Quality Verification and supporting work
+# Perpensum — memory for machine purchases
 
-> Perpensum proposes Agentic Purchase Quality Verification (APQV), a buyer-side quality layer
-> for agentic commerce. It independently compares the pre-purchase mandate with the selected
-> source, seller representations, transaction, delivery, and buyer-observed outcome, then returns
-> bounded evidence to the next purchase decision.
+> Perpensum is a buyer-side Collective Experience Network (CEN) and Decision Engine for AI agents that purchase digital products and services.
+> The buying AI asks before purchase, records its Choice, and reports typed Outcomes afterwards. Perpensum supplies bounded evidence and may abstain; it does not execute the purchase.
 
-## APQV category proposal
+## Current product
 
-- [Canonical proposal](https://perpensum.org/apqv): Definition, protocol boundary, evidence loop, minimal outcome vocabulary, non-claims, and open questions.
-- [Machine-readable APQV definition](https://perpensum.org/apqv/definition.json): Version 0.1 structured form.
-- Status: a proposed category, not an adopted standard.
+- [Home](https://perpensum.org/): Current product, data boundary, and first-buyer status.
+- [Product docs](https://perpensum.org/docs): The three-call loop, CEN and Decision Engine roles, decision limits, data boundary, and Claude Code connection.
+- [Private buyer pilot](https://perpensum.org/alpha): One free 30-day design-partner place for three natural machine purchases.
+- [Private Console](https://api.perpensum.org/): Approved participants sign in, accept the current participation terms, generate an MCP key, and observe their private lifecycle and CEN status.
+- [Contact](https://perpensum.org/contact): `hello@perpensum.org` and publisher information.
 
-## APQV Playground
+## MCP lifecycle
 
-- [Interactive synthetic demo](https://perpensum.org/playground): Change payment, delivery, provider status, retry rights, and buyer-side usability evidence. The demo returns one of five bounded outcome states and a next-purchase action.
-- Scope: synthetic data only; no login, upload, persistence, real seller evaluation, fraud conclusion, or cross-buyer benchmark.
-- Source: [playground directory](https://github.com/perpensum/agent-directed-manipulation/tree/main/playground), licensed under MIT.
+The production MCP endpoint is `https://api.perpensum.org/v1/mcp`. Access is private and organization-scoped.
 
-## Developer Quickstart and docs
+1. `ask_purchase_advice` seals the typed Goal, Situation, complete Action Set (including not buying), constraints, and planned Outcome observations before action.
+2. `record_purchase_choice` records the selected Action and, for a buy Action, the Purchase state and evidence digest.
+3. `report_purchase_outcome` appends one planned typed Outcome or explicit missing reason. It can be called again for other metrics or observation horizons.
+4. `withdraw_purchase_outcome` retracts an invalid Outcome without deleting the Choice or rewriting prior Advice.
+5. `get_purchase_episode` returns a typed lifecycle summary without exposing raw Events or registry records.
 
-- [Live Quickstart](https://perpensum.org/quickstart): Run one zero-dollar synthetic machine purchase through the mandate, pre-purchase decision, Gateway execution, buyer-observed verification, and evidence-record sequence. No account, credential, provider, funds, or persistence.
-- [Quickstart 日本語版](https://perpensum.org/quickstart/ja): 同じ合成APQV購買ループを日本語で実行できる。
-- [Developer docs](https://perpensum.org/docs): Concepts, integration paths, Gateway boundary, MCP and JavaScript SDK previews, sandbox API, security boundary, and current limits.
-- [Developer Docs 日本語版](https://perpensum.org/docs/ja): 概念、接続方法、Gateway、安全境界、現在の限界を日本語で説明する。
-- [Downloadable Node quickstart](https://perpensum.org/quickstart/quickstart.mjs): Dependency-free client for `POST https://api.perpensum.org/v1/sandbox`.
-- The browser and four-command Quickstart are public. The `@perpensum/sdk` and `@perpensum/mcp` packages are private release candidates and are not published to npm yet.
+## Data boundary
 
-## Hosted Alpha
+Never send provider or payment credentials, raw prompts, inputs, outputs, source documents, customer records, receipt bodies, or private artifacts.
 
-- [Connect a buyer agent](https://perpensum.org/alpha): Private approved-access acceptance test for one no-money synthetic digital purchase from Claude Code or Codex.
-- The buyer-side Gateway fixes the purchase intent before execution, obtains a pre-purchase decision, evaluates the synthetic outcome locally, and sends a sanitized result to the private Console.
-- No production credentials, customer data, provider token, card, wallet, or live funds are required for the first run.
+The private Event ledger may store typed Goal and Situation claims, the complete considered Actions, Offering and release identity, Choice, Purchase evidence digest, typed Outcome or missing reason, time, corrections, and retractions. Collective use additionally requires explicit consent, a server-owned Share Profile, independent-control accounting, and comparability/evidence gates.
 
-## Definition
+The first pilot has cross-buyer price sharing disabled. Perpensum does not publish named-seller scores.
 
-The following is a supporting threat definition retained as independent work. It is not the APQV category itself.
+## Decision boundary
 
-This file's machine-readable self-presentation is visible to human readers and does not instruct
-the reader's judgment, output, or ranking. Under the supporting definition, that is clean.
+The Decision Engine distinguishes directly applicable experience from analogical and cross-cutting signals. A thin, stale, incomparable, conflicted, or incomplete cohort normally returns `collect_more` or `abstain`.
 
-The severity matrix in one line: first_party+visible = info (not a finding),
-first_party+hidden = warn, third_party+visible = warn, third_party+hidden = high.
+Logged Outcome distributions are not automatically causal effects. Perpensum does not currently claim a universal best provider, universal quality score, causal improvement, mature cross-buyer recommendation accuracy, price benchmark, or automatic purchasing.
 
-- [Definition (English, authoritative)](https://perpensum.org/): The full definition — two axes, severity matrix, what counts as hidden, what is deliberately not detected, and the known limits.
-- [定義（日本語）](https://perpensum.org/ja): 同じ内容の日本語版。解釈が割れた場合は英語版を正とする。
-- [Full text in one file](https://perpensum.org/llms-full.txt): The complete definition as a single markdown file, for readers that prefer one fetch.
-- [Machine-readable definition](https://perpensum.org/definition.json): The same definition as structured JSON — axes, severity matrix, detection kinds, exclusions, and limits, with Japanese and English strings side by side.
+## Current state
 
-## Verifying an implementation
+- The production Event Store, CEN projection, Direct Decision Engine, MCP loop, Console, and Operator are live.
+- The currently implemented participation profile is structured invoice extraction through Replicate. Other paid models, APIs, agents, and digital services require a separately registered and validated profile; they are not plug-and-play today.
+- Current natural evidence is internal and belongs to one independent control. It cannot establish cross-buyer reliability.
+- The immediate goal is one independent external buyer completing three natural `Ask → Choice → Outcome` loops without changing its provider path or adding purchase-by-purchase human entry.
+- Analogical transfer, prediction, bounded policy, and Contextual Bandit production gates remain closed until their independent real-data requirements are met.
 
-- [Conformance suite](https://perpensum.org/conformance/cases.json): 26 cases with expected verdicts. Twenty of them expect no finding at all — what this standard does not flag is more of its substance than what it does. Every case is tagged with the language it exercises; English and Japanese are both in scope.
-- [How to run it](https://perpensum.org/conformance/): The suite is plain JSON plus a Node script with no dependencies.
-- [Reference implementation](https://perpensum.org/reference/scan.mjs): One dependency-free file implementing the definition and passing all 26 cases. Not normative — where it and the definition disagree, the implementation has the bug. Run it with `curl -s https://example.com | node scan.mjs`.
-- [Source repository](https://github.com/perpensum/agent-directed-manipulation): The full history of this definition. Disagreements and corrections are filed here as issues.
+## Archived research
 
-## Scope and status
+Perpensum previously published APQV, a synthetic Gateway quickstart, and a definition of Agent-Directed Manipulation. Those pages remain research history and are not the current product contract:
 
-- Status: v0.1, initial release, explicitly a draft.
-- License: the definition, its documentation, `definition.json`, and `conformance/cases.json` are CC BY 4.0. The conformance runner (`conformance/run.mjs`) is MIT. Quoting, implementing, translating, and deriving are free with attribution.
-- Implementing this definition requires no permission, notification, or certification from Perpensum.
-- Known limits are stated in the definition itself and are not hidden behind a claim of detection: external CSS is not fetched, runtime JavaScript is not evaluated, third-party region detection is inference, and only English and Japanese are in scope.
-- Disagreements are wanted. If an implementation reaches a different verdict on the same input, that marks a place where the definition is ambiguous.
+- [APQV proposal](https://perpensum.org/apqv)
+- [Synthetic APQV playground](https://perpensum.org/playground)
+- [Agent-Directed Manipulation structured definition](https://perpensum.org/definition.json)
+- [Conformance suite](https://perpensum.org/conformance/cases.json)
+
+Source history for that research is at [perpensum/agent-directed-manipulation](https://github.com/perpensum/agent-directed-manipulation).

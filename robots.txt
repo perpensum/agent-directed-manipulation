@@ -1,17 +1,37 @@
-# This site publishes a definition. Nothing here is withheld from any reader,
-# human or machine. There is no cloaking, no crawler-specific content, and no
-# disallowed path. Every URL below serves the same bytes to everyone.
+# Perpensum is a buyer-side Collective Experience Network (CEN) and Decision
+# Engine for machine purchases. A buyer AI asks before purchase, records its
+# Choice, and reports typed Outcomes afterwards. Perpensum may prefer, ask for
+# more evidence, or abstain; it does not execute the purchase.
 #
-# A document that defines agent-directed manipulation should be verifiable by
-# the readers it describes.
+# Current implementation scope: structured invoice extraction through
+# Replicate. Other paid models, APIs, agents, and digital services are not
+# plug-and-play today.
+#
+# Current product:
+#   /          English product overview
+#   /ja        Japanese product overview
+#   /docs      English product documentation
+#   /docs/ja   Japanese product documentation
+#   /alpha     Private buyer pilot
+#   /contact   Contact and data boundary
+#   /llms.txt  Machine-readable current product index
+#
+# Archived research — not the current product contract:
+#   /apqv              APQV category proposal
+#   /quickstart        Synthetic Gateway demonstration
+#   /playground        Synthetic APQV playground
+#   /definition.json   Agent-Directed Manipulation v0.1
+#   /conformance       Historical conformance suite
+#   /reference         Historical reference implementation
+#   /llms-full.txt     Archived definition in one file
+#
+# Nothing is withheld from human or machine readers. There is no
+# crawler-specific content, and every URL serves the same bytes to everyone.
 
 User-agent: *
 Allow: /
 
 Sitemap: https://perpensum.org/sitemap.xml
 
-# Machine-readable index: /llms.txt
-# Full text, one file:   /llms-full.txt
-# Structured definition: /definition.json
-# Conformance suite:     /conformance/cases.json
-# Source repository:     https://github.com/perpensum/agent-directed-manipulation
+# Current machine-readable product index: /llms.txt
+# Archived research source: https://github.com/perpensum/agent-directed-manipulation

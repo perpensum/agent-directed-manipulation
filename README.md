@@ -1,25 +1,24 @@
-# Defining Agent-Directed Manipulation
+# Archived Perpensum Research
 
-> **Perpensum's primary category proposal is now [Agentic Purchase Quality Verification
-> (APQV)](https://perpensum.org/apqv), a buyer-side quality layer for agentic commerce.**
-> This repository keeps the supporting threat definition below and also hosts the APQV proposal
-> and its synthetic Playground. The older definition has not been deleted or renamed.
+> **This repository preserves Perpensum's 2026 Agent-Directed Manipulation definition,
+> APQV proposal, synthetic Gateway Quickstart, and Playground as research history.**
+> They are not the current product contract. The current product is a buyer-side
+> Collective Experience Network and Decision Engine; see
+> [the current site](https://perpensum.org/) and [product docs](https://perpensum.org/docs).
 
 **A reproducible definition that separates agent-directed manipulation from legitimate
 machine-readable self-presentation.**
 
-- Definition (authoritative): <https://perpensum.org/>
-- 定義（日本語）: <https://perpensum.org/ja>
-- Structured form: [`definition.json`](definition.json)
+- Archived definition (structured): [`definition.json`](definition.json)
+- Archived definition (full prose): <https://perpensum.org/llms-full.txt>
 - Conformance suite: [`conformance/`](conformance/) — 26 cases
 - Status: **v0.1, draft**, published 2026-07-30
-- APQV proposal: <https://perpensum.org/apqv>
-- APQV Playground: <https://perpensum.org/playground>
-- Live Quickstart: <https://perpensum.org/quickstart>
-- Quickstart（日本語）: <https://perpensum.org/quickstart/ja>
-- Developer docs: <https://perpensum.org/docs>
-- Developer docs（日本語）: <https://perpensum.org/docs/ja>
-- Hosted Alpha: <https://perpensum.org/alpha>
+- Archived APQV proposal: <https://perpensum.org/apqv>
+- Archived APQV Playground: <https://perpensum.org/playground>
+- Archived synthetic Quickstart: <https://perpensum.org/quickstart>
+- Current product docs: <https://perpensum.org/docs>
+- Current product docs（日本語）: <https://perpensum.org/docs/ja>
+- Current private pilot: <https://perpensum.org/alpha>
 
 日本語版の README: [`README.ja.md`](README.ja.md)
 
@@ -157,7 +156,7 @@ where the definition is open to more than one reading — which is a defect in t
 Please [open an issue](https://github.com/perpensum/agent-directed-manipulation/issues).
 Disagreements are the main thing this repository is for. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## APQV Playground
+## Archived APQV Playground
 
 The repository also contains a separate, dependency-free experiment:
 [the APQV Playground](https://perpensum.org/playground). It uses synthetic evidence to show why
@@ -168,7 +167,9 @@ It makes no real-seller evaluation, fraud conclusion, absolute quality claim, or
 benchmark. The browser receives static files only; no input is uploaded or saved. The playground
 code is licensed under [MIT](LICENSE-CODE).
 
-## Hosted Alpha
+## Historical Hosted Alpha
+
+> Archived implementation history. This is not the current private pilot or current MCP contract.
 
 [The private Hosted Alpha](https://perpensum.org/alpha) lets a Claude Code or Codex buyer agent
 run one no-money synthetic digital purchase through the buyer-side APQV loop. The agent fixes its
@@ -179,7 +180,10 @@ evidence for that transaction.
 The acceptance run does not require a provider token, card, wallet, production funds, customer
 data, or private prompts. It uses approved email access and is not a production service.
 
-## Developer Quickstart
+## Historical Developer Quickstart
+
+> Archived implementation history. The current integration is documented at
+> <https://perpensum.org/docs>.
 
 [The live Quickstart](https://perpensum.org/quickstart) runs one synthetic, zero-dollar purchase
 through Perpensum's mandate, one-use pre-purchase decision, Gateway execution, buyer-observed

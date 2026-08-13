@@ -1,144 +1,56 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Developer Docs 日本語版 — Perpensum</title>
-  <meta name="description" content="Perpensumの概念、Quickstart、安全境界、接続方法を説明する日本語版開発者文書。">
-  <link rel="canonical" href="https://perpensum.org/docs/ja">
-  <link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
-  <link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
-  <link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Perpensum Developer Docs 日本語版">
-  <meta property="og:description" content="買い手AIの購買経路に、独立した品質検証レイヤーを接続します。">
-  <meta property="og:url" content="https://perpensum.org/docs/ja">
-  <meta property="og:site_name" content="Perpensum">
-  <meta property="og:image" content="https://perpensum.org/quickstart/og.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://perpensum.org/quickstart/og.png">
-  <link rel="stylesheet" href="/developer.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Perpensum ドキュメント — CENとDecision Engine</title>
+<meta name="description" content="買い手AIが機械購買の前後でPerpensumを使う方法と、Collective Experience Networkへ入る情報を説明します。">
+<link rel="canonical" href="https://perpensum.org/docs/ja">
+<link rel="alternate" hreflang="en" href="https://perpensum.org/docs">
+<link rel="alternate" hreflang="ja" href="https://perpensum.org/docs/ja">
+<link rel="alternate" hreflang="x-default" href="https://perpensum.org/docs">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Perpensum ドキュメント — CENとDecision Engine">
+<meta property="og:description" content="1回の購買を、次に使える経験として残すための3-call loop。">
+<meta property="og:url" content="https://perpensum.org/docs/ja">
+<meta property="og:site_name" content="Perpensum">
+<style>
+  :root{--fg:#17202a;--muted:#667085;--bg:#f7f8fa;--panel:#fff;--line:#e6e8ec;--accent:#5b47d6;--soft:#f0edff;--good:#138a5b;--code:#f1f3f5}
+  @media(prefers-color-scheme:dark){:root{--fg:#f2f4f7;--muted:#a8b0bd;--bg:#111318;--panel:#191c22;--line:#30343b;--accent:#9d91ff;--soft:#27233e;--good:#62d3a5;--code:#22262d}}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",sans-serif}main{max-width:64rem;margin:0 auto;padding:1.25rem 1.25rem 6rem}.nav{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0 3.5rem}.nav a{color:var(--muted);text-decoration:none}.brand{font-weight:750!important;color:var(--fg)!important}h1{font-size:clamp(2.4rem,7vw,4.5rem);letter-spacing:-.05em;line-height:1.15;margin:.4rem 0 1rem;max-width:14ch}h2{font-size:1.55rem;letter-spacing:-.025em;margin:3.8rem 0 .7rem}.lede{font-size:1.15rem;color:var(--muted);max-width:42rem}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.11em;font-size:.75rem;font-weight:750}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.card{background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:1.2rem}.card p,.card li{color:var(--muted)}.step{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;margin:1.3rem 0}.number{display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--soft);color:var(--accent);font-weight:750;font-size:.8rem}.note{border-left:3px solid var(--good);padding:.8rem 0 .8rem 1rem;color:var(--muted)}code{background:var(--code);border-radius:.3rem;padding:.12rem .35rem;font-size:.88em}pre{background:var(--code);border:1px solid var(--line);border-radius:.8rem;padding:1rem;overflow:auto;white-space:pre-wrap}.tag{display:inline-block;background:var(--soft);color:var(--accent);font-size:.78rem;font-weight:650;border-radius:99px;padding:.2rem .55rem;margin:.15rem}.small{font-size:.9rem;color:var(--muted)}footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}footer a{color:inherit}@media(max-width:720px){.grid{grid-template-columns:1fr}.nav span a:not(:last-child){display:none}}
+</style>
 </head>
-<body>
-  <div class="site-shell">
-    <header class="site-header">
-      <a class="brand" href="/apqv"><span class="brand-mark">P</span><span class="brand-name">Perpensum</span><span class="tag">Docs v0</span></a>
-      <nav class="site-nav" aria-label="メインナビゲーション">
-        <a href="/quickstart/ja">Quickstart</a>
-        <a href="/docs/ja" aria-current="page">Docs</a>
-        <a href="/apqv">APQV</a>
-        <a class="console-link" href="https://app.perpensum.org">Console</a>
-        <a class="language-link" href="/docs" lang="en" hreflang="en">English</a>
-      </nav>
-    </header>
+<body><main>
+<nav class="nav"><a class="brand" href="/ja">Perpensum</a><span><a href="/alpha">非公開パイロット</a> · <a href="https://api.perpensum.org/?lang=ja">Console</a> · <a href="/docs" lang="en" hreflang="en">English</a></span></nav>
+<p class="eyebrow">製品ドキュメント</p><h1>1回の購買を、次に使える経験として残す。</h1><p class="lede">Perpensumは、買い手AIがすでに行っている購買の前後をつなぎます。判断前に分かっていたことを固定し、選んだActionを記録し、その後に観測した結果を追記します。</p>
 
-    <main>
-      <section class="hero">
-        <p class="eyebrow">Perpensum Developer Docs · v0</p>
-        <h1>購買経路に、独立した品質検証レイヤーを置く。</h1>
-        <p class="lede">Perpensumは、買い手AIが購入前に必要条件を固定し、範囲を限定した実行判断を受け取り、納品結果を検証し、その証拠を次回の購買へ使えるようにします。</p>
-        <div class="hero-actions"><a class="button" href="/quickstart/ja">Quickstartを実行</a><a class="button secondary" href="/apqv">APQV提案を読む</a></div>
-      </section>
+<h2>3-call loop</h2>
+<div class="step"><span class="number">1</span><div><strong>実行前に尋ねる</strong><br><span class="small"><code>ask_purchase_advice</code>で、Goal、Situation、買わない選択を含むAction一式、制約、観測予定のOutcomeを固定します。Decision Engineは、根拠の範囲を限定したEvidenceを返すか、判断を控えます。</span></div></div>
+<div class="step"><span class="number">2</span><div><strong>Choiceを記録する</strong><br><span class="small"><code>record_purchase_choice</code>で、選んだActionを記録します。購入する場合はPurchaseの状態と証拠digestも記録します。実際の購入は、引き続き買い手自身の提供者経路で行います。</span></div></div>
+<div class="step"><span class="number">3</span><div><strong>Outcomeを1件ずつ報告する</strong><br><span class="small"><code>report_purchase_outcome</code>で、型付きObservationか、観測できなかった明示的な理由を追記します。別のmetricや後日の観測にも繰り返し使えます。欠測を暗黙に失敗へ変換しません。</span></div></div>
+<p class="small">ライフサイクルを補う保守用ツールは2つあります。<code>withdraw_purchase_outcome</code>は履歴を書き換えずに無効なObservationを撤回し、<code>get_purchase_episode</code>は型付きの要約を返します。</p>
 
-      <div class="doc-layout">
-        <nav class="doc-nav" aria-label="文書内の項目">
-          <a href="#start">最初に読む</a><a href="#flow">仕組み</a><a href="#concepts">基本概念</a><a href="#gateway">Gateway</a><a href="#mcp">MCP</a><a href="#sdk">SDK</a><a href="#api">Sandbox API</a><a href="#security">安全境界</a><a href="#limits">現在の限界</a>
-        </nav>
+<h2>2つの中核が担う役割</h2>
+<div class="grid"><article class="card"><p class="eyebrow">CEN</p><h3>Collective Experience Network</h3><p>購買経験のEvidenceを蓄積する記憶層です。購買に至る因果順序、独立controlの識別情報、同意、時刻、欠測、訂正に加え、過去の経験が今回に当てはまるかを判断するための最小限の型付き文脈を保持します。</p></article><article class="card"><p class="eyebrow">DE</p><h3>Decision Engine</h3><p>根拠の範囲を超えない解釈器です。その判断時点で適格だったCEN Projectionを読み、直接使えるEvidenceと弱いシグナルを分け、買い手が固定した制約を適用します。必要な条件を満たしたときだけ選好を返します。</p></article><article class="card"><p class="eyebrow">買い手AI</p><h3>最終権限</h3><p>Mandate、効用、資格情報、提供者経路、実行は買い手が持ちます。Perpensumは判断材料を提供しますが、購入を代理せず、すべてに共通する目的関数にもなりません。</p></article></div>
 
-        <div class="doc-content">
-          <section id="start">
-            <p class="eyebrow">最初に読む</p><h2>3つの入口</h2>
-            <div class="status-note"><strong>現在の公開状況。</strong> ブラウザ版と4コマンドの合成Quickstartは公開済みです。Hosted Alphaは承認制です。SDKとMCPのnpm packageは非公開の候補版であり、まだ誰でもinstallできるpackageではありません。</div>
-            <div class="path-grid">
-              <article class="path-card"><span class="path-number">01</span><strong>試す</strong><p>費用0の合成購買をブラウザで1件実行します。</p><a href="/quickstart/ja">Quickstartを開く →</a></article>
-              <article class="path-card"><span class="path-number">02</span><strong>接続する</strong><p>マンデートを定めた買い手AIをHosted Alphaから追加します。</p><a href="/alpha">Hosted Alpha →</a></article>
-              <article class="path-card" data-status="preview"><span class="path-number">03</span><strong>組み込む</strong><p>package公開後、候補版のJavaScript clientを自分の仕組みに組み込みます。</p><a href="#sdk">SDK Preview →</a></article>
-            </div>
-          </section>
+<h2>Decisionが返す可能性のある答え</h2>
+<p><span class="tag">範囲を限定した選好</span><span class="tag">追加収集</span><span class="tag">判断保留</span></p>
+<p>選好を返すには、今回へ直接適用できるEvidence、十分な独立した支持とカバレッジ、現行の識別情報と測定法、互換性のある単位、必須制約の充足が必要です。また、まだ優れている可能性のある未検証の選択肢を無視できません。条件を満たさなければ、通常はEvidenceの追加収集か判断保留になります。</p>
+<p class="note">記録されたOutcome分布は、そのまま因果効果にはなりません。類推による転用、予測、方針の最適化、Contextual Banditにはそれぞれ別の判定条件があり、薄い集団だけでは有効になりません。</p>
 
-          <section id="flow">
-            <p class="eyebrow">仕組み</p><h2>1回の購買、5段階の証拠</h2>
-            <ol class="flow-list">
-              <li><b>1</b><div><strong>マンデート</strong><span>組織が、買い手AIが動く前に予算、許可する経路、購買回数を設定します。</span></div></li>
-              <li><b>2</b><div><strong>計画と約束</strong><span>買い手AIが、目的、成功条件、選んだ売り手、商品、売り手の表示内容を固定します。</span></div></li>
-              <li><b>3</b><div><strong>判断</strong><span>Perpensumが依頼をマンデートと照合し、短命で1回限りの実行券を発行するか、購買を止めます。</span></div></li>
-              <li><b>4</b><div><strong>手元での実行と観測</strong><span>買い手側Gatewayが提供者を呼びます。資格情報や生の成果は買い手環境内に残せます。</span></div></li>
-              <li><b>5</b><div><strong>検証と次回行動</strong><span>観測結果を固定済み条件と比較し、証拠、乖離、不確実性、範囲を限定した次回購買行動を返します。</span></div></li>
-            </ol>
-          </section>
+<h2>データ境界</h2>
+<div class="grid"><article class="card"><h3>送らないもの</h3><ul><li>提供者または決済の資格情報</li><li>生のプロンプト、入力、出力</li><li>顧客記録や原文書</li><li>レシート本文や非公開成果物</li></ul></article><article class="card"><h3>型付きの非公開記録</h3><ul><li>Goal、Situation、Action一式</li><li>Offeringとreleaseの識別情報</li><li>Choiceと購買証拠のdigest</li><li>Outcome値または欠測理由</li></ul></article><article class="card"><h3>Collectiveでの利用</h3><ul><li>参加者の明示的な同意</li><li>サーバー側で管理するShare Profile</li><li>比較可能性とEvidenceの判定条件</li><li>個人を特定しない集約された支持</li></ul></article></div>
 
-          <section id="concepts">
-            <p class="eyebrow">基本概念</p><h2>すべての接続方法で使う用語</h2>
-            <table class="data-table"><thead><tr><th>用語</th><th>平易な意味</th></tr></thead><tbody>
-              <tr><td>APQV</td><td>Agentic Purchase Quality Verification。購入前に固定した買い手の意図と、提供元、取引、納品、成果について観測できた証拠を比較すること。</td></tr>
-              <tr><td>Mandate</td><td>買い手AIへ委任された権限、予算、回数、期間、購買経路の制限。</td></tr>
-              <tr><td>Gateway</td><td>実行前に判断を取得し、実行後に結果を観測する、買い手側の購買関門。</td></tr>
-              <tr><td>Adapter</td><td>共通Gatewayの形式と、個別の提供者またはコマースプロトコルの形式をつなぐ小さな翻訳部品。</td></tr>
-              <tr><td>Control Plane</td><td>ホストされた方針・証拠サービス。マンデートを評価し、1回限りの実行券を発行し、範囲を限定したOutcome telemetryを受け取ります。</td></tr>
-              <tr><td>Evidence record</td><td>1回の機械購買について、意図、判断、実行、納品、買い手観測、証拠不足、検証限界を結び付けた記録。</td></tr>
-            </tbody></table>
-          </section>
+<h2>Claude Codeへ接続する</h2>
+<p>CENが薄い間、参加は非公開です。承認後、<a href="https://api.perpensum.org/?lang=ja">Console</a>へログインし、表示された参加条件へ同意して、一度だけ表示されるMCPキーを発行します。Consoleに表示された完全なコマンドをそのままコピーしてください。形式は次のとおりです。</p>
+<pre>claude mcp add --transport http --scope user perpensum \
+  'https://api.perpensum.org/v1/mcp' \
+  --header 'Authorization: Bearer &lt;your key&gt;'</pre>
+<p>キーをプロンプトへ貼ったり、Perpensumのサポートへ送ったりしないでください。Consoleが表示するのは1回だけです。新しいキーを発行すると、前のキーは無効になります。</p>
 
-          <section id="gateway">
-            <p class="eyebrow">Gateway</p><h2>購買ごとではなく、1つの信頼境界に1つ</h2>
-            <p>通常、組織は信頼できる環境内にGateway runtimeを1つ導入します。複数の買い手AI profileが同じGatewayを共有しながら、それぞれの身元、割り当てられたマンデート、秘密鍵、提供者資格情報、復旧記録を分離できます。</p>
-            <p>Gatewayは、顧客のすべての購買をPerpensumが中央で代理購入するという意味ではありません。顧客の買い手AIが提供者へ到達する前に、管理された顧客側の実行地点を通すという意味です。</p>
-          </section>
+<h2>現在の実装範囲</h2>
+<p>本番の中核機能と3-call MCP loopは稼働しています。ただし、現在実装済みの参加プロファイルは<strong>Replicate経由の構造化請求書抽出</strong>に限られます。ほかの有料モデル、API、エージェント、デジタルサービスへ、そのまますぐ接続できるという意味ではありません。対象を広げるには、Offering、release、Situation、Outcome schema、測定法、データ境界を個別に登録し、検証する必要があります。</p>
+<p>初期のCEN Evidenceは1つの内部controlから得たもので、買い手をまたぐ信頼性はまだ示せません。最初の非公開パイロットでは、この限定プロファイルで自然な購買を3回行う、独立した買い手を1組対象にします。最良の提供者、普遍的な品質スコア、因果的な改善、価格ベンチマーク、自動購入は約束しません。</p>
+<p><a href="/alpha">最初の買い手パイロットを読む</a>か、<a href="mailto:hello@perpensum.org">hello@perpensum.org</a>へご連絡ください。資格情報、プロンプト、出力、購買記録、顧客データは添付しないでください。</p>
 
-          <section id="mcp">
-            <p class="eyebrow">MCP Preview</p><h2>AIエージェントにとって最短の接続方法</h2>
-            <p>非公開の候補版は、Sandbox用に<span class="inline-code">run_apqv_sandbox_purchase</span>という1つのツールだけを公開します。資格情報や任意の購買先は受け取りません。</p>
-            <div class="code-card"><div class="code-head"><span>公開予定のコマンド — npmではまだ利用できません</span></div><pre>claude mcp add perpensum -- npx -y @perpensum/mcp</pre></div>
-            <p>実在の提供者から購入する場合は、Hosted Alphaから発行された認証済みGateway profileを使います。公開MCP packageが、利用者の知らないうちに支出権限を持つことはありません。</p>
-          </section>
-
-          <section id="sdk">
-            <p class="eyebrow">JavaScript SDK Preview</p><h2>意図的に小さくしたclient</h2>
-            <p>候補版は1つのmethodから始めます。最小で安定した契約が明確になってから、Production用methodを追加します。</p>
-            <div class="code-card"><div class="code-head"><span>Preview API — packageはまだ非公開です</span></div><pre>import { PerpensumClient } from "@perpensum/sdk";
-
-const perpensum = new PerpensumClient();
-const result = await perpensum.runSandboxPurchase({
-  scenario: "provider_succeeded_unusable"
-});
-
-console.log(result.verification);</pre></div>
-          </section>
-
-          <section id="api">
-            <p class="eyebrow">公開Sandbox API</p><h2>実API呼び出し、合成された実行</h2>
-            <p><span class="inline-code">POST https://api.perpensum.org/v1/sandbox</span>は、<span class="inline-code">scenario</span>という1項目だけを受け取ります。実在の提供者を指定できず、資金を動かさず、データも保存しないため、認証は不要です。</p>
-            <div class="code-card"><div class="code-head"><span>Request</span></div><pre>{ "scenario": "usable" }</pre></div>
-            <p>選べるscenarioは<span class="inline-code">usable</span>、<span class="inline-code">provider_succeeded_unusable</span>、<span class="inline-code">insufficient_evidence</span>です。</p>
-            <p>応答には、範囲を限定したマンデート、購入依頼、許可条件、合成された納品、項目ごとの検証、証拠記録、次回購買行動が含まれます。Browser Quickstartはこれを使って各段階の裏側を表示します。</p>
-          </section>
-
-          <section id="security">
-            <p class="eyebrow">安全境界</p><h2>手元に残すものと、証拠になるもの</h2>
-            <table class="data-table"><thead><tr><th>買い手環境</th><th>Hosted Control Plane</th></tr></thead><tbody>
-              <tr><td>提供者API token、カード情報、wallet secret</td><td>購買目的と、購入前に固定した成功条件</td></tr>
-              <tr><td>設定に応じて、生のprompt、入力、出力</td><td>選んだ売り手、商品、表示された約束、価格、購買経路</td></tr>
-              <tr><td>AIごとの秘密鍵と実行復旧記録</td><td>マンデート判断と、範囲を限定した買い手側の成果観測</td></tr>
-            </tbody></table>
-            <p>公開Sandboxはどちらの情報も保存しません。Hosted Alphaは範囲を限定した証拠を保存しますが、提供者資格情報を中央保存しません。</p>
-          </section>
-
-          <section id="limits">
-            <p class="eyebrow">現在の限界</p><h2>v0が主張しないこと</h2>
-            <ul>
-              <li>その購買が絶対的に良かったかは判定しません。</li>
-              <li>乖離や失敗だけから不正と断定しません。</li>
-              <li>買い手横断の価格基準や市場全体の最適化はまだ提供しません。</li>
-              <li>最初の市場は、機械検証可能なデジタル成果物とサービスです。物理商品は対象外です。</li>
-              <li>意味内容の深い品質検査は目的ごとに異なります。構造が正しい成果でも、内容が不正確な場合があります。</li>
-              <li>公開SDKとMCP packageの名称、ライセンス、公開repositoryはまだ確定していません。</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <footer class="site-footer"><p>Perpensum · Agentic Purchase Quality Verification</p><p><a href="/quickstart/ja">Quickstart</a><a href="/playground">Evidence Playground</a><a href="/contact">Contact</a></p></footer>
-  </div>
-</body>
-</html>
+<footer>Perpensum · <a href="/ja">ホーム</a> · <a href="/alpha">パイロット</a> · <a href="https://api.perpensum.org/?lang=ja">Console</a> · <a href="/contact">連絡先</a> · <a href="/docs" lang="en" hreflang="en">English</a></footer>
+</main></body></html>

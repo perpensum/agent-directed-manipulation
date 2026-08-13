@@ -1,23 +1,23 @@
-# エージェント向け誘導の定義
+# Perpensum研究アーカイブ
 
-> **Perpensumが現在主語にするカテゴリー提案は
-> [Agentic Purchase Quality Verification（APQV）](https://perpensum.org/apqv) です。**
-> 本リポジトリは、以下の補助的な脅威定義を履歴ごと残しつつ、APQVの公開定義と
-> 合成Playgroundも収録します。旧定義は削除も改名もしていません。
+> **このrepositoryは、2026年の「エージェント向け誘導」定義、APQV提案、
+> 合成Gateway Quickstart、Playgroundを研究履歴として保存しています。**
+> これらは現行製品の契約ではありません。現行製品は買い手側の
+> Collective Experience NetworkとDecision Engineです。
+> [現行サイト](https://perpensum.org/ja)と[製品ドキュメント](https://perpensum.org/docs/ja)をご覧ください。
 
 **AIエージェントの判断を動かすためにWebページへ置かれた文字列を、
 正当な機械可読な自己提示と区別して判定するための定義。**
 
-- 定義（正）: <https://perpensum.org/>（English）
-- 定義（日本語）: <https://perpensum.org/ja>
-- 構造化版: [`definition.json`](definition.json)
+- 保存された構造化定義: [`definition.json`](definition.json)
+- 保存本文: <https://perpensum.org/llms-full.txt>
 - 適合性テスト: [`conformance/`](conformance/) — 26ケース
 - 状態: **v0.1 ドラフト**（2026-07-30 公開）
-- APQV提案: <https://perpensum.org/apqv>
-- APQV Playground: <https://perpensum.org/playground>
-- Quickstart（日本語）: <https://perpensum.org/quickstart/ja>
-- Developer Docs（日本語）: <https://perpensum.org/docs/ja>
-- Hosted Alpha: <https://perpensum.org/alpha>
+- 保存されたAPQV提案: <https://perpensum.org/apqv>
+- 保存されたAPQV Playground: <https://perpensum.org/playground>
+- 保存された合成Quickstart: <https://perpensum.org/quickstart/ja>
+- 現行製品Docs: <https://perpensum.org/docs/ja>
+- 現行の非公開パイロット: <https://perpensum.org/alpha>
 
 English README: [`README.md`](README.md)（こちらが正）
 
@@ -136,7 +136,7 @@ node reference/false-positive-sweep.test.mjs
 [Issueで指摘してほしい](https://github.com/perpensum/agent-directed-manipulation/issues)。
 書き方は [CONTRIBUTING.md](CONTRIBUTING.md) にある。**日本語で構わない。**
 
-## APQV Playground
+## アーカイブ済みAPQV Playground
 
 このリポジトリには、定義とは別の依存なし実験として
 [APQV Playground](https://perpensum.org/playground) も含む。提供側が `succeeded` を返したことと、
